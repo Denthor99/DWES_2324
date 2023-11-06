@@ -20,5 +20,48 @@ class Deportivo extends Vehiculo
 
     }
 
+    public function velocidadMaxima(){
+        $this->velocidad = 500;
+    }
+
+    /**
+     * Get the value of cilindrada
+     */ 
+    public function getCilindrada()
+    {
+        return $this->cilindrada;
+    }
+
+    /**
+     * Set the value of cilindrada
+     *
+     * @return  self
+     */ 
+    public function setCilindrada($cilindrada)
+    {
+        $this->cilindrada = $cilindrada;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of km
+     */ 
+    public function getKm()
+    {
+        return $this->km;
+    }
+
+    /**
+     * Set the value of km
+     *
+     * @return  self
+     */ 
+    public function setKm($km)
+    {
+        $this->km = $km;
+
+        return $this;
+    }
 }
 ?>

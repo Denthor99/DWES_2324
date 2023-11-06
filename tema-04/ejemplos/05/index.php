@@ -1,31 +1,18 @@
 <?php
     // Cargamos el archivo php con la clase vehiculo
     include 'class/class.vehiculo.php';
-
-    // Creamos un objeto
-    $coche1 = new Vehiculo(
-        'Audi A3',
-        'Audi de ultima generación, motor electrico',
-        '3289 GRT',
-        220
-        
-    );
-
-    $coche2 = new Vehiculo();
-
-    // Mostramos el contenido de ambos objetos
-    var_dump($coche1);
-    var_dump($coche2);
+   include 'class/class.deportivo.php';
 
     // Creamos otro objeto, pero no queremos añadir valor a la matrícula
-    $coche3 = new Deportivo(
+    $coche_1 = new Deportivo(
         'Audi A3',
         'Audi de ultima generación, motor electrico',
         null,
-        220
+        220,
+        '1500 cc',
+        85000
     );
-    var_dump($coche3);
-
-    // Destruimos el tercer objeto
-    unset($coche3);
+    
+    $coche_1->velocidadMaxima();
+    var_dump($coche_1);
 ?>

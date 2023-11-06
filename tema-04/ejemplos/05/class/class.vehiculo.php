@@ -3,10 +3,10 @@
         Clase Vehiculo. 
     */
     class Vehiculo{
-        private $modelo;
-        private $nombre;
-        private $matricula;
-        private $velocidad;
+        protected $modelo;
+        protected $nombre;
+        protected $matricula;
+        protected $velocidad;
 
 		// El modelo de constructor que usaremos a lo largo del año, donde los parametros son opcionales. Definido en vertical para evitar desplazamiento horizontal
         public function __construct(
