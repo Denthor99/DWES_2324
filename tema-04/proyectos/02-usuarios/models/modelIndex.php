@@ -4,7 +4,12 @@
         Descripcion: genera un array con datos de los artículos
     */
     setlocale(LC_MONETARY,"es_ES"); // Indicamos 
-    $articulos = generar_tabla();
-    $categorias = generar_tabla_categorías();
-    $marcas = generar_tabla_marcas();
+
+    // Cargamos los arrays a partir de los métodos estáticos
+    $categorias = ArrayArticulos::getCategorias();
+    $marcas = arrayArticulos::getMarcas();
+
+    // Creamos un objeto de la clase ArrayArticulos
+    $articulos = new ArrayArticulos(); // Inicializado como array vacio
+    $articulos->getDatos(); // Cargamos los datos
 ?>

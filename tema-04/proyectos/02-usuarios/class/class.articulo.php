@@ -18,7 +18,7 @@
             $descripcion = null,
             $modelo = null,
             $marca = null,
-            $categorias = null,
+            $categorias = [],
             $unidades=null,
             $precio = null
         ){

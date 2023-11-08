@@ -16,7 +16,7 @@
 
     // Carga de datos
     $categorias = generar_tabla_categorías();
-    $articulos = generar_tabla();
+    $articulos = new ArrayArticulos();
     $marcas = generar_tabla_marcas();
 
     // Recogemos los datos del formulario
@@ -44,6 +44,6 @@
     ];
 
     // Añadimos el artículo usando la funcion nuevo
-    $articulos = nuevo($articulos, $articulo);
+    $articulos->create($articulo);
 
 ?>

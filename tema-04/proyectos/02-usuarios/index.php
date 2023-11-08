@@ -2,8 +2,9 @@
     // Controlador index.php
     // Muestra los detalles de los artículos
     
-    // Cargamos la libreria
-    include 'libs/crud_funciones.php';
+    // Cargamos las clases. A tener en cuenta el orden, ya que es importante
+    include 'class/class.articulo.php';
+    include 'class/class.arrayArticulos.php';
 
     // Cargamos el modelo
     include 'models/modelIndex.php';

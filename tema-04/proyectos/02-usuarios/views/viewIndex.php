@@ -23,7 +23,7 @@
             <!-- Mostremos el nombre de las columnas, para nuestra comodidad y personalizción introduciremos lo datos manualmente -->
             <thead>
                 <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">Id</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Modelo</th>
                     <th scope="col">Marca</th>
@@ -35,41 +35,41 @@
             </thead>
             <!-- Mostraremos el contenido de cada artículo -->
             <tbody>
-                <?php foreach ($articulos as $articulo): ?>
+                <?php foreach ($articulos->getTabla() as $indice => $articulo): ?>
                     <tr>
                         <th>
-                            <?= $articulo['id'] ?>
+                            <?= $articulo->getId() ?>
                         </th>
                         <td>
-                            <?= $articulo['descripcion'] ?>
+                            <?= $articulo->getDescripcion() ?>
                         </td>
                         <td>
-                            <?= $articulo['modelo'] ?>
+                            <?= $articulo->getModelo() ?>
                         </td>
                         <td>
-                            <?= $marcas[$articulo['marca']] ?>
+                            <?= $marcas[$articulo->getMarca()] ?>
                         </td>
                         <td>
-                            <?=implode(', ', mostrarCategorias($categorias,$articulo['categorias'])) ?>
+                            <?=implode(', ', ArrayArticulos::mostrarCategorias($categorias,$articulo->getCategorias())) ?>
                         </td>
                         <td class="text-end">
-                            <?= $articulo['unidades'] ?>
+                            <?= $articulo->getUnidades() ?>
                         </td>
                         <td class="text-end">
-                            <?= number_format($articulo['precio'], 2, ',', '.') ?> €
+                            <?= number_format($articulo->getPrecio(), 2, ',', '.') ?> €
                         </td>
                         <td>
                             <!-- Botón eliminar -->
-                            <a href="eliminar.php?id=<?= $articulo['id'] ?>" title="Eliminar">
+                            <a href="eliminar.php?indice=<?= $indice ?>" title="Eliminar">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
 
                             <!-- Botón editar -->
-                            <a href="editar.php?id=<?= $articulo['id'] ?>" title="Editar">
+                            <a href="editar.php?indice=<?= $indice ?>" title="Editar">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <!-- Botón mostrar -->
-                            <a href="mostrar.php?id=<?=$articulo['id']?>" title="Mostrar">
+                            <a href="mostrar.php?indice=<?=$indice?>" title="Mostrar">
                                 <i class="bi bi-tv"></i>
                             </a>
                         </td>
@@ -81,7 +81,7 @@
             <tfoot>
                 <tr>
                     <td colspan="7"><b>Nº de Articulos=
-                            <?= count($articulos) ?>
+                            <?= count($articulos->getTabla()) ?>
                         </b></td>
                 </tr>
             </tfoot>
