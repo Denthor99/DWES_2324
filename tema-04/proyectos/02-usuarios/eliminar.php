@@ -4,8 +4,9 @@
         Descripción: permite eliminar un elemento de la tabla
      */
 
-    // Cargamos la libreria
-    include 'libs/crud_funciones.php';
+    // Cargamos las clases correspondientes
+    include 'class/class.articulo.php';
+    include 'class/class.arrayArticulos.php';
 
     // Cargamos el modelo
     include 'models/modelEliminar.php';

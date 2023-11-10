@@ -18,6 +18,12 @@
 
         <!-- Formulario Nuevo Artículo -->
         <form action="create.php" method="POST">
+            <!-- id -->
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="number" class="form-control" name="id">
+                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
+            </div>
             <!-- descripción -->
             <div class="mb-3">
                 <label class="form-label">Descripción</label>

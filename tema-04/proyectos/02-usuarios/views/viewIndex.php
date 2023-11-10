@@ -18,6 +18,9 @@
         <!-- Pie de documento -->
         <?php include 'partials/footer.html' ?>
 
+        <!-- Añadimos la notificación -->
+        <?php include 'partials/notificacion.php'?>
+
         <!-- Añadimos una tabla con los artículos -->
         <table class="table">
             <!-- Mostremos el nombre de las columnas, para nuestra comodidad y personalizción introduciremos lo datos manualmente -->

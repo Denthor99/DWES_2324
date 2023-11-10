@@ -113,7 +113,7 @@ class ArrayArticulos
     }
 
     // Declarada estatica debido a que no modifica ningún atributo de la clases
-    static public function mostrarCategorias($categorias,$categoriasArticulo=[],){
+    static public function mostrarCategorias($categorias,$categoriasArticulo=[]){
         $arrayCategorias = [];
         foreach($categoriasArticulo as $indice){
             $arrayCategorias[]=$categorias[$indice];
@@ -124,6 +124,11 @@ class ArrayArticulos
 
     public function create(Articulo $data){
         $this->tabla[]=$data;
+    }
+
+    public function delete($indice){
+        unset($this->tabla[$indice]);
+        array_values($this->tabla);
     }
 }
 ?>

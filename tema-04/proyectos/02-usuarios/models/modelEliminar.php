@@ -8,14 +8,18 @@
     */
 
     // cargamos las tablas
-    $articulos = generar_tabla();
-    $categorias = generar_tabla_categorías();
-    $marcas = generar_tabla_marcas();
+    $categorias = ArrayArticulos::getCategorias();
+    $marcas = ArrayArticulos::getMarcas();
+    $articulos = new ArrayArticulos();
+    $articulos->getDatos();
 
     // Extraemos el id a través del método get
-    $id = $_GET['id'];
+    $id = $_GET['indice'];
 
 
     // invocamos a la función eliminar
-    $articulos = eliminar($articulos,$id);
+    $articulos->delete($id);
+
+    // Notificacion
+    $notificacion="Artículo eliminado con éxito";
 ?>

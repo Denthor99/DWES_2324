@@ -1,11 +1,10 @@
 <?php
     /*
         Modelo: modelNuevo.php
-        Descripción: introducir un nuevo elemento a la tabla
+        Descripción: Cargamos los arrays correspondientes para mostrar las categorias y marcas en los apartados "select" y "checkbox"
     */
 
-    // Cargamos los datos de categorias
-    
+    // Cargamos los datos de categorias y marcas
     $categorias = ArrayArticulos::getCategorias();
     $marcas = ArrayArticulos::getMarcas();
 

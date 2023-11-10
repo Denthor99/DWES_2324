@@ -1,12 +1,14 @@
 <?php
     /*
         Modelo: modelCreate.php
-        Descripción: Cargaremos los datos del formulario nuevo y los introducimos al array original de artículos
+        Descripción: Cargaremos los datos del formulario nuevo y los introducimos al array original de artículos (array de objetos)
 
         Método POST 
+            - id
             - descripcion
             - modelo
-            - categorias (valor númerico)
+            - marca - indice
+            - categorias (valor númerico) - array
             - unidades
             - precio
         
@@ -14,36 +16,32 @@
     */
 
 
-    // Carga de datos
-    $categorias = generar_tabla_categorías();
+    // Carga de categorias y marcas
+    $categorias = ArrayArticulos::getCategorias();
+    $marcas = ArrayArticulos::getMarcas();
+
+    // Cargamos el array de objetos con articulos
     $articulos = new ArrayArticulos();
-    $marcas = generar_tabla_marcas();
+    $articulos->getDatos();
 
     // Recogemos los datos del formulario
+    $id = $_POST['id'];
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];
     $marca = $_POST['marcas'];
-    $categori = $_POST['categorias'];
+    $categorias_art = $_POST['categorias'];
     $unidades = $_POST['unidades'];
     $precio = $_POST['precio'];
 
-    // Deberemos crear la estructura de un array asociativo
-    // Al no pedir introducir un id, deberá generarse automaticamente
-    $id = ultimoId($articulos);
 
     // Invocamos a la función nuevo(), que nos permitirá introducir
     //nuevo($articulos,$id,$descripcion,$modelo,$categori,$unidades,$precio);
-    $articulo = [
-        'id' => $id,
-        'descripcion'=> $descripcion,
-        'modelo'=> $modelo,
-        'marca' => $marca,
-        'categorias'=> $categori,
-        'unidades'=> $unidades,
-        'precio'=> $precio
-    ];
+    $articulo = new Articulo($id,$descripcion,$modelo,$marca,$categorias_art,$unidades, $precio);
 
-    // Añadimos el artículo usando la funcion nuevo
+    // Añadimos el nuevo artículo(objeto) usando la funcion create
     $articulos->create($articulo);
+
+    // Generamos una notificación
+    $notificacion = "Articulo creado con éxito";
 
 ?>

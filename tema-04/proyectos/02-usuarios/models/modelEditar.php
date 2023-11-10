@@ -7,12 +7,13 @@
             - id del articulo que quiero editar
     */
     // Cargamos los valores
-    $articulos = generar_tabla();
-    $categorias = generar_tabla_categorías();
-    $marcas = generar_tabla_marcas();
+    $categorias = ArrayArticulos::getCategorias();
+    $marcas = ArrayArticulos::getMarcas();
+    $articulos = new ArrayArticulos;
+    $articulos->getDatos();
 
     // Extraemos el id
-    $idArticulo = $_GET['id'];
+    $idArticulo = $_GET['indice'];
 
     // cargamos el array de ese artículo
     $indiceArticulo = buscar($articulos,'id',$idArticulo);
