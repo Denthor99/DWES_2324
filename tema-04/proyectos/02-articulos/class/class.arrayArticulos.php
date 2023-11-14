@@ -126,9 +126,44 @@ class ArrayArticulos
         $this->tabla[]=$data;
     }
 
+    public function read($indice){
+        return $this->tabla[$indice];
+    }
+
     public function delete($indice){
         unset($this->tabla[$indice]);
         array_values($this->tabla);
     }
+
+    public function update($indice, Articulo $data){
+        $this->tabla[$indice] = $data;
+    }
+
+    // Tiene sentido usarla solo en clases con propiedades privadas
+    public function order($criterio){
+    // Genera el nombre del método de acceso basado en el criterio proporcionado. Primera letra se pondrá en mayusculas, siguiendo la convección
+    $metodoAcceso = 'get' . ucfirst($criterio);
+
+    // Verifica si el método de acceso generado existe en la clase Articulo
+    if (!method_exists('Articulo', $metodoAcceso)) {
+        // Si el criterio de ordenación no es válido, termina la ejecución
+        echo "ERROR: Criterio de ordenación no existe";
+        exit();
+    }
+
+    // Define una función de comparación para usort
+    $comparar = function ($a, $b) use ($metodoAcceso) {
+        // Obtiene los valores del criterio de ordenación para los objetos $a y $b
+        $valorA = $a->$metodoAcceso();
+        $valorB = $b->$metodoAcceso();
+
+        // Realizamos la comparación de dichos valores
+        return $valorA <=> $valorB;
+    };
+
+    // Utiliza usort para ordenar el array de objetos según la función de comparación definida
+    usort($this->tabla, $comparar);
+    }
 }
+
 ?>

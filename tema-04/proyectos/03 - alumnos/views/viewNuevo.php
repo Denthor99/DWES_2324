@@ -10,53 +10,54 @@
     <div class="container">
         <!-- Cabecera -->
         <?php include 'partials/header.html' ?>
-        <legend>Formulario Editar Artículo</legend>
+        <legend>Formulario Añadir Artículo</legend>
 
         <!-- Añadimos el menú -->
         <?php include 'partials/menu.php' ?>
 
-       
-         <!-- Formulario Nuevo Artículo -->
-         <form action="update.php?id=<?=$idArticulo?>" method="POST">
-         <div class="mb-3">
-                <label class="form-label">id</label>
-                <input type="number" class="form-control" name="id" value="<?=$articulo['id']?>" readonly>
+
+        <!-- Formulario Nuevo Artículo -->
+        <form action="create.php" method="POST">
+            <!-- id -->
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="number" class="form-control" name="id">
                 <!-- <div class="form-text">Introduzca identificador del libro</div> -->
             </div>
             <!-- descripción -->
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
-                <input type="text" class="form-control" name="descripcion" value="<?=$articulo['descripcion']?>">
+                <input type="text" class="form-control" name="descripcion">
                 <!-- <div class="form-text">Introduzca identificador del libro</div> -->
             </div>
             <!-- Modelo -->
             <div class="mb-3">
                 <label for="titulo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" name="modelo" value="<?=$articulo['modelo']?>">
+                <input type="text" class="form-control" name="modelo">
                 <!-- <div class="form-text">Introduzca título libro existente</div> -->
             </div>
             <!-- Marca -->
             <div class="mb-3">
-                <label class="form-label">Marca</label>
-                <select class="form-select" aria-label="Default select example" name="marca">
-                    <?php foreach($marcas as $key => $marca): ?>
-                        <option value="<?=$key?>"
-                        <?=($articulo['marca'] == $key)?'selected':null ?>
-                        >
-                        <?=$marca?></option>
+                <label class="form-label">Marcas</label>
+                <select class="form-select" aria-label="Default select example" name="marcas">
+                    <option selected disabled>Selecciona una marca:</option>
+                    <?php foreach ($marcas as $key => $marca): ?>
+                        <option value="<?= $key ?>">
+                            <?= $marca ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <!-- Unidades -->
             <div class="mb-3">
                 <label class="form-label">Unidades</label>
-                <input type="number" class="form-control" name="unidades" value="<?=$articulo['unidades']?>">
+                <input type="number" class="form-control" name="unidades">
                 <!-- <div class="form-text">Género del libro</div> -->
             </div>
             <!-- Precio -->
             <div class="mb-3">
                 <label for="precio" class="form-label">Precio (€)</label>
-                <input type="number" class="form-control" name="precio" step="0.01" value="<?=$articulo['precio']?>">
+                <input type="number" class="form-control" name="precio" step="0.01">
                 <!-- <div class="form-text">Introduzca Precio</div> -->
             </div>
 
@@ -66,9 +67,7 @@
                 <div class="form-control">
                     <?php foreach ($categorias as $indice => $categoria): ?>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]"
-                            <?=(in_array($indice,$articulo['categorias']) ? 'checked': null)?>
-                            >
+                            <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]">
                             <!--Al ser múltiples opciones, se deberan recoger dichos valores en un array-->
                             <label class="form-check-label" for="">
                                 <?= $categoria ?>
@@ -79,18 +78,20 @@
             </div>
 
 
-            <a class="btn btn-secondary" href="index.php" role="button">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <div class="mb-3">
+                <a class="btn btn-secondary" href="index.php" role="button">Cancelar</a>
+                <button type="reset" class="btn btn-danger">Borrar</button>
+                <button type="submit" class="btn btn-primary">Añadir</button>
+            </div>
 
         </form>
         <br>
         <br>
         <br>
-        
+        <!-- Pie de documento -->
+    <?php include 'partials/footer.html' ?>
 
     </div>
-    <!-- Pie de documento -->
-     <?php include 'partials/footer.html' ?>
 
 
     <!-- js bootstrap 532-->

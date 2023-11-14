@@ -4,8 +4,9 @@
         Descripción: actualizar los datos de un artículo
     */
 
-    // Cargaremos las librerias
-    include 'libs/crud_funciones.php';
+    // Cargaremos las clases correspondientes
+    include 'class/class.articulo.php';
+    include 'class/class.arrayArticulos.php';
 
     // Cargaremos el modelo
     include 'models/modelUpdate.php';
