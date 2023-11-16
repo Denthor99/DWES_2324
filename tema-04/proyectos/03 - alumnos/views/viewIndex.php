@@ -88,6 +88,7 @@
                         </b></td>
                 </tr>
             </tfoot>
+            <br>
         </table>
         <br>
         <br>

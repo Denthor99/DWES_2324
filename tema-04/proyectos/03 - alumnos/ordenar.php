@@ -4,8 +4,9 @@
         Descripción: ordena el contenido 
     */
 
-    // Cargamos la librería de funciones
-    include 'libs/crud_funciones.php';
+    // Cargamos las clases correspondientes
+    include 'class/class.alumno.php';
+    include 'class/class.arrayAlumnos.php';
 
     // Cargamos el modelo
     include 'models/modelOrdenar.php';

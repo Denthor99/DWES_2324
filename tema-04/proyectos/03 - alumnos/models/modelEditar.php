@@ -1,26 +1,25 @@
 <?php
     /*
         Modelo: modelEditar.php
-        Descripción: editar los detalles de un artículo
+        Descripción: editar los detalles de un alumno
 
         Método GET:
-            - id del articulo que quiero editar
+            - id del alumno que quiero editar
     */
     // Cargamos los valores correspondientes
-    $categorias = ArrayArticulos::getCategorias();
-    $marcas = ArrayArticulos::getMarcas();
+    $cursos=ArrayAlumnos::getCursos();
+    $asignaturas=ArrayAlumnos::getAsignaturas();
 
-    # Creamos un objeto de la clase ArrayArticulos
-    $articulos = new ArrayArticulos;
+    # Creamos un objeto de la clase ArrayAlumnos
+    $alumnos = new ArrayAlumnos();
 
     // Cargamos los datos
-    $articulos->getDatos();
+    $alumnos->getAlumnos();
 
     // Extraemos el id
-    $idArticulo = $_GET['indice'];
+    $indice = $_GET['indice'];
 
-    // cargamos los detallas del artículo a partir del indice (dentro de un objeto de la clase artículo)
-    $articulo = $articulos->read($idArticulo);
-
+    // cargamos los detallas del alumno a partir del indice (dentro de un objeto de la clase alumno)
+    $alumno = $alumnos->read($indice);
 
 ?>

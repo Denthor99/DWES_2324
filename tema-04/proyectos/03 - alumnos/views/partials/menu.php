@@ -23,7 +23,7 @@
                         <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=apellidos">Apellidos</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=email">Email</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=fechaNacimiento">Fecha de Nacimiento</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=fecha_nacimiento">Fecha de Nacimiento</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=curso">Curso</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=asignaturas">Asignaturas</a></li>
                     </ul>

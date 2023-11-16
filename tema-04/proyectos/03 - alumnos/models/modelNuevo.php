@@ -1,13 +1,13 @@
 <?php
     /*
         Modelo: modelNuevo.php
-        Descripción: Cargamos los arrays correspondientes para mostrar las categorias y marcas en los apartados "select" y "checkbox"
+        Descripción: Cargamos los métodos correspondientes a los cursos y categorías, que usaremos para el select y el checkbox
     */
 
     // Cargamos los datos de categorias y marcas
-    $categorias = ArrayArticulos::getCategorias();
-    $marcas = ArrayArticulos::getMarcas();
+    $cursos=ArrayAlumnos::getCursos();
+    $asignaturas=ArrayAlumnos::getAsignaturas();
 
-    $articulos=new ArrayArticulos();
-    $articulos->getDatos();
+    $alumnos = new ArrayAlumnos();
+    $alumnos->getAlumnos();
 ?>

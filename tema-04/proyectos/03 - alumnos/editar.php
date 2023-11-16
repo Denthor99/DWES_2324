@@ -1,15 +1,15 @@
 <?php
     // Controlador: editar.php
-    // Descripción: Mostrar un formulario con los detalles editables del articulo seleccionado
+    // Descripción: Mostrar un formulario con los detalles editables del alumno seleccionado
 
     // Cargamos las clases correspondientes
-    include 'class/class.articulo.php';
-    include 'class/class.arrayArticulos.php';
+    include 'class/class.alumno.php';
+    include 'class/class.arrayAlumnos.php';
 
 
     // Modelos
-    include 'models/modelEditar.php'; // Cargo los detalles del libro a editar
+    include 'models/modelEditar.php'; // Cargo los detalles del alumno a editar
 
     // vista
-    include "views/viewEditar.php"; // Mostrar la vista con los detalles del libro
+    include "views/viewEditar.php"; // Mostrar la vista con los detalles del alumno
 ?>

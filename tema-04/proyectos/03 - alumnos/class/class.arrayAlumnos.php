@@ -109,7 +109,7 @@ class ArrayAlumnos
         $alumno9 = new Alumno( 9, 'Juan Jesus', 'Muñoz Perez', 'jjmunper@gmail.com', '06/03/2000', 2, [3,2,4] );
         $this->tabla[]= $alumno9;
         
-        $alumno10 = new Alumno( 97, 'Julian', 'Garcia Velazquez', 'jgarvel076@g.educaand.es', '01/12/2004', 2, [3, 7, 8] );
+        $alumno10 = new Alumno( 10, 'Julian', 'Garcia Velazquez', 'jgarvel076@g.educaand.es', '01/12/2004', 2, [3, 7, 8] );
         $this->tabla[]= $alumno10;
     }
 
@@ -123,7 +123,7 @@ class ArrayAlumnos
         return $aux;
     }
 
-    public function create(Articulo $data){
+    public function create(Object $data){
         $this->tabla[]=$data;
     }
 
@@ -136,12 +136,30 @@ class ArrayAlumnos
         array_values($this->tabla);
     }
 
-    public function update($indice, Articulo $data){
+    public function update($indice, Object $data){
         $this->tabla[$indice] = $data;
     }
 
-    public function order($indice){
+    public function order($criterio){
+        // Verifica si la propiedad proporcionada como criterio de ordenación existe en la clase
+        if (!property_exists('Alumno', $criterio)) {
+            // Si el criterio de ordenación no es válido, termina la ejecución
+            echo "ERROR: Criterio de ordenación no existe";
+            exit();
+        }
 
+        // Define una función de comparación para usort
+        $comparar = function ($a, $b) use ($criterio) {
+            // Obtiene los valores del criterio de ordenación para los objetos $a y $b
+            $valorA = $a->$criterio;
+            $valorB = $b->$criterio;
+
+            // Realiza la comparación de dichos valores
+            return $valorA <=> $valorB;
+        };
+
+        // Utiliza usort para ordenar el array de objetos según la función de comparación definida
+        usort($this->tabla, $comparar);
     }
 
 }

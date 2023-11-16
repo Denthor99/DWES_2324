@@ -4,22 +4,22 @@
         Descripción: eliminar un elemento de la tabla
 
         Método GET:
-            - id del artículo que quiero eliminar
+            - id del alumno que quiero eliminar
     */
 
     // cargamos las tablas
-    $categorias = ArrayArticulos::getCategorias();
-    $marcas = ArrayArticulos::getMarcas();
-    $articulos = new ArrayArticulos();
-    $articulos->getDatos();
+    $cursos = ArrayAlumnos::getCursos();
+    $asignaturas = ArrayAlumnos::getAsignaturas();
+    $alumnos = new ArrayAlumnos();
+    $alumnos->getAlumnos();
 
     // Extraemos el id a través del método get
     $id = $_GET['indice'];
 
 
     // invocamos a la función eliminar
-    $articulos->delete($id);
+    $alumnos->delete($id);
 
     // Notificacion
-    $notificacion="Artículo eliminado con éxito";
+    $notificacion="Alumno eliminado con éxito";
 ?>

@@ -1,26 +1,26 @@
 <?php
 /*
         Modelo: ordenar.php
-        Descripción: muestra los libros a partir de un criterio
+        Descripción: muestra los alumnos a partir de un criterio
 
         Método GET:
-            - criterio: titulo, autor, genero, precio.
+            - criterio: nombre, apellidos, email, fecha de nacimiento, curso, asignaturas
     */
 
      // Cargamos los valores correspondientes
-     $categorias = ArrayArticulos::getCategorias();
-     $marcas = ArrayArticulos::getMarcas();
+     $cursos = ArrayAlumnos::getCursos();
+     $asignaturas = ArrayAlumnos::getAsignaturas();
  
-     # Creamos un objeto de la clase ArrayArticulos
-     $articulos = new ArrayArticulos;
+     # Creamos un objeto de la clase ArrayAlumnos
+     $alumnos = new ArrayAlumnos();
  
      // Cargamos los datos
-     $articulos->getDatos();
+     $alumnos->getAlumnos();
      
     // Caargo el criterio de ordenación
     $criterio = $_GET['criterio'];
 
     // Invocamos la función que se encargará de ordenar el contenido de la vista
-    $articulos = ordenar($articulos, $criterio);
+    $alumnos->order($criterio);
     
 ?>

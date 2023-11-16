@@ -1,25 +1,25 @@
 <?php
     /* 
         Modelo: modelMostrar.php
-        Descripción: muestra los detalles de un artículo
+        Descripción: muestra los detalles de un alumno
 
         Método GET:
-            - id del artículo que quiero mostrar
+            - id del alumno que quiero mostrar
     */
 
      // Cargamos los valores correspondientes
-     $categorias = ArrayArticulos::getCategorias();
-     $marcas = ArrayArticulos::getMarcas();
+     $cursos = ArrayAlumnos::getCursos();
+     $asignaturas = ArrayAlumnos::getAsignaturas();
  
      # Creamos un objeto de la clase ArrayArticulos
-     $articulos = new ArrayArticulos;
+     $alumnos = new ArrayAlumnos();
  
      // Cargamos los datos
-     $articulos->getDatos();
+     $alumnos->getAlumnos();
  
      // Extraemos el id
-     $idArticulo = $_GET['indice'];
+     $indice = $_GET['indice'];
  
      // cargamos los detallas del artículo a partir del indice (dentro de un objeto de la clase artículo)
-     $articulo = $articulos->read($idArticulo);
+     $alumno = $alumnos->read($indice);
 ?>

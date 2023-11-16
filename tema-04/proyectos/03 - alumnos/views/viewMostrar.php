@@ -10,56 +10,51 @@
     <div class="container">
         <!-- Cabecera -->
         <?php include 'partials/header.html' ?>
-        <legend>Formulario Añadir Artículo</legend>
+        <legend>Detalles del alumno</legend>
 
         <!-- Añadimos el menú -->
         <?php include 'partials/menu.php' ?>
 
        
-         <!-- Formulario Nuevo Artículo -->
+         <!-- Formulario Mostrar Alumno -->
          <form>
              <!-- id -->
              <div class="mb-3">
                 <label class="form-label">id</label>
-                <input type="text" class="form-control" value="<?=$articulo->getId()?>"disabled>
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
+                <input type="text" class="form-control" value="<?=$alumno->id?>"disabled>
             </div>
-            <!-- descripción -->
+            <!-- Nombre -->
             <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <input type="text" class="form-control" value="<?=$articulo->getDescripcion()?>"disabled>
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" value="<?=$alumno->nombre?>"disabled>
             </div>
-            <!-- Modelo -->
+            <!-- Apellidos -->
             <div class="mb-3">
-                <label for="titulo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" value="<?=$articulo->getModelo()?>"disabled>
-                <!-- <div class="form-text">Introduzca título libro existente</div> -->
+                <label for="titulo" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" value="<?=$alumno->apellidos?>"disabled>
             </div>
 
-            <!-- Marcas -->
+            <!-- Email -->
             <div class="mb-3">
-                <label class="form-label">Marcas</label>
-                <input type="text" class="form-control" value="<?=$marcas[$articulo->getMarca()]?>"disabled>
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" value="<?=$alumno->email?>"disabled>
             </div>
 
-            <!-- Categoría -->
+            <!-- Edad -->
             <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <input type="text" class="form-control" value="<?=implode(', ', ArrayArticulos::mostrarCategorias($categorias,$articulo->getCategorias())) ?>"disabled>
+                <label class="form-label">Edad</label>
+                <input type="text" class="form-control" value="<?=$alumno->getEdad() ?>"disabled>
             </div>
 
-            <!-- Unidades -->
+            <!-- Curso -->
             <div class="mb-3">
-                <label class="form-label">Unidades</label>
-                <input type="number" class="form-control" value="<?=$articulo->getUnidades()?>"disabled>
-                <!-- <div class="form-text">Género del libro</div> -->
+                <label class="form-label">Curso</label>
+                <input type="text" class="form-control" value="<?=$cursos[$alumno->curso]?>"disabled>
             </div>
-            <!-- Precio -->
+            <!-- Asignaturas -->
             <div class="mb-3">
-                <label for="precio" class="form-label">Precio (€)</label>
-                <input type="number" class="form-control" value="<?=$articulo->getPrecio()?>"disabled>
-                <!-- <div class="form-text">Introduzca Precio</div> -->
+                <label for="precio" class="form-label">Asignaturas</label>
+                <input type="text" class="form-control" value="<?=implode(', ',ArrayAlumnos::mostrarAsignaturas($asignaturas,$alumno->asignaturas))?>"disabled>
             </div>
 
 
