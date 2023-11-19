@@ -10,72 +10,82 @@
     <div class="container">
         <!-- Cabecera -->
         <?php include 'partials/header.html' ?>
-        <legend>Formulario Añadir Artículo</legend>
+        <legend>Formulario Añadir Alumno</legend>
 
         <!-- Añadimos el menú -->
         <?php include 'partials/menu.php' ?>
 
 
-        <!-- Formulario Nuevo Artículo -->
+        <!-- Formulario Nuevo Alumno -->
         <form action="create.php" method="POST">
             <!-- id -->
             <div class="mb-3">
                 <label class="form-label">Id</label>
                 <input type="number" class="form-control" name="id">
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
             </div>
-            <!-- descripción -->
+            <!-- Nombre -->
             <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <input type="text" class="form-control" name="descripcion">
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre">
             </div>
-            <!-- Modelo -->
+            <!-- Apellidos -->
             <div class="mb-3">
-                <label for="titulo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" name="modelo">
-                <!-- <div class="form-text">Introduzca título libro existente</div> -->
+                <label class="form-label">Apellidos</label>
+                <input type="text" class="form-control" name="apellidos">
             </div>
-            <!-- Marca -->
+            <!-- Email -->
             <div class="mb-3">
-                <label class="form-label">Marcas</label>
-                <select class="form-select" aria-label="Default select example" name="marcas">
-                    <option selected disabled>Selecciona una marca:</option>
-                    <?php foreach ($marcas as $key => $marca): ?>
-                        <option value="<?= $key ?>">
-                            <?= $marca ?>
+                <label class="form-label">Correo Electronico</label>
+                <input type="email" class="form-control" name="mail">
+            </div>
+            <!-- Telefono -->
+            <div class="mb-3">
+                <label class="form-label">Télefono</label>
+                <input type="number" class="form-control" name="telefono">
+            </div>
+            <!-- Dirección -->
+            <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control" name="direccion">
+            </div>
+            <!-- Población -->
+            <div class="mb-3">
+                <label class="form-label">Población</label>
+                <input type="text" class="form-control" name="poblacion">
+            </div>
+            <!-- Provincia -->
+            <div class="mb-3">
+                <label class="form-label">Provincia</label>
+                <input type="text" class="form-control" name="provincia">
+            </div>
+            <!-- Nacionalidad -->
+            <div class="mb-3">
+                <label class="form-label">Nacionalidad</label>
+                <input type="text" class="form-control" name="nacionalidad">
+            </div>
+            <!-- DNI -->
+            <div class="mb-3">
+                <label class="form-label">DNI</label>
+                <input type="text" class="form-control" name="dni" pattern="[0-9]{8}[A-Z]{1}">
+            </div>
+            <!-- Fecha Nacimiento -->
+            <div class="mb-3">
+                <label class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" name="fechaNacimiento">
+            </div>
+            <!-- Curso -->
+            <div class="mb-3">
+                <label class="form-label">Curso</label>
+                <select class="form-select" aria-label="Default select example" name="curso">
+                    <option selected disabled>Selecciona un curso:</option>
+                    <?php foreach ($cursos as $curso): ?>
+                        <option value="<?= $curso['id'] ?>">
+                            <?= $curso['nombre'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <!-- Unidades -->
-            <div class="mb-3">
-                <label class="form-label">Unidades</label>
-                <input type="number" class="form-control" name="unidades">
-                <!-- <div class="form-text">Género del libro</div> -->
-            </div>
-            <!-- Precio -->
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio (€)</label>
-                <input type="number" class="form-control" name="precio" step="0.01">
-                <!-- <div class="form-text">Introduzca Precio</div> -->
-            </div>
 
-            <!-- Categorías -->
-            <div class="mb-3">
-                <label class="form-label">Seleccionar Categorías</label>
-                <div class="form-control">
-                    <?php foreach ($categorias as $indice => $categoria): ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]">
-                            <!--Al ser múltiples opciones, se deberan recoger dichos valores en un array-->
-                            <label class="form-check-label" for="">
-                                <?= $categoria ?>
-                                <label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
 
 
             <div class="mb-3">

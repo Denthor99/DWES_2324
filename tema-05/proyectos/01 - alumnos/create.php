@@ -1,12 +1,12 @@
 <?php
     /*
         Controlador: create.php
-        Descripción: permite cargar los nuevos valores al array principal con los datos de la aplicación        
+        Descripción: permite añadir un nuevo registro a la base de datos        
     */
 
     // Cargamos las clases correspondientes
-    include 'class/class.articulo.php';
-    include 'class/class.arrayArticulos.php';
+    include 'class/class.conexion.php';
+    include 'class/class.fp.php';
 
     // Cargaremos el modelo
     include 'models/modelCreate.php';

@@ -1,13 +1,12 @@
 <?php
     /*
         Modelo: modelNuevo.php
-        Descripción: Cargamos los arrays correspondientes para mostrar las categorias y marcas en los apartados "select" y "checkbox"
+        Descripción: Cargamos los arrays correspondientes para mostrar los cursos disponibles del centro
     */
 
-    // Cargamos los datos de categorias y marcas
-    $categorias = ArrayArticulos::getCategorias();
-    $marcas = ArrayArticulos::getMarcas();
-
-    $articulos=new ArrayArticulos();
-    $articulos->getDatos();
+    // Creamos la conexión a la base de datos
+    $db= new Fp();
+    
+    // Obtenemos los cursos
+    $cursos = $db->getCursos();
 ?>

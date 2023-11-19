@@ -1,7 +1,7 @@
 <?php
     /*
         Modelo: modelCreate.php
-        Descripción: Cargaremos los datos del formulario nuevo y los introducimos al array original de artículos (array de objetos)
+        Descripción: Cargaremos los datos del formulario nuevo y los introducimos en la BBDD fp
 
         Método POST 
             - id
@@ -11,37 +11,37 @@
             - categorias (valor númerico) - array
             - unidades
             - precio
-        
-        El id será generado de forma automatica por la función ultimoId()
     */
 
 
-    // Carga de categorias y marcas
-    $categorias = ArrayArticulos::getCategorias();
-    $marcas = ArrayArticulos::getMarcas();
-
-    // Cargamos el array de objetos con articulos
-    $articulos = new ArrayArticulos();
-    $articulos->getDatos();
+     // Creamos la conexión a la base de datos
+     $db= new Fp();
 
     // Recogemos los datos del formulario
     $id = $_POST['id'];
-    $descripcion = $_POST['descripcion'];
-    $modelo = $_POST['modelo'];
-    $marca = $_POST['marcas'];
-    $categorias_art = $_POST['categorias'];
-    $unidades = $_POST['unidades'];
-    $precio = $_POST['precio'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $email = $_POST['mail'];
+    $telefono = $_POST['telefono'];
+    $direccion = $_POST['direccion'];
+    $poblacion = $_POST['poblacion'];
+    $provincia = $_POST['provincia'];
+    $nacionalidad = $_POST['nacionalidad'];
+    $DNI = $_POST['dni'];
+    $fechaNacimiento = $_POST['fechaNacimiento'];
+    $curso = $_POST['curso'];
 
 
-    // Invocamos a la función nuevo(), que nos permitirá introducir
-    //nuevo($articulos,$id,$descripcion,$modelo,$categori,$unidades,$precio);
-    $articulo = new Articulo($id,$descripcion,$modelo,$marca,$categorias_art,$unidades, $precio);
-
-    // Añadimos el nuevo artículo(objeto) usando la funcion create
-    $articulos->create($articulo);
+    // Añadimo el nuevo registro
+    $db->insertarAlumno($id,$nombre,$apellidos,$email,$telefono,$direccion,$poblacion,$provincia,$nacionalidad,$DNI,$fechaNacimiento,$curso);
 
     // Generamos una notificación
-    $notificacion = "Articulo creado con éxito";
+    $notificacion = "Alumno añadido con éxito";
+
+    // Obtenemos los cursos
+    $cursos = $db->getCursos();
+
+    // Obtenemos todos los datos
+    $alumnos = $db->getAlumnos();
 
 ?>

@@ -39,62 +39,60 @@
             </thead>
             <!-- Mostraremos el contenido de cada artículo -->
             <tbody>
-                <?php while($alumnado = mysqli_fetch_assoc($alumnos)) : ?>
+                <?php foreach($alumnos as $indice => $alumno) : ?>
                     <tr>
                         <th>
-                            <?= $alumnado['id'] ?>
+                            <?= $alumno['id'] ?>
                         </th>
                         <td>
-                            <?= $alumnado['nombre'] ?>
+                            <?= $alumno['nombre'] ?>
                         </td>
                         <td>
-                            <?= $alumnado['email'] ?>
+                            <?= $alumno['email'] ?>
                         </td>
                         <td>
-                            <?= $alumnado['telefono'] ?>
+                            <?= $alumno['telefono'] ?>
                         </td>
                         <td>
-                            <?=$alumnado['poblacion']?>
+                            <?=$alumno['poblacion']?>
                         </td>
                         <td>
-                            <?= $alumnado['dni'] ?>
+                            <?= $alumno['dni'] ?>
                         </td>
                         <td>
-                            <?= $alumnado['edad'] ?>
+                            <?= $alumno['edad'] ?>
                         </td>
                         <td>
-                            <?= $alumnado['curso'] ?>
+                            <?= $alumno['curso'] ?>
                         </td>
                         <td>
                             <!-- Botón eliminar -->
-                            <a href="eliminar.php?indice=<?= $alumnado['id'] ?>" title="Eliminar">
+                            <a href="eliminar.php?indice=<?= $indice ?>" title="Eliminar">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
 
                             <!-- Botón editar -->
-                            <a href="editar.php?indice=<?= $alumnado['id'] ?>" title="Editar">
+                            <a href="editar.php?indice=<?= $indice ?>" title="Editar">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <!-- Botón mostrar -->
-                            <a href="mostrar.php?indice=<?=$alumnado['id']?>" title="Mostrar">
+                            <a href="mostrar.php?indice=<?=$indice?>" title="Mostrar">
                                 <i class="bi bi-tv"></i>
                             </a>
                         </td>
 
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </tbody>
             <!-- En el pie de la tabla, mostraremos el número de artículos mostrados -->
             <tfoot>
                 <tr>
                     <td colspan="7"><b>Nº de Articulos=
-                            <?= mysqli_num_rows($alumnos) ?>
+                            <?= count($alumnos) ?>
                         </b></td>
                 </tr>
             </tfoot>
         </table>
-        <!-- Liberamos recursos -->
-        <?=mysqli_free_result($alumnos); ?>
         <br>
         <br>
         <br>
