@@ -33,9 +33,18 @@ class Fp extends Conexion
             cursos ON alumnos.id_curso = cursos.id
         ORDER BY id";
 
+        // Ejecutamos directamente SQL (no es optima a nivel de seguridad)
+        // $consulta = $this->db->query($sql);
+        // $result = $consulta->fetch_all(MYSQLI_ASSOC);
 
-        $consulta = $this->db->query($sql);
-        $result = $consulta->fetch_all(MYSQLI_ASSOC);
+        // Mediante Prepare
+        $stmt = $this->db->prepare($sql);
+
+        // Ejecutamos
+        $stmt->execute();
+
+        // Objeto de la clase mysqli_result
+        $result = $stmt->get_result();
         return $result;
     }
 
@@ -54,8 +63,17 @@ class Fp extends Conexion
             fp.cursos
         ORDER BY id";
 
-        $consulta = $this->db->query($sql);
-        $result = $consulta->fetch_all(MYSQLI_ASSOC);
+        // $consulta = $this->db->query($sql);
+        // $result = $consulta->fetch_all(MYSQLI_ASSOC);
+
+        // Mediante Prepare
+        $stmt = $this->db->prepare($sql);
+
+        // Ejecutamos
+        $stmt->execute();
+
+        // Objeto de la clase mysqli_result
+        $result = $stmt->get_result();
         return $result;
     }
 

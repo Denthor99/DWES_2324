@@ -32,14 +32,14 @@
                     <th scope="col">Telefono</th>
                     <th scope="col">Poblacion</th>
                     <th scope="col">DNI</th>
-                    <th scope="col">Edad</th>
+                    <th scope="col" class="text-end">Edad</th>
                     <th scope="col">Curso</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <!-- Mostraremos el contenido de cada artículo -->
             <tbody>
-                <?php foreach($alumnos as $indice => $alumno) : ?>
+                <?php foreach($alumnos as $alumno) : ?>
                     <tr>
                         <th>
                             <?= $alumno['id'] ?>
@@ -59,7 +59,7 @@
                         <td>
                             <?= $alumno['dni'] ?>
                         </td>
-                        <td>
+                        <td class="text-end">
                             <?= $alumno['edad'] ?>
                         </td>
                         <td>
@@ -67,16 +67,16 @@
                         </td>
                         <td>
                             <!-- Botón eliminar -->
-                            <a href="eliminar.php?indice=<?= $indice ?>" title="Eliminar">
+                            <a href="eliminar.php?indice=<?= $alumno['id'] ?>" title="Eliminar">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
 
                             <!-- Botón editar -->
-                            <a href="editar.php?indice=<?= $indice ?>" title="Editar">
+                            <a href="editar.php?indice=<?= $alumno['id'] ?>" title="Editar">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <!-- Botón mostrar -->
-                            <a href="mostrar.php?indice=<?=$indice?>" title="Mostrar">
+                            <a href="mostrar.php?indice=<?=$alumno['id']?>" title="Mostrar">
                                 <i class="bi bi-tv"></i>
                             </a>
                         </td>
@@ -88,7 +88,7 @@
             <tfoot>
                 <tr>
                     <td colspan="7"><b>Nº de Articulos=
-                            <?= count($alumnos) ?>
+                            <?= $alumnos->num_rows ?>
                         </b></td>
                 </tr>
             </tfoot>
