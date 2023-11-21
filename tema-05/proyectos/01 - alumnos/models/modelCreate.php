@@ -18,7 +18,6 @@
      $db= new Fp();
 
     // Recogemos los datos del formulario
-    $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $email = $_POST['mail'];
@@ -33,7 +32,7 @@
 
 
     // Añadimo el nuevo registro
-    $db->insertarAlumno($id,$nombre,$apellidos,$email,$telefono,$direccion,$poblacion,$provincia,$nacionalidad,$DNI,$fechaNacimiento,$curso);
+    $db->insertarAlumno($nombre,$apellidos,$email,$telefono,$direccion,$poblacion,$provincia,$nacionalidad,$DNI,$fechaNacimiento,$curso);
 
     // Generamos una notificación
     $notificacion = "Alumno añadido con éxito";

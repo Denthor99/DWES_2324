@@ -10,64 +10,62 @@
     <div class="container">
         <!-- Cabecera -->
         <?php include 'partials/header.html' ?>
-        <legend>Formulario Añadir Artículo</legend>
+        <legend>Mostrar Alumno</legend>
 
         <!-- Añadimos el menú -->
         <?php include 'partials/menu.php' ?>
 
        
-         <!-- Formulario Nuevo Artículo -->
-         <form>
-             <!-- id -->
-             <div class="mb-3">
-                <label class="form-label">id</label>
-                <input type="text" class="form-control" value="<?=$articulo->getId()?>"disabled>
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
-            </div>
-            <!-- descripción -->
+         <!-- Formulario Mostrar Alumno -->
+        <form >
             <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <input type="text" class="form-control" value="<?=$articulo->getDescripcion()?>"disabled>
-                <!-- <div class="form-text">Introduzca identificador del libro</div> -->
+                <label class="form-label">Id</label>
+                <input type="number" class="form-control" value="<?=$alumno['id']?>">
             </div>
-            <!-- Modelo -->
+            <!-- Nombre -->
             <div class="mb-3">
-                <label for="titulo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" value="<?=$articulo->getModelo()?>"disabled>
-                <!-- <div class="form-text">Introduzca título libro existente</div> -->
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" value="<?=$alumno['nombre']?>">
+            </div>
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Correo Electronico</label>
+                <input type="email" class="form-control" value="<?=$alumno['email']?>">
+            </div>
+            <!-- Telefono -->
+            <div class="mb-3">
+                <label class="form-label">Télefono</label>
+                <input type="number" class="form-control" value="<?=$alumno['telefono']?>">
+            </div>
+            <!-- Población -->
+            <div class="mb-3">
+                <label class="form-label">Población</label>
+                <input type="text" class="form-control" value="<?=$alumno['poblacion']?>">
+            </div>
+            <!-- DNI -->
+            <div class="mb-3">
+                <label class="form-label">DNI</label>
+                <input type="text" class="form-control" value="<?=$alumno['dni']?>">
+            </div>
+            <!-- Edad -->
+            <div class="mb-3">
+                <label class="form-label">Edad</label>
+                <input type="text" class="form-control" value="<?=$alumno['edad']?>">
+            </div>
+            <!-- Curso -->
+            <div class="mb-3">
+                <label class="form-label">Curso</label>
+                <input type="text" class="form-control" value="<?=$alumno['curso']?>">
             </div>
 
-            <!-- Marcas -->
             <div class="mb-3">
-                <label class="form-label">Marcas</label>
-                <input type="text" class="form-control" value="<?=$marcas[$articulo->getMarca()]?>"disabled>
+                <a class="btn btn-secondary" href="index.php" role="button">Volver</a>
             </div>
-
-            <!-- Categoría -->
-            <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <input type="text" class="form-control" value="<?=implode(', ', ArrayArticulos::mostrarCategorias($categorias,$articulo->getCategorias())) ?>"disabled>
-            </div>
-
-            <!-- Unidades -->
-            <div class="mb-3">
-                <label class="form-label">Unidades</label>
-                <input type="number" class="form-control" value="<?=$articulo->getUnidades()?>"disabled>
-                <!-- <div class="form-text">Género del libro</div> -->
-            </div>
-            <!-- Precio -->
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio (€)</label>
-                <input type="number" class="form-control" value="<?=$articulo->getPrecio()?>"disabled>
-                <!-- <div class="form-text">Introduzca Precio</div> -->
-            </div>
-
-
-            <a class="btn btn-secondary" href="index.php" role="button">Volver</a>
         </form>
-        
-
     </div>
+    <br>
+    <br>
+    <br>
     <!-- Pie de documento -->
      <?php include 'partials/footer.html' ?>
 

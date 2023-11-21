@@ -78,24 +78,74 @@ class Fp extends Conexion
     }
 
     /*
+        getAlumno($indice)
+        Devuelve un objeto conjunto resultados con los datos de un alumno.
+        Se pásara el indice como parametro
+    */
+    public function getAlumno($indice)
+    {
+        $sql = "SELECT 
+        alumnos.id,
+        CONCAT_WS(', ', alumnos.apellidos, alumnos.nombre) AS nombre,
+        alumnos.email,
+        alumnos.telefono,
+        alumnos.poblacion,
+        alumnos.dni,
+        TIMESTAMPDIFF(YEAR,
+            alumnos.fechaNac,
+            NOW()) AS edad,
+        cursos.nombre AS curso
+    FROM
+        fp.alumnos
+            INNER JOIN
+        cursos ON alumnos.id_curso = cursos.id
+    WHERE alumnos.id = $indice";
+        // Mediante Prepare
+        $stmt = $this->db->prepare($sql);
+
+        // Ejecutamos
+        $stmt->execute();
+
+        // Objeto de la clase mysqli_result
+        $result = $stmt->get_result();
+        return $result;
+    }
+
+    /*
         insertarAlumno()
 
         Insertar un registro en la base de datos fp
     */
-    public function insertarAlumno($id,$nombre,$apellidos,$email,$telefono,$direccion,$poblacion,$provincia,$nacionalidad,$dni,$fechaNacimiento,$curso){
+    public function insertarAlumno($nombre, $apellidos, $email, $telefono, $direccion, $poblacion, $provincia, $nacionalidad, $dni, $fechaNacimiento, $curso)
+    {
         // Preparar la consulta SQL de inserción con marcadores de posición
-        $sql = "INSERT INTO fp.alumnos (id, nombre, apellidos, email, telefono, direccion, poblacion, provincia, nacionalidad, dni, fechaNac, id_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO fp.alumnos (nombre, apellidos, email, telefono, direccion, poblacion, provincia, nacionalidad, dni, fechaNac, id_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Crear una sentencia preparada
         $stmt = $this->db->prepare($sql);
 
         // Vincular los parámetros
-        $stmt->bind_param("isssissssssi", $id, $nombre, $apellidos, $email, $telefono, $direccion, $poblacion, $provincia, $nacionalidad, $dni, $fechaNacimiento, $curso);
+        $stmt->bind_param("sssissssssi", $nombre, $apellidos, $email, $telefono, $direccion, $poblacion, $provincia, $nacionalidad, $dni, $fechaNacimiento, $curso);
 
         // Ejecutar la sentencia preparada
         $stmt->execute();
 
         // Cerrar la sentencia preparada
+        $stmt->close();
+    }
+
+    /*
+        deleteAlumno($indice)
+    */
+    public function deleteAlumno($indice){
+        $sql=" DELETE FROM fp.alumnos WHERE alumnos.id = $indice";
+
+        // Creamos una sentencia preparada
+        $stmt = $this->db->prepare($sql);
+        // Ejecutamos la sentencia preparada
+        $stmt->execute();
+
+        // Cerramos la sentencia preparada
         $stmt->close();
     }
 }

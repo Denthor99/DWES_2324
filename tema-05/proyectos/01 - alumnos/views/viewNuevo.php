@@ -19,10 +19,7 @@
         <!-- Formulario Nuevo Alumno -->
         <form action="create.php" method="POST">
             <!-- id (no se deberá ni mostrar, ni estar oculto-->
-            <!-- <div class="mb-3">
-                <label class="form-label">Id</label>
-                <input type="number" class="form-control" name="id">
-            </div> -->
+            
             <!-- Nombre -->
             <div class="mb-3">
                 <label class="form-label">Nombre</label>

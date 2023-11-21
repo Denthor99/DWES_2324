@@ -5,8 +5,8 @@
      */
 
     // Cargamos las clases correspondientes
-    include 'class/class.articulo.php';
-    include 'class/class.arrayArticulos.php';
+    include 'class/class.conexion.php';
+    include 'class/class.fp.php';
 
     // Cargamos el modelo
     include 'models/modelEliminar.php';
