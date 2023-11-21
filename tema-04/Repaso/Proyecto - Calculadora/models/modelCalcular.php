@@ -5,33 +5,33 @@
     */
 
     // capturamos los valores enviados a través del método post
-    $valor1=$_POST['valor1'];
-    $valor2=$_POST['valor2'];
+    $valor1 = $_POST['valor1'];
+    $valor2 = $_POST['valor2'];
     $operacion = $_POST['operacion'];
 
     // Creamos la instancia de la clase calculadora
-    $calculos=new Calculadora($valor1,$valor2,$operacion,0);
+    $calculo = new Calculadora($valor1,$valor2,$operacion);
 
     // Deberemos plantear ahora que operación se mostrará. Para ello creamos una estructura condicional, junto a los métodos del objeto calculadora
     switch ($operacion) {
         case 'sumar':
-            $calculos->sumar();
+            $calculo->sumar();
             break;
         case 'restar':
-            $calculos->restar();
-            break;
-
-        case 'dividir':
-            $calculos->dividir();
+            $calculo->restar();
             break;
         case 'multiplicar':
-            $calculos->multiplicar();
+            $calculo->multiplicar();
+            break;
+        case 'dividir':
+            $calculo->dividir();
             break;
         case 'potencia':
-            $calculos->potencia();
+            $calculo->potencia();
             break;
         default:
-            echo 'Operacion no existente';
+            echo 'Operación no valida';
             break;
     }
+    
 ?>

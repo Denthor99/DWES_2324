@@ -10,22 +10,24 @@
             
         <!-- Cuerpo del formulario -->
         <div class="mb-3">
-            <legend><?=ucfirst($calculos->getOperacion())?></legend>
+            <legend><?=ucfirst($calculo->getOperacion())?></legend>
 
             <form>
-                <div class="mb-3">
+               <div class="mb-3">
                     <label class="form-label">Valor 1</label>
-                    <input type="number" class="form-control" value="<?=$calculos->getValor1()?>" disabled/>
-                </div>
-                <div class="mb-3">
+                    <input class="form-control" value="<?=$calculo->getValor1()?>" disabled/>
+               </div>
+               <div class="mb-3">
                     <label class="form-label">Valor 2</label>
-                    <input type="number" class="form-control" value="<?=$calculos->getValor2()?>" disabled/>
-                </div>
-                <div class="mb-3">
+                    <input class="form-control" value="<?=$calculo->getValor2()?>" disabled/>
+               </div>
+               <div class="mb-3">
                     <label class="form-label">Resultado</label>
-                    <input type="number" class="form-control" value="<?=$calculos->getResultado()?>" disabled/>
-                </div>
-                <a role="button" class="btn btn-primary" href="index.php">Volver</a>
+                    <input class="form-control" value="<?=$calculo->getResultado()?>" disabled/>
+               </div>
+               <div class="mb-3">
+                    <a role="button" class="btn btn-primary" href="index.php">Volver</a>
+               </div>
             </form>
         </div>
         <!-- Pie de documento -->

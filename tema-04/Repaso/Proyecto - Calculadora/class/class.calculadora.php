@@ -8,11 +8,12 @@
         private $operacion;
         private $resultado;
 
+        // Método constructor
         public function __construct(
             $valor1 = 0,
-            $valor2=0,
-            $operacion=null,
-            $resultado=0){
+            $valor2 = 0,
+            $operacion = null,
+            $resultado = 0){
                 $this->valor1=$valor1;
                 $this->valor2=$valor2;
                 $this->operacion=$operacion;
@@ -20,7 +21,7 @@
         }
 
         // Getters y Setters
-
+        
         /**
          * Get the value of valor1
          */ 
@@ -101,25 +102,31 @@
                 return $this;
         }
 
-        // Metodos con las operaciones necesarias
+        // Métodos calculadora
+
+        // funcion sumar
         public function sumar(){
             $this->resultado = $this->valor1 + $this->valor2;
         }
+
+        // funcion restar
         public function restar(){
             $this->resultado = $this->valor1 - $this->valor2;
         }
 
-        public function dividir(){
-            $this->resultado = $this->valor1 / $this->valor2;
-        }
-
+        // funcion multiplicar
         public function multiplicar(){
             $this->resultado = $this->valor1 * $this->valor2;
         }
 
+        // funcion dividir
+        public function dividir(){
+            $this->resultado = $this->valor1 / $this->valor2;
+        }
+
+        // funcion potencia
         public function potencia(){
             $this->resultado = pow($this->valor1,$this->valor2);
         }
-
     }
 ?>
