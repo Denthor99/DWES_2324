@@ -77,7 +77,7 @@
                     <option selected disabled>Selecciona un curso:</option>
                     <?php foreach ($cursos as $curso): ?>
                         <option value="<?= $curso['id'] ?>">
-                            <?= $curso['nombre'] ?>
+                            <?= $curso['nombreCorto'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

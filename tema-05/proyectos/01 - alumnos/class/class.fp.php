@@ -26,7 +26,7 @@ class Fp extends Conexion
             TIMESTAMPDIFF(YEAR,
                 alumnos.fechaNac,
                 NOW()) AS edad,
-            cursos.nombre AS curso
+            cursos.nombreCorto AS curso
         FROM
             fp.alumnos
                 INNER JOIN
@@ -58,7 +58,7 @@ class Fp extends Conexion
     {
         $sql = "SELECT 
             cursos.id,
-            cursos.nombre
+            cursos.nombreCorto
         FROM
             fp.cursos
         ORDER BY id";
@@ -116,16 +116,27 @@ class Fp extends Conexion
 
         Insertar un registro en la base de datos fp
     */
-    public function insertarAlumno($nombre, $apellidos, $email, $telefono, $direccion, $poblacion, $provincia, $nacionalidad, $dni, $fechaNacimiento, $curso)
+    public function insertarAlumno(Alumno $alumno)
     {
         // Preparar la consulta SQL de inserción con marcadores de posición
-        $sql = "INSERT INTO fp.alumnos (nombre, apellidos, email, telefono, direccion, poblacion, provincia, nacionalidad, dni, fechaNac, id_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO fp.alumnos VALUES (null,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Crear una sentencia preparada
         $stmt = $this->db->prepare($sql);
 
         // Vincular los parámetros
-        $stmt->bind_param("sssissssssi", $nombre, $apellidos, $email, $telefono, $direccion, $poblacion, $provincia, $nacionalidad, $dni, $fechaNacimiento, $curso);
+        $stmt->bind_param("sssissssssi", 
+            $alumno->nombre, 
+            $alumno->apellidos, 
+            $alumno->email, 
+            $alumno->telefono, 
+            $alumno->direccion, 
+            $alumno->poblacion, 
+            $alumno->provincia, 
+            $alumno->nacionalidad, 
+            $alumno->dni, 
+            $alumno->fecha_nacimiento, 
+            $alumno->id_curso);
 
         // Ejecutar la sentencia preparada
         $stmt->execute();

@@ -7,6 +7,7 @@
     // Cargamos las clases correspondientes
     include 'class/class.conexion.php';
     include 'class/class.fp.php';
+    include 'class/class.alumno.php';
 
     // Cargaremos el modelo
     include 'models/modelCreate.php';
