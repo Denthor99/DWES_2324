@@ -9,6 +9,7 @@
     $conexion = new Alumnos();
 
     // Extraigo los valores del alumno
+    // Objeto de la clase pdostatement
     $alumnos = $conexion->getAlumnos();
 
 ?>

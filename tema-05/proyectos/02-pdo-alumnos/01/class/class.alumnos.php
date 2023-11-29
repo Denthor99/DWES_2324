@@ -2,6 +2,11 @@
 
 class Alumnos extends Conexion{
 
+    /*
+        getAlumnos()
+        Devuelve un objeto de tipo pdostatement
+        A diferencia de mysqli, PDO no tiene un objeto de tipo result
+    */
 public function getAlumnos(){
     $sql = "SELECT 
     alumnos.id,
