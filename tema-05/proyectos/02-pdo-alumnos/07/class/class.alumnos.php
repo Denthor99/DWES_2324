@@ -289,7 +289,9 @@ FROM
     fp.alumnos
         INNER JOIN
     cursos ON alumnos.id_curso = cursos.id
-    WHERE CONCAT_WS(' ',alumnos.id, alumnos.nombre,alumnos.apellidos, alumnos.email, alumnos.telefono, alumnos.poblacion, alumnos.dni, alumnos.fechaNac, cursos.nombreCorto) LIKE :expresion";
+    WHERE CONCAT_WS(' ', alumnos.id, alumnos.nombre,
+     alumnos.apellidos, alumnos.email, alumnos.telefono, 
+     alumnos.poblacion, alumnos.dni, TIMESTAMPDIFF(YEAR, alumnos.fechaNac, NOW()), cursos.nombreCorto) LIKE :expresion";
 
             // Prepare->objeto clase pdostatement
             $pdostmt = $this->pdo->prepare($sql);
