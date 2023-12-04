@@ -82,7 +82,7 @@ ORDER BY id";
         Devuelve un objeto conjunto resultados con los datos de un alumno.
         Se pásara el indice como parametro
     */
-    public function readAlumno($indice)
+    public function readAlumno($id)
     {
         try {
             $sql = "SELECT * FROM fp.alumnos WHERE alumnos.id = :id";
@@ -90,7 +90,7 @@ ORDER BY id";
         $pdostmt = $this->pdo->prepare($sql);
 
         // Vinculamos parametros
-        $pdostmt->bindParam(':id',$indice,PDO::PARAM_INT);
+        $pdostmt->bindParam(':id',$id,PDO::PARAM_INT);
 
         // Elegimos el tipo de fetch
         $pdostmt->setFetchMode(PDO::FETCH_OBJ);
@@ -99,8 +99,7 @@ ORDER BY id";
         $pdostmt->execute();
 
         // Devolvemos el registro
-        $consulta = $pdostmt->fetch();
-        return $consulta;
+        return $pdostmt->fetch();
     } catch (PDOException $e) {
         include '../views/partials/errorDB.php';
         exit();

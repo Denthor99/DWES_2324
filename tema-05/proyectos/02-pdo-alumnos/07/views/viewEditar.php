@@ -12,15 +12,13 @@
         <?php include 'partials/header.html' ?>
         <legend>Formulario Editar Alumno</legend>
 
-        <!-- Añadimos el menú -->
-        <?php include 'partials/menu.php' ?>
-
+        <!-- Menú no necesario -->
        
          <!-- Formulario Editar Alumno -->
-         <form action="update.php?id=<?=$alumno->id?>" method="POST">
-         <div class="mb-3">
-                <label class="form-label">id</label>
-                <input type="number" class="form-control" name="id" value="<?=$alumno->id?>" readonly>
+         <form action="update.php?id=<?=$id?>" method="POST">
+         <!-- Id permanecerá oculto -->
+            <div class="mb-3" hidden>
+                <input type="number" class="form-control" name="id" value="<?=$alumno->id?>" hidden>
             </div>
             <!-- Nombre -->
             <div class="mb-3">

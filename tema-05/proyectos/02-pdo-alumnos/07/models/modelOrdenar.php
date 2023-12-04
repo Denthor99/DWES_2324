@@ -7,12 +7,13 @@
             - criterio: titulo, autor, genero, precio.
     */
 
+     
+
+    // Capturamos el criterio
+     $criterioOrder = $_GET['criterio'];
+
      // Conecto con la base de datos
      $conexion = new Alumnos();
-
-     // Extraigo los valores del alumno
-
-     $criterioOrder = $_GET['criterio'];
      // Objeto de la clase pdostatement
      $alumnos = $conexion->order($criterioOrder);
     

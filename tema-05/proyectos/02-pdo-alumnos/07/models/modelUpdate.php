@@ -18,9 +18,6 @@
     // Capturamos el id enviado a través del método GET
     $idActualizar = $_GET['id'];
 
-     // Creamos la conexión a la base de datos
-     $conexion= new Alumnos();
-
     // Recogemos los datos del formulario
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -49,12 +46,12 @@
     $alumno->fecha_nacimiento=$fechaNacimiento;
     $alumno->id_curso=$curso;
 
+    // Creamos la conexión a la base de datos
+    $conexion= new Alumnos();
     // Añadimo el nuevo registro
     $conexion->updateAlumno($alumno,$idActualizar);
 
     // Generamos una notificación
     $notificacion = "Alumno actualizado con éxito";
 
-    // Redireccionamos controlador principal
-    header('location: index.php');
 ?>

@@ -14,7 +14,6 @@
     // Cargaremos el modelo
     include 'models/modelUpdate.php';
     
-
-    // Cargaremos la vista principal
-    include 'views/viewIndex.php'
+    // Redireccionamos controlador principal
+    header('location: index.php');
 ?>

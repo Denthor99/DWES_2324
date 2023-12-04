@@ -12,9 +12,7 @@
         <?php include 'partials/header.html' ?>
         <legend>Formulario Añadir Alumno</legend>
 
-        <!-- Añadimos el menú -->
-        <?php include 'partials/menu.php' ?>
-
+        <!-- El menú no es necesario-->
 
         <!-- Formulario Nuevo Alumno -->
         <form action="create.php" method="POST">
@@ -73,7 +71,7 @@
             <!-- Curso -->
             <div class="mb-3">
                 <label class="form-label">Curso</label>
-                <select class="form-select" aria-label="Default select example" name="curso">
+                <select class="form-select" aria-label="Default select example" name="id_curso">
                     <option selected disabled>Selecciona un curso:</option>
                     <?php foreach ($cursos as $curso): ?>
                         <option value="<?= $curso->id ?>">

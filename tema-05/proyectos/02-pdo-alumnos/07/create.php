@@ -14,7 +14,6 @@
     // Cargaremos el modelo
     include 'models/modelCreate.php';
     
-
-    // Cargamos la vista
-    include 'views/viewIndex.php';
+    // Rediccionaremos
+    header('location: index.php');
 ?>

@@ -18,9 +18,6 @@
     */
 
 
-     // Creamos la conexión a la base de datos
-     $conexion= new Alumnos();
-
     // Recogemos los datos del formulario
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -32,7 +29,7 @@
     $nacionalidad = $_POST['nacionalidad'];
     $DNI = $_POST['dni'];
     $fechaNacimiento = $_POST['fechaNacimiento'];
-    $curso = $_POST['curso'];
+    $curso = $_POST['id_curso'];
 
     // Creamos un objeto de la clase alumno
     $alumno = new Alumno();
@@ -49,13 +46,12 @@
     $alumno->fecha_nacimiento=$fechaNacimiento;
     $alumno->id_curso=$curso;
 
+    // Creamos la conexión a la base de datos
+    $conexion= new Alumnos();
+
     // Añadimo el nuevo registro
     $conexion->insertarAlumno($alumno);
 
     // Generamos una notificación
-    $notificacion = "Alumno añadido con éxito";
-
-    // Redireccionamos controlador principal
-    header('location: index.php');
-
+    // $notificacion = "Alumno añadido con éxito";
 ?>
