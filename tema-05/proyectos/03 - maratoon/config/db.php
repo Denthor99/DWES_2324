@@ -4,5 +4,10 @@
      * 
      * Definimos una serie de constantes, empleadas para ser invocadas dentro del proyecto 
     */
-    DEFINE('HOST','localhost');
+    define('SERVER','localhost');
+    define('USER','root');
+    define('PASS',null);
+    define('BD','maratoon');
+    define('CHARSET','utf8mb4');
+    define('COLLECTION','utf8mb4_unicode_ci');
 ?>
