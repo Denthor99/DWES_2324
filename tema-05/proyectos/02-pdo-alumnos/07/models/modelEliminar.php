@@ -14,9 +14,9 @@
     $id = $_GET['id'];
 
     // Cargamos los cursos
-    $cursos = $conexion->getCursos();
+    //$cursos = $conexion->getCursos();
     // Cargamos los alumnos
-    $alumnos = $conexion->getAlumnos();
+    //$alumnos = $conexion->getAlumnos();
    // Borramos el alumno
    $conexion->deleteAlumno($id);
 ?>

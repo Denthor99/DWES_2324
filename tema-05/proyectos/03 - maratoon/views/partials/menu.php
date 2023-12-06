@@ -21,7 +21,6 @@
                     <!-- Deberemos enviar el criterior de ordenacion de forma dinamica -->
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=apellidos">Apellidos</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=ciudad">Ciudad</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=email">Email</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=edad">Edad</a></li>
