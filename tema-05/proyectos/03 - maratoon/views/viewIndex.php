@@ -38,7 +38,7 @@
                         <td><?=$corredor->club?></td>
                         <td>
                             <!-- Botón eliminar -->
-                            <a href="eliminar.php?id=<?=$corredor->id?>" title="Eliminar">
+                            <a onclick="confirmacion(event,<?=$corredor->id?>" href="eliminar.php?id=<?=$corredor->id?>" title="Eliminar">
                             <i class="bi bi-trash-fill"></i>
                             </a>
                             <!-- Botón editar -->
@@ -72,5 +72,16 @@
 
 
     <?php include 'views/layouts/javascript.html';?>
+
+    <script>
+        function confirmacion(event, id) {
+            event.preventDefault();
+            if (confirm("¿Estás seguro de que quieres borrar este corredor\nEsta acción no se puede deshacer?")) {
+                window.location.href = 'eliminar.php?id=' + id;
+            } else {
+                window.location.href = 'index.php';
+            }
+        }
+    </script>
 </body>
 </html>

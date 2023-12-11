@@ -233,7 +233,7 @@ ORDER BY id";
     /*
         order($criterio)
     */
-    public function order($criterio){
+    public function order(int $criterio){
         try {
             $sql = "SELECT 
     alumnos.id,
@@ -250,10 +250,13 @@ FROM
     fp.alumnos
         INNER JOIN
     cursos ON alumnos.id_curso = cursos.id
-ORDER BY $criterio";
+ORDER BY :order ASC";
 
             // Prepare->objeto clase pdostatement
             $pdostmt = $this->pdo->prepare($sql);
+
+            // Vinculamos variable
+            $pdostmt->bindParam(':order',$criterio,PDO::PARAM_INT);
 
             // Establecemos el tipo de fetch
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);

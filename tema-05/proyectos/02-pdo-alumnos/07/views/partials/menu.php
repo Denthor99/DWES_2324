@@ -20,13 +20,13 @@
                     </a>
                     <!-- Deberemos enviar el criterior de ordenacion de forma dinamica -->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=email">Email</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=telefono">Telefono</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=edad">Edad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=curso">Curso</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=poblacion">Poblacion</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=dni">DNI</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=2">Nombre</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=3">Email</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=4">Telefono</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=5">Poblacion</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=6">DNI</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=7">Edad</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=8">Curso</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

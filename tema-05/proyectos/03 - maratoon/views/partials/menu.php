@@ -20,12 +20,12 @@
                     </a>
                     <!-- Deberemos enviar el criterior de ordenacion de forma dinamica -->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=ciudad">Ciudad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=email">Email</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=edad">Edad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=categoria">Categoría</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=club">Club</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=2">Nombre</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=3">Ciudad</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=4">Email</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=5">Edad</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=6">Categoría</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=7">Club</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

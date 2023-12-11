@@ -378,7 +378,7 @@ class Corredores extends Conexion
      * Método order($criterio)
      * Ordenar la vista principal según criterio
      */
-    public function order($criterio)
+    public function order(int $criterio)
     {
         try {
             $sql = "SELECT 
@@ -397,10 +397,13 @@ class Corredores extends Conexion
                 maratoon.categorias ON categorias.id = corredores.id_categoria
                     INNER JOIN
                 maratoon.clubs ON clubs.id = corredores.id_club
-            ORDER BY $criterio";
+            ORDER BY :order ASC";
 
             // Preparo la consulta
             $pdostmt = $this->pdo->prepare($sql);
+
+            // Vinculamos la variable
+            $pdostmt->bindParam(':order',$criterio,PDO::PARAM_INT);
 
             // Elegimos el tipo de fetch
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
