@@ -6,6 +6,7 @@
     <title>Alumnos</title>
 </head>
 <body>
-    
+    <h1>HOLA</h1>
+    <h3>Vista Nuevo Alumno</h3>
 </body>
 </html>
