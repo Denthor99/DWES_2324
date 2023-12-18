@@ -1,34 +1,25 @@
-
 <!doctype html>
 <html lang="es"> 
 
 <?php require_once("template/partials/head.php") ?>
 
-<body>
-    <?php require_once("template/partials/menu.php") ?>
-    
+<body>   
     <!-- Page Content -->
     <div class="container">
 	<br><br><br><br>
 
-		<?php require_once("template/partials/notify.php") ?>
-		
-
 		<!-- Estilo card de bootstrap -->
 		<div class="card">
 			<div class="card-header">
-				MVC
+				<h3>ERROR 404</h3>
 			</div>
 			<div class="card-body">
 				
-                <?php require_once("template/partials/header.php") ?>
+                <p class="lead"><?php echo $this->mensaje ?></p>
 
 			</div>
 		</div>
-
-
     </div>
-
     <!-- /.container -->
     
     <?php require_once("template/partials/footer.php") ?>
