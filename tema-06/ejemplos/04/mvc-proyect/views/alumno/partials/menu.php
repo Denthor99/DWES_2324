@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="<?=URL?>">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="nuevo.php">Nuevo</a>
+                    <a class="nav-link" href="<?=URL?>alumno/new">Nuevo</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

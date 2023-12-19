@@ -3,7 +3,6 @@
 
 <head>
 <?php require_once("template/partials/head.php") ?>
-<title><?=$this->title?></title>
 </head>
 
 <body>
@@ -11,12 +10,12 @@
     <div class="container">
         <!-- Cabecera -->
         <?php require_once("views/alumno/partials/header.php") ?>
-        <legend>Formulario Añadir Alumno</legend>
+        <legend><?=$this->title?></legend>
 
         <!-- El menú no es necesario-->
 
         <!-- Formulario Nuevo Alumno -->
-        <form action="create" method="POST">
+        <form action="<?=URL?>alumno/create" method="POST">
             <!-- id (no se deberá ni mostrar, ni estar oculto-->
             
             <!-- Nombre -->
@@ -85,7 +84,7 @@
 
 
             <div class="mb-3">
-                <a class="btn btn-secondary" href="./alumno" role="button">Cancelar</a>
+                <a class="btn btn-secondary" href="" role="button">Cancelar</a>
                 <button type="reset" class="btn btn-danger">Borrar</button>
                 <button type="submit" class="btn btn-primary">Añadir</button>
             </div>

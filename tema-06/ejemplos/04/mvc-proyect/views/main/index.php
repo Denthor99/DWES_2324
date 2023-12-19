@@ -11,7 +11,7 @@
     <div class="container">
 	<br><br><br><br>
 
-		<?php require_once("template/partials/mensaje.php") ?>
+		<?php require_once("template/partials/notify.php") ?>
 		
 
 		<!-- Estilo card de bootstrap -->

@@ -10,6 +10,9 @@
         }
         // Render se ejecuta por defecto, es decir, se ejecuta cuando en la URL no hay un segundo parametro
         function render() {
+            //
+            $this->view->title = "Home - Panel de control Alumnos";
+
             // Creo la propiedad alumnos dentro de la vista del modelo asignado al controlador, y ejecuto el modelo get(); 
             $this->view->alumnos = $this->model->get();
             
@@ -31,6 +34,16 @@
             // Cargamos la vista con el formulario
             $this->view->render('alumno/new/index');
         }
+
+        /**
+         * Método create
+         * Introducimos un nuevo alumno a la base de datos
+         */
+        function create($param = []){
+            // Cargamos los datos del formulario
+            
+        }
+
         /**
          * Método show
          * Muestra los detalles de un registro

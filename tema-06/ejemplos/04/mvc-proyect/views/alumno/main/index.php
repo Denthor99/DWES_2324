@@ -16,7 +16,7 @@
 		<!-- Estilo card de bootstrap -->
 		<div class="card">
 			<div class="card-header">
-				Tabla de Alumnos
+				<?=$this->title?>
 			</div>
 			<div class="card-header">
 				<!-- Menú -->
