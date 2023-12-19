@@ -64,6 +64,64 @@
         }
 
         /**
+         * Método edit
+         * Editar un registro de la base de datos
+         */
+        public function edit($param = []){
+            // Obtengo el id del alumno que voy a editar
+            // Ejemplo url: alumno/edit/4, siendo "alumno" el controlador, "edit" el método empleado y "4" el parametro
+            $id = $param[0];
+
+            // Asigno id a una propiedad de la vista
+            $this->view->id = $id;
+
+            // Título de la página
+            $this->view->title = "Editar - Panel de control Alumnos";
+
+            // Obtengo un objeto de la clase alumno
+            $this->view->alumno = $this->model->read($id);
+
+            // Obtenemos los cursos para la lista dinamica
+            $this->view->cursos = $this->model->getCursos();
+
+            // Cargamos la vista con el formulario
+            $this->view->render('alumno/edit/index');
+        }
+
+        /**
+         * Método update
+         * Actualizar un registro de la base de datos
+         */
+        public function update($param=[]){
+            // Id del alumno
+            $id = $param[0];
+
+            // Asignamos el id a una propiedad de la vista
+            $this->view->id = $id;
+
+            // Cargamos los datos del formulario
+            $alumno = new classAlumno(null,
+            $_POST['nombre'],
+            $_POST['apellidos'],
+            $_POST['mail'],
+            $_POST['telefono'],
+            $_POST['direccion'],
+            $_POST['poblacion'],
+            $_POST['provincia'],
+            $_POST['nacionalidad'],
+            $_POST['dni'],
+            $_POST['fechaNac'],
+            $_POST['id_curso'],
+        );
+
+            // Actualizamos el registro de la base de datos
+            $this->model->update($id,$alumno);
+
+           // Redireccionamos
+           header('Location:'.URL.'alumno');
+        }
+
+        /**
          * Método show
          * Muestra los detalles de un registro
          */
