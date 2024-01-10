@@ -2,6 +2,8 @@
     /**
      * Iniciamos la sesión
      */
+    session_name('Actividad7_1');
+
     session_start();
 
     // Creamos variables de sesión
@@ -12,8 +14,8 @@
     }
 
     // Variable de sesión para la fecha de inicio de sesión
-    if(!isset($_SESSION['fecha_inicio_home'])){
-        $_SESSION['fecha_inicio_home'] = date("Y-m-d H:i:s");
+    if(!isset($_SESSION['fecha_inicio_sesion'])){
+        $_SESSION['fecha_inicio_sesion'] = date("Y-m-d H:i:s");
     } 
 ?>
 <!DOCTYPE html>
@@ -54,11 +56,10 @@
             Nombre Sesión: <?=session_name()?>
         </li>
         <li>
-            Fecha/Hora Inicio Sesión: <?=$_SESSION['fecha_inicio_home']?>
+            Fecha/Hora Inicio Sesión: <?=$_SESSION['fecha_inicio_sesion']?>
         </li>
         <li>
             Visitas Home: <?=$_SESSION['num_visitas_home']?>
-            <?php echo ini_get("session.gc_maxlifetime")?>
         </li>
     </ul>
 </body>

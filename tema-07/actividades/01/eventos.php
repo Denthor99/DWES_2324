@@ -7,10 +7,10 @@
     session_start();
 
     // Creamos variables de sesión
-    if(isset($_SESSION['num_visitas_sobre'])){
-        $_SESSION['num_visitas_sobre']++;
+    if(isset($_SESSION['num_visitas_eventos'])){
+        $_SESSION['num_visitas_eventos']++;
     } else{
-        $_SESSION['num_visitas_sobre']=1;
+        $_SESSION['num_visitas_eventos']=1;
     }
 
     // Variable de sesión para la fecha de inicio de sesión
@@ -47,7 +47,7 @@
     <h3>Detalles de la página</h3>
     <ul>
         <li>
-            Página: Sobre Nosotros
+            Página: Eventos
         </li>
         <li>
             SID: <?=session_id()?> 
@@ -59,7 +59,7 @@
             Fecha/Hora Inicio Sesión: <?=$_SESSION['fecha_inicio_sesion']?>
         </li>
         <li>
-            Visitas Home: <?=$_SESSION['num_visitas_sobre']?>
+            Visitas Home: <?=$_SESSION['num_visitas_eventos']?>
         </li>
     </ul>
 </body>
