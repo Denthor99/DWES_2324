@@ -144,6 +144,11 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <?php if (isset($this->errores['id_curso'])): ?>
+                        <span class="form-text text-danger" role="alert">
+                            <?= $this->errores['id_curso'] ?>
+                        </span>
+                    <?php endif; ?>
             </div>
 
             <!-- botones de acción -->

@@ -457,6 +457,31 @@
         }
      }
 
+     /**
+      * Método delete
+      */
+      public function delete(int $id)
+    {
+        try {
+            $sql = " DELETE FROM fp.alumnos WHERE alumnos.id = :id LIMIT 1";
+
+        # Conectar con la base de datos
+        $conexion = $this->db->connect();
+        $pdostmt = $conexion->prepare($sql);
+        
+        // Vinculamos el parametro a eliminar
+        $pdostmt->bindParam(":id",$id, PDO::PARAM_INT);
+
+        // Ejecutamos la sentencia preparada
+        $pdostmt->execute();
+
+    } catch (PDOException $e) {
+        include('views/partials/errorDB.php');
+        exit();
+    }
+        
+    }
+
     }  
 
 ?>
