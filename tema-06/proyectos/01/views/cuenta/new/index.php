@@ -51,7 +51,7 @@
             <!-- Saldo -->
             <div class="mb-3">
                 <label class="form-label">Saldo</label>
-                <input type="number" class="form-control" name="saldo" value="0.00" step="0.01" required>
+                <input type="number" class="form-control" name="saldo" placeholder="0.00" step="0.01" required>
             </div>
 
             <div class="mb-3">

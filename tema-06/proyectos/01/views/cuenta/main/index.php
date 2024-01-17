@@ -70,14 +70,14 @@
 									<?= $cuenta->fechUltiMov ?>
 								</td>
 								<td class="text-end">
-									<?= $cuenta->numMovs ?>
+									<?= number_format($cuenta->numMovs, 0,',','.') ?>
 								</td>
                                 <td class="text-end">
 									<?= number_format($cuenta->saldo,'2',',') ?> €
 								</td>
 								<td>
 									<!-- Botón eliminar -->
-									<a href="<?=URL?>cuenta/delete/<?= $cuenta->id ?>" title="Eliminar">
+									<a href="<?=URL?>cuenta/delete/<?= $cuenta->id ?>" title="Eliminar" onclick="return confirm('¿Desea eliminar la cuenta?')">
 										<i class="bi bi-trash-fill"></i>
 									</a>
 

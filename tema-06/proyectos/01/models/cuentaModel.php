@@ -57,7 +57,7 @@
                 // Creamos la consulta
                 $sql = "SELECT id, 
                 concat_ws(' ', nombre, apellidos) AS nombre 
-                FROM gesbank.clientes";
+                FROM gesbank.clientes ORDER BY nombre";
 
                 // Creamos la conexión a la base de datos
                 $conexion = $this->db->connect();
