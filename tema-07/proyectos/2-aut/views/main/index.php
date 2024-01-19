@@ -1,8 +1,11 @@
 
 <!doctype html>
 <html lang="es"> 
-
+<head>
 <?php require_once("template/partials/head.php") ?>
+<title>Gestión Alumno FP - MVC</title>
+</head>
+
 
 <body>
     <?php require_once("template/partials/menuBar.php") ?>

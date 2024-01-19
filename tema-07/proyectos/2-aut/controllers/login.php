@@ -62,8 +62,8 @@
             session_start();
 
             # Saneamos el formulario
-            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-	        $password = filter_var($_POST['password'],FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_var($_POST['email']??='',FILTER_SANITIZE_EMAIL);
+	        $password = filter_var($_POST['password']??='',FILTER_SANITIZE_SPECIAL_CHARS);
 
             # Validaciones
 
@@ -106,7 +106,7 @@
 
                 $_SESSION['mensaje'] = "Usuario ". $user->name. " ha iniciado sesión" ;
                 
-                header("location:". URL. "alumnos");
+                header("location:". URL. "alumno");
             }
 
 

@@ -17,5 +17,6 @@ Descargamos el controlador register.php y lo añadimos a la carpeta de los contr
 si echamos un vistazo encontramos dos métodos:
 	- Render: muestra el formulario de registro
 	- validate: validamos los datos y añadimos a un nuevo usuario (perfil: registrado)
+Si el registro ha sido exitoso, cargará el index.php del controldor Login, con los datos añadidos en sus respectivos campos
 
 
