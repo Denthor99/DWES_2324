@@ -9,21 +9,30 @@ class Clientes extends Controller
         # Iniciamos o continuamos sesión
         session_start();
 
-        # Si existe un mensaje lo mostramos
-        if (isset($_SESSION['mensaje'])) {
-            $this->view->mensaje = $_SESSION['mensaje'];
-            unset($_SESSION['mensaje']);
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
+            # Si existe un mensaje lo mostramos
+            if (isset($_SESSION['mensaje'])) {
+                $this->view->mensaje = $_SESSION['mensaje'];
+                unset($_SESSION['mensaje']);
+            }
+
+            # Creamos la propiedad title de la vista
+            $this->view->title = "Tabla Clientes";
+
+            # Añadimos a la propiedad de la vista "clientes" el resultado del método get(),
+            // disponible en el modelo
+            $this->view->clientes = $this->model->get();
+
+            # Cargamos la vista principal
+            $this->view->render("clientes/main/index");
         }
-
-        # Creamos la propiedad title de la vista
-        $this->view->title = "Tabla Clientes";
-
-        # Añadimos a la propiedad de la vista "clientes" el resultado del método get(),
-        // disponible en el modelo
-        $this->view->clientes = $this->model->get();
-
-        # Cargamos la vista principal
-        $this->view->render("clientes/main/index");
     }
 
     # Método nuevo. Muestra formulario añadir cliente
@@ -32,34 +41,43 @@ class Clientes extends Controller
         # Iniciamos o continuamos la sesión
         session_start();
 
-        # Creamos un objeto vacio
-        $this->view->cliente = new classCliente();
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
 
-        # Comprobamos si existen errores
-        if (isset($_SESSION['error'])) {
-            // Añadimos a la vista el mensaje de error
-            $this->view->error = $_SESSION['error'];
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
+            # Creamos un objeto vacio
+            $this->view->cliente = new classCliente();
 
-            // Autorellenamos el formulario
-            $this->view->cliente = unserialize($_SESSION['cliente']);
+            # Comprobamos si existen errores
+            if (isset($_SESSION['error'])) {
+                // Añadimos a la vista el mensaje de error
+                $this->view->error = $_SESSION['error'];
 
-            // Recuperamos el array con los errores
-            $this->view->errores = $_SESSION['errores'];
+                // Autorellenamos el formulario
+                $this->view->cliente = unserialize($_SESSION['cliente']);
 
-            // Una vez usadas las variables de sesión, deberemos eliminarlas, puesto que ya 
-            // no las necesitamos y pueden causar problemas si se quedan sin borrar
-            unset($_SESSION['error']);
-            unset($_SESSION['cliente']);
-            unset($_SESSION['errores']);
+                // Recuperamos el array con los errores
+                $this->view->errores = $_SESSION['errores'];
+
+                // Una vez usadas las variables de sesión, deberemos eliminarlas, puesto que ya 
+                // no las necesitamos y pueden causar problemas si se quedan sin borrar
+                unset($_SESSION['error']);
+                unset($_SESSION['cliente']);
+                unset($_SESSION['errores']);
 
 
+            }
+
+            # Añadimos a la vista la propiedad title
+            $this->view->title = "Formulario cliente nuevo";
+
+            # Cargamos la vista del formulario para añadir un nuevo cliente
+            $this->view->render("clientes/nuevo/index");
         }
-
-        # Añadimos a la vista la propiedad title
-        $this->view->title = "Formulario cliente nuevo";
-
-        # Cargamos la vista del formulario para añadir un nuevo cliente
-        $this->view->render("clientes/nuevo/index");
     }
 
     # Método create. 
@@ -73,6 +91,14 @@ class Clientes extends Controller
         # 1. Inicio/continuación de sesión
         session_start();
 
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         # 2. Saneamiento de los datos del formulario
         $nombre = filter_var($_POST["nombre"] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
         $apellidos = filter_var($_POST["apellidos"] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -175,16 +201,28 @@ class Clientes extends Controller
             // Redirigimos a la vista principal de clientes
             header("Location:" . URL . "clientes");
         }
-
+    }
     }
 
     # Método delete. 
     # Permite la eliminación de un cliente
     public function delete($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $id = $param[0];
         $this->model->delete($id);
         header("Location:" . URL . "clientes");
+        }
     }
 
     # Método editar. 
@@ -194,6 +232,14 @@ class Clientes extends Controller
         # Iniciamos o continuamos sesión
         session_start();
 
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         # Obtenemos el id del cliente a editar
         $id = $param[0];
         $this->view->id = $id;
@@ -225,6 +271,7 @@ class Clientes extends Controller
         # Cargamos la vista edit del cliente
         $this->view->render("clientes/editar/index");
     }
+    }
 
     # Método update.
     # Actualiza los detalles de un cliente a partir de los datos del formulario de edición
@@ -233,6 +280,15 @@ class Clientes extends Controller
 
         # 1. Inicio/continuación de sesión
         session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
 
         # 2. Saneamiento de los datos del formulario
         $nombre = filter_var($_POST["nombre"] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -306,13 +362,13 @@ class Clientes extends Controller
         }
 
         // Validación dni
-        if (strcmp($dni,$clienteOriginal->dni) !== 0) {
+        if (strcmp($dni, $clienteOriginal->dni) !== 0) {
             $dniRegexp = [
                 'options' => [
                     'regexp' => '/^[0-9]{8}[A-Z]$/'
                 ]
             ];
-    
+
             if (empty($dni)) {
                 $errores['dni'] = "Campo obligatorio";
             } else if (!filter_var($dni, FILTER_VALIDATE_REGEXP, $dniRegexp)) {
@@ -323,7 +379,7 @@ class Clientes extends Controller
         }
 
         // Validación email
-        if(strcmp($email,$clienteOriginal->email) !==0){
+        if (strcmp($email, $clienteOriginal->email) !== 0) {
             if (empty($email)) {
                 $errores['email'] = "Campo obligatorio";
             } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -334,14 +390,14 @@ class Clientes extends Controller
         }
 
         # 5. Comprobar validación
-        if (!empty($errores)){
+        if (!empty($errores)) {
             // Errores de validación
             $_SESSION['cliente'] = serialize($cliente);
             $_SESSION['error'] = 'Formulario no validado';
             $_SESSION['errores'] = $errores;
 
             // Redireccionamos
-            header('location:'.URL.'clientes/editar/'.$id);
+            header('location:' . URL . 'clientes/editar/' . $id);
         } else {
             // Actualizamos el registro
             $this->model->update($cliente, $id);
@@ -353,27 +409,51 @@ class Clientes extends Controller
             header("Location:" . URL . "clientes");
         }
     }
+    }
 
 
     # Método mostrar
     # Muestra en un formulario de solo lectura los detalles de un cliente
     public function mostrar($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $id = $param[0];
         $this->view->title = "Formulario Cliente Mostar";
         $this->view->cliente = $this->model->getCliente($id);
         $this->view->render("clientes/mostrar/index");
+        }
     }
 
     # Método ordenar
     # Permite ordenar la tabla de clientes por cualquiera de las columnas de la tabla
     public function ordenar($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $criterio = $param[0];
         $this->view->title = "Tabla Clientes";
         $this->view->clientes = $this->model->order($criterio);
         $this->view->render("clientes/main/index");
-
+        }
     }
 
     # Método buscar
@@ -381,9 +461,21 @@ class Clientes extends Controller
     # de búsqueda
     public function buscar($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $expresion = $_GET["expresion"];
         $this->view->title = "Tabla Clientes";
         $this->view->clientes = $this->model->filter($expresion);
         $this->view->render("clientes/main/index");
+        }
     }
 }

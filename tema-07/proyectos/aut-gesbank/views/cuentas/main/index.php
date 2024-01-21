@@ -11,7 +11,7 @@
     <!-- capa principal -->
     <div class="container" style="padding-top: 2%;">
         <!-- menu fijo superior -->
-        <?php require_once "template/partials/menu.php"; ?>
+        <?php require_once "template/partials/menuAut.php"; ?>
         <!-- cabecera o titulo -->
         <?php include "views/cuentas/partials/header.php" ?>
          <!-- Mensajes -->

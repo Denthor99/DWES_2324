@@ -8,8 +8,17 @@ class Cuentas extends Controller
     # Muestra los detalles de la tabla Cuentas
     function render($param = [])
     {
-        # Iniciamos o continuamos la sesión
+        # Iniciamos o continuamos sesión
         session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
 
         # Si existe un mensaje, lo mostramos
         if(isset($_SESSION['mensaje'])){
@@ -22,13 +31,23 @@ class Cuentas extends Controller
         $this->view->cuentas = $this->model->get();
         $this->view->render("cuentas/main/index");
     }
+    }
 
     # Método nuevo
     # Permite mostrar un formulario que permita añadir una nueva cuenta
     function nuevo($param = [])
     { 
-        # Iniciamos o continuamos la sesión
+        # Iniciamos o continuamos sesión
         session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
 
         # Creamos un objeto vacío
         $this->view->cuenta = new classCuenta();
@@ -59,13 +78,23 @@ class Cuentas extends Controller
         // Cargamos la vista del formulario para añadir una nueva cuenta
         $this->view->render("cuentas/nuevo/index");
     }
+    }
 
     # Método create
     # Envía los detalles para crear una nueva cuenta
     function create($param = [])
     {
-        # Iniciamos o continuamos la sesión
-        session_start();
+       # Iniciamos o continuamos sesión
+       session_start();
+
+       # Comprobamos si el usuario está autentificado
+       if (!isset($_SESSION['id'])) {
+           // Añadimo el siguiente aviso al usuario: 
+           $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+           // Redireccionamos al login
+           header('location:' . URL . 'login');
+       } else {
 
         # 1. Saneamiento de los datos del formulario
         $num_cuenta = filter_var($_POST['num_cuenta']??='',FILTER_SANITIZE_SPECIAL_CHARS);
@@ -139,16 +168,28 @@ class Cuentas extends Controller
             // Redireccionamos a la vista principal de cuentas
             header("Location:" . URL . "cuentas");
         }
-        
+    }
     }
 
     # Método delete
     # Permite eliminar una cuenta de la tabla
     function delete($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $id=$param[0];
         $this->model->delete($id);
         header("Location:" . URL . "cuentas");
+        }
     }
 
     # Método editar
@@ -156,9 +197,17 @@ class Cuentas extends Controller
     # Sólo se podrá modificar el titular o cliente de la cuenta
     function editar($param = [])
     {
-        # Iniciamos o continuamos la sesión
+        # Iniciamos o continuamos sesión
         session_start();
 
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         # Obtengo el id de la cuenta a editar
         $id = $param[0];
 
@@ -193,13 +242,23 @@ class Cuentas extends Controller
         // Cargamos la vista de editar la cuenta
         $this->view->render("cuentas/editar/index");
     }
+    }
 
     # Método update
     # Envía los detalles modificados de una cuenta para su actualización en la tabla
     function update($param = [])
     {
-        # Iniciamos o continuamos la sesión
+        # Iniciamos o continuamos sesión
         session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
 
         # 1. Saneamos los datos del formulario
         $num_cuenta = filter_var($_POST['num_cuenta']??='',FILTER_SANITIZE_SPECIAL_CHARS);
@@ -295,7 +354,7 @@ class Cuentas extends Controller
             // Redireccionamos a la vista principal de cuentas
             header("Location:" . URL . "cuentas");
         }
-        
+    }
     }
 
     
@@ -303,6 +362,17 @@ class Cuentas extends Controller
     # Muestra los detalles de una cuenta en un formulario no editable
     function mostrar($param = [])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         # id de la cuenta
         $id = $param[0];
 
@@ -319,26 +389,50 @@ class Cuentas extends Controller
         // $this->view->cuenta->fecha_alta=$fechafort;
 
         $this->view->render("cuentas/mostrar/index");
+        }
     }
 
     # Método ordenar
     # Permite ordenar la tabla cuenta a partir de alguna de las columnas de la tabla
     function ordenar($param=[])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $criterio=$param[0];
         $this->view->title = "Tabla Cuentas";
         $this->view->cuentas=$this->model->order($criterio);
         $this->view->render("cuentas/main/index");
-
+        }
     }
 
     # Método buscar
     # Permite realizar una búsqueda en la tabla cuentas a partir de una expresión
     function buscar($param=[])
     {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else {
         $expresion=$_GET["expresion"];
         $this->view->title = "Tabla Cuentas";
         $this->view->cuentas= $this->model->filter($expresion);
         $this->view->render("cuentas/main/index");
+        }
     }
 }

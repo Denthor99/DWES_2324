@@ -10,7 +10,7 @@
 
 <body>
     <!-- menu fijo superior -->
-    <?php require_once "template/partials/menu.php"; ?>
+    <?php require_once "template/partials/menuAut.php"; ?>
     <!-- capa principal -->
     <div class="container">
         <!-- cabecera -->

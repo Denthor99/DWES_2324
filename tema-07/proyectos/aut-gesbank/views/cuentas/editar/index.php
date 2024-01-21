@@ -9,7 +9,7 @@
 
 <body>
     <!-- menu principal fijo superior -->
-    <?php require_once "template/partials/menu.php"; ?>
+    <?php require_once "template/partials/menuAut.php"; ?>
     <!-- capa principal -->
     <div class="container">
         <!-- cabecera o título -->

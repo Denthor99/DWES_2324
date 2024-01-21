@@ -1,11 +1,14 @@
 
 <!doctype html>
 <html lang="es"> 
-
+<head>
 <?php require_once("template/partials/head.php") ?>
+<title>Gestión Gesbank - MVC</title>
+</head>
+
 
 <body>
-    <?php require_once("template/partials/menu.php") ?>
+    <?php require_once("template/partials/menuBar.php") ?>
     
     <!-- Page Content -->
     <div class="container">

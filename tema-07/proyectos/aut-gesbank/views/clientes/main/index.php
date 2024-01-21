@@ -10,7 +10,7 @@
 <body>
     <div class="container" style="padding-top: 2%;">
         <!-- menu fijo superior -->
-        <?php require_once "template/partials/menu.php"; ?>
+        <?php require_once "template/partials/menuAut.php"; ?>
         <!-- cabecera  -->
         <?php include "views/clientes/partials/header.php" ?>
 
