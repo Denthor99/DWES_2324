@@ -1,0 +1,22 @@
+Guion realización LOGIN PHP
+
+En la base de datos del proyecto añadimos las distintas tablas (script: user_gestion.sql)
+La contraseña debe estar encriptada en la base de datos, para evitar la visibilidad
+Deben existir dos roles minimo (registrado y administrador). Se puede añadir también el rol de editor
+
+Cambiamos el menú (menuBar.php)
+El login y el register están separados por motivos de seguridad
+Descargamos el controlador login y lo añadimos a la carpeta de controladores
+Echando un vistazo al controlador login podemos observar los distintos controles de errores
+Descargamos el index.php con el login y creamos en views una carpeta llamada "login"
+Abrimosl el index.php del login y modificamos la vista a nuestro gusto
+En el index.php del login encontramos que los input que usan la clase="form-control" incrustamos código php para añadir bordes rojos en caso de error
+Todos los enlaces tendrán por defecto un enlace a la junta de andalucía, que deberemos borrar para poder continuar
+Al no tener un usuario creado, deberemos de seguir con el apartado de register
+Descargamos el controlador register.php y lo añadimos a la carpeta de los controladores
+si echamos un vistazo encontramos dos métodos:
+	- Render: muestra el formulario de registro
+	- validate: validamos los datos y añadimos a un nuevo usuario (perfil: registrado)
+Si el registro ha sido exitoso, cargará el index.php del controldor Login, con los datos añadidos en sus respectivos campos
+
+
