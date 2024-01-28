@@ -4,12 +4,14 @@
     <?php require_once("template/partials/head.php") ?>
     <title><?= $this->title ?></title>
 </head>
+
 <body>
+    <!-- menu aut -->
     <?php require_once("template/partials/menuAut.php") ?>
     
     <!-- Page Content -->
     <div class="container">
-	<br>
+	<br><br><br>
 
     <div class="row justify-content-center">
             
@@ -17,12 +19,12 @@
             <?php require_once("template/partials/notify.php") ?>
             <?php require_once("template/partials/error.php") ?>
                 <div class="card">
-                    <div class="card-header">Perfil <?= $_SESSION['name_user'] ?></div>
+                    <div class="card-header">Editar Perfil <?= $_SESSION['name_user']?></div>
                     <div class="card-body">
                         <form method="POST" action="<?=URL?>perfil/valperfil">
                             
                             <!-- campo name -->
-                            <br>
+                            
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">Nombre Usuario</label>
                                 <div class="col-sm-7">

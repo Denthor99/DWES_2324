@@ -52,7 +52,7 @@
     }
 
     # Valida nombre de usuario ha de ser único
-    public function validarName($name) {
+    public function validateName($name) {
 
         try {
             $sql = "
@@ -81,7 +81,7 @@
     }
 
    # Valida nombre de usuario ha de ser único
-   public function validarEmail($email) {
+   public function validateEmail($email) {
 
     try {
         $sql = "

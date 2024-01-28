@@ -16,7 +16,7 @@
             <?php require_once("template/partials/mensaje.php") ?>
             <?php require_once("template/partials/error.php") ?>
                 <div class="card">
-                    <div class="card-header">Eliminar Perfil Usuario</div>
+                    <div class="card-header">Eliminar Perfil <?= $_SESSION['name_user']?></div>
                     <div class="card-body">
                         <form method="POST" action="<?=URL?>perfil/delete ?>">
                             
