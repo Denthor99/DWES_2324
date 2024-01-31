@@ -1,3 +1,37 @@
+<?php
+    # Iniciamos o continuamos sesión
+    session_start();
+
+    # Iniciamos los campos del formulario
+    $nombre = null;
+    $observaciones = null;
+    $fichero = null;
+
+    # Compruebo si existe algún error
+    if(isset($_SESSION['error'])){
+        $error = $_SESSION['error'];
+        $errores = $_SESSION['errores'];
+
+        // Autocompletamos el formulario
+        $nombre = $_SESSION['nombre'];
+        $observaciones = $_SESSION['observaciones'];
+        $fichero = $_SESSION['fichero'];
+
+        // Eliminamos las variables de sesión
+        unset($_SESSION['error']);
+        unset($_SESSION['errores']);
+        unset($_SESSION['nombre']);
+        unset($_SESSION['observaciones']);
+        unset($_SESSION['fichero']);
+
+    }
+
+    # Compruebo si existe algún mensaje
+    if(isset($_SESSION['mensaje'])){
+        $mensaje = $_SESSION['mensaje'];
+        unset($_SESSION['mensaje']);
+    }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -14,29 +48,59 @@
         <br>
         <h1>Formulario Subida de Archivos</h1>
         <br>
-        <form method="POST" action="validar.php" enctype="multipart/form-data">
+        <!-- Mensaje -->
+        <?php if (isset($mensaje)): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Mensaje</strong>
+                <?= $mensaje; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Error -->
+        <?php if (isset($error)):?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>ERROR </strong> <?= $error; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>   
+        </div>
+        <?php endif;?>
+        <form method="POST" enctype="multipart/form-data">
             <!-- Campo oculto validar tamaño (2 MB)-->
             <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
             
             <!-- Nombre -->
             <div class="mb-3">
                 <label for="" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control">
+                <input type="text" name="nombre" class="form-control" value="<?=$nombre?>">
+                <!-- errores -->
+                <span class="form-text text-danger" role="alert">
+                    <?=$errores['nombre'] ??= null ?>
+                </span>
             </div>
             <!-- Observaciones -->
             <div class="mb-3">
                 <label for="" class="form-label">Observaciones</label>
                 <textarea name="observaciones" id="" cols="30" rows="4" class="form-control"
-                    placeholder="Introduce las observaciones sobre el archivo"></textarea>
+                    placeholder="Introduce las observaciones sobre el archivo" <?=$observaciones?>></textarea>
+                <!-- errores -->
+                <span class="form-text text-danger" role="alert">
+                    <?=$errores['observaciones'] ??= null ?>
+                </span>
             </div>
             <!-- Fichero con validación cliente mediante parametro accept -->
             <div class="mb-3">
                 <label for="formFile" class="form-labl">Seleccione archivo</label>
-                <input type="file" class="form-control" name="fichero" id="formFile" accept="image/*">
+                <input type="file" class="form-control" name="fichero" id="formFile" value="<?=$fichero?>" accept="image/*">
+                <!-- errores -->
+                <span class="form-text text-danger" role="alert">
+                    <?=$errores['fichero'] ??= null ?>
+                </span>
             </div>
             <!-- Botones de acción -->
             <div class="mb-3">
-                <button class="btn btn-primary" type="submit">Enviar</button>
+                <button class="btn btn-primary" type="submit" formaction="validar.php">Enviar</button>
             </div>
         </form>
     </div>

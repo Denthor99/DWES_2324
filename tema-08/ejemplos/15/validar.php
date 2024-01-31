@@ -27,6 +27,12 @@
     # Validación
     $errores = [];
     if(($fichero['error']) !== UPLOAD_ERR_OK){
+        # Comprobar que error se ha producido
+        if (is_null($fichero)){
+            $errores['fichero'] = $fileUploadErrors[1];
+        } else {
+            $errores['fichero'] = $fileUploadErrors[$fichero['error']];
+        }
 
     } else if(is_uploaded_file($fichero['tmp_name'])) {
         # Validar maximo tamaño
@@ -43,11 +49,18 @@
         if(!in_array(strtoupper($info->getExtension()),$tiposPerrmitidos)){
             $errores['fichero'] = "Tipo de archivo no permitido. Máximo 2MB";
         }
+    }
 
         # Comprobación de existencia de errores
         if(!empty($errores)){
+            # Creamos la variable de sesión
+            $_SESSION['error'] = 'Formulario no validado';
+            $_SESSION['errores'] = $errores;
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['observaciones'] = $observaciones;
+            $_SESSION['fichero'] = $fichero;
             # Formulario no validado
-            header('location: index.php');
+            //header('location: index.php');
         } else {
             # Mover fichero desde la carpeta temporal a carpeta del servidor
             move_uploaded_file($fichero['tmp_name'],'files/'.$fichero['name']);
@@ -56,9 +69,8 @@
             $_SESSION['mensaje'] = "Archivo subido correctamente";
 
             # Regresamos al formulario principal
-            header('location: index.php');
-
+            //header('location: index.php');
         }
-
-    }
+        header('location: index.php');
+    
 ?>
