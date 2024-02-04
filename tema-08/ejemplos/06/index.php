@@ -14,7 +14,7 @@ if (is_file($fichero)) {
     echo "<br>";
     echo "Tamaño del fichero : " . filesize($fichero) . " Bytes";
     echo "<br>";
-    echo "Fecha del fichero : " . filemtime($fichero);
+    echo "Fecha del fichero : " . date("F d Y H:i:s.", filemtime($fichero));
     echo "<br>";
     echo "Tipo del fichero : " . filetype($fichero);
 }

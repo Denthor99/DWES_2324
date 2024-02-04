@@ -15,7 +15,7 @@ $fichero = "ejemplo.txt";
 $fp = fopen($fichero, "ab");
 
 //Escribir en el archivo
-fwrite($fp, "\nQue pasa pisha?");
+fwrite($fp, "\nQue pasa porra?");
 
 //Cierre de archivo
 fclose($fp);

@@ -15,7 +15,7 @@
     $fp = fopen($fichero, "wb");
 
     //Escribir en el archivo
-    fwrite($fp, "Hola Mundo");
+    fwrite($fp, "Cien complejos");
 
     //Cierre de archivo
     fclose($fp);
