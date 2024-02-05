@@ -498,4 +498,36 @@ class Cuentas extends Controller
         $this->view->render("cuentas/main/index");
         }
     }
+    /**
+     * Método exportar
+     * Exportar los datos del cliente a un fichero csv 
+     *
+     */
+    public function exportar($param = [])
+    {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else if(!in_array($_SESSION['id_rol'],$GLOBALS['cuentas']['export'])){
+            // Añadimos un mensaje, que indicará que el usuario actual no tiene permmisos para
+            // usar esta funcionalidad
+            $_SESSION['mensaje'] = "No tienes privilegios para realizar dicha operación";
+
+            // Redireccionamos a la vista principal de clientes puesto que actualmente no tiene permisos
+            header('location:'.URL.'cuentas');
+        } else {
+        // Invocamos al método encargado de la exportación
+        $this->model->exportarCSV();
+
+        // Redireccionamos al main de clientes
+        $this->view->render("cuentas/main/index");
+        }
+    }
 }
