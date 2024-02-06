@@ -33,7 +33,7 @@
 			<!-- Estilo card de bootstrap -->
 			<div class="card">
 				<div class="card-header">
-					Tabla de Alumnos
+					Tabla de Albumes
 				</div>
 				<div class="card-header">
 					<!-- menu alumnos -->
@@ -99,10 +99,10 @@
 											<i class="bi bi-card-text"></i>
 										</a>
 										<!-- botón  subir imagen -->
-										<a href="<?= URL ?>album/add/<?= $album->id ?> ?>" title="Mostrar" class="btn btn-warning
+										<a href="<?= URL ?>album/add/<?= $album->id ?> ?>" title="Subir imagenes" class="btn btn-success
 											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) ?
 												'disabled' : null ?>">
-											<i class="bi bi-card-text"></i>
+											<i class="bi bi-cloud-plus-fill"></i>
 										</a>
 
 									</td>

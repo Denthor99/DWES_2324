@@ -217,20 +217,15 @@ class albumModel extends Model
             # comando sql
             $sql = "
                 SELECT 
-                    alumnos.id,
-                    concat_ws(', ', alumnos.apellidos, alumnos.nombre) alumno,
-                    alumnos.email,
-                    alumnos.telefono,
-                    alumnos.poblacion,
-                    alumnos.dni,
-                    timestampdiff(YEAR,  alumnos.fechaNac, NOW() ) edad,
-                    cursos.nombreCorto curso
+                    id,
+                    titulo,
+                    descripcion,
+                    autor,
+                    fecha,
+                    categoria,
+                    etiquetas
                 FROM
-                    alumnos
-                INNER JOIN
-                    cursos
-                ON 
-                    alumnos.id_curso = cursos.id
+                    albumes
                 ORDER BY 
                     :criterio
                 ";
@@ -243,18 +238,18 @@ class albumModel extends Model
             $conexion = $this->db->connect();
 
             # ejecutamos mediante prepare
-            $pdost = $conexion->prepare($sql);
+            $pdostmt = $conexion->prepare($sql);
 
-            $pdost->bindParam(':criterio', $criterio, PDO::PARAM_INT);
+            $pdostmt->bindParam(':criterio', $criterio, PDO::PARAM_INT);
 
             # establecemos  tipo fetch
-            $pdost->setFetchMode(PDO::FETCH_OBJ);
+            $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
             #  ejecutamos 
-            $pdost->execute();
+            $pdostmt->execute();
 
             # devuelvo objeto pdostatement
-            return $pdost;
+            return $pdostmt;
 
         } catch (PDOException $e) {
 
@@ -270,38 +265,29 @@ class albumModel extends Model
             $sql = "
 
                 SELECT 
-                    alumnos.id,
-                    concat_ws(', ', alumnos.apellidos, alumnos.nombre) alumno,
-                    alumnos.email,
-                    alumnos.telefono,
-                    alumnos.poblacion,
-                    alumnos.dni,
-                    timestampdiff(YEAR,  alumnos.fechaNac, NOW() ) edad,
-                    cursos.nombreCorto curso
+                    id,
+                    titulo,
+                    descripcion,
+                    autor,
+                    fecha,
+                    categoria,
+                    etiquetas
                 FROM
-                    alumnos
-                INNER JOIN
-                    cursos
-                ON 
-                    alumnos.id_curso = cursos.id
+                    albumes
                 WHERE
 
                     CONCAT_WS(  ', ', 
-                                alumnos.id,
-                                alumnos.nombre,
-                                alumnos.apellidos,
-                                alumnos.email,
-                                alumnos.telefono,
-                                alumnos.poblacion,
-                                alumnos.dni,
-                                TIMESTAMPDIFF(YEAR, alumnos.fechaNac, now()),
-                                alumnos.fechaNac,
-                                cursos.nombreCorto,
-                                cursos.nombre) 
+                        id,
+                        titulo,
+                        descripcion,
+                        autor,
+                        fecha,
+                        categoria,
+                        etiquetas) 
                     like :expresion
 
                 ORDER BY 
-                    alumnos.id
+                    albumes.id
                 
                 ";
 
@@ -322,6 +308,35 @@ class albumModel extends Model
 
         }
 
+    }
+
+    public function  obtenerCarpetaPorId($albumId){
+        try {
+            $sql = "
+                        SELECT 
+                                carpeta
+                        FROM 
+                                albumes
+                        WHERE
+                                id = :id
+                ";
+
+            # Conectar con la base de datos
+            $conexion = $this->db->connect();
+
+
+            $pdoSt = $conexion->prepare($sql);
+
+            $pdoSt->bindParam(':id', $albumId, PDO::PARAM_INT);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+
+            return $pdoSt->fetch();
+
+        } catch (PDOException $e) {
+            include_once('template/partials/errorDB.php');
+            exit();
+        }
     }
   
     public function delete($id)

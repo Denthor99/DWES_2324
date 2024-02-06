@@ -409,23 +409,23 @@ class Album extends Controller
 
             header("location:" . URL . "login");
 
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['order']))) {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['order']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
-            header('location:' . URL . 'alumno');
+            header('location:' . URL . 'album');
         } else {
 
             # Obtengo criterio de ordenación
             $criterio = $param[0];
 
             # Creo la propiedad title de la vista
-            $this->view->title = "Ordenar - Panel Control Alumnos";
+            $this->view->title = "Ordenar - Panel Control Album";
 
-            # Creo la propiedad alumnos dentro de la vista
+            # Creo la propiedad albumes dentro de la vista
             # Del modelo asignado al controlador ejecuto el método get();
-            $this->view->alumnos = $this->model->order($criterio);
+            $this->view->albumes = $this->model->order($criterio);
 
-            # Cargo la vista principal de alumno
-            $this->view->render('alumno/main/index');
+            # Cargo la vista principal de albumes
+            $this->view->render('album/main/index');
         }
     }
 
@@ -438,23 +438,64 @@ class Album extends Controller
         if (!isset($_SESSION['id'])) {
             $_SESSION['mensaje'] = "Usuario debe autentificarse";
             header("location:" . URL . "login");
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['filter']))) {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['filter']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
-            header('location:' . URL . 'alumno');
+            header('location:' . URL . 'album');
         } else {
 
             # Obtengo expresión de búsqueda
             $expresion = $_GET['expresion'];
 
             # Creo la propiedad title de la vista
-            $this->view->title = "Buscar - Panel Control Alumnos";
+            $this->view->title = "Buscar - Panel de Albumes";
 
             # Filtro a partir de la  expresión
-            $this->view->alumnos = $this->model->filter($expresion);
+            $this->view->albumes = $this->model->filter($expresion);
 
-            # Cargo la vista principal de alumno
-            $this->view->render('alumno/main/index');
+            # Cargo la vista principal de albumes
+            $this->view->render('album/main/index');
         }
+    }
+
+    public function add($param = []){
+
+        # iniciar o continuar  sesión
+        session_start();
+
+        # compruebo usuario autentificado
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['notify'] = "Usuario debe autentificarse";
+
+            header("location:" . URL . "login");
+
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['add']))) {
+            $_SESSION['mensaje'] = "Operación sin privilegios";
+            header('location:' . URL . 'album');
+        } else {
+
+            # Comprobar si vuelvo de  un registro no validado
+            if (isset($_SESSION['error'])) {
+
+                # Mensaje de error
+                $this->view->error = $_SESSION['error'];
+
+                # Recupero array errores  específicos
+                $this->view->errores = $_SESSION['errores'];
+
+                # Elimino las variables de sesión
+                unset($_SESSION['error']);
+                unset($_SESSION['errores']);
+            }
+
+            # etiqueta title de la vista
+            $this->view->title = "Subir Archivos - Gestión Album";
+
+
+            # cargo la vista con el formulario nuevo alumno
+            $this->view->render('album/add/index');
+        }
+
+
     }
 
     public function delete($param = [])
