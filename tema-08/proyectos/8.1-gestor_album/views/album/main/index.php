@@ -20,7 +20,7 @@
 		<!-- Page Content -->
 		<div class="container">
 			<!-- cabecera  -->
-			<?php require_once("views/alumno/partials/header.php") ?>
+			<?php require_once("views/album/partials/header.php") ?>
 
 			<!-- mensajes -->
 			<?php require_once("template/partials/notify.php") ?>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="card-header">
 					<!-- menu alumnos -->
-					<?php require_once("views/alumno/partials/menu.php") ?>
+					<?php require_once("views/album/partials/menu.php") ?>
 				</div>
 				<div class="card-body">
 
@@ -48,13 +48,12 @@
 							<tr>
 								<!-- personalizado -->
 								<th>Id</th>
-								<th>Alumno</th>
-								<th class="text-end">Edad</th>
-								<th>DNI</th>
-								<th>Población</th>
-								<th>Email</th>
-								<th>Teléfono</th>
-								<th>Curso</th>
+								<th>Titulo</th>
+								<th>Descripción</th>
+								<th>Autor</th>
+								<th>Fecha</th>
+								<th>Categoría</th>
+								<th>Etiquetas</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -67,35 +66,41 @@
 									<!-- Formatos distintos para cada  columna -->
 
 									<!-- Detalles de alumnos -->
-									<td><?= $alumno->id ?></td>
-									<td><?= $alumno->alumno ?></td>
-									<td class="text-end"><?= $alumno->edad ?></td>
-									<td><?= $alumno->dni ?></td>
-									<td><?= $alumno->poblacion ?></td>
-									<td><?= $alumno->email ?></td>
-									<td><?= $alumno->telefono ?></td>
-									<td><?= $alumno->curso ?></td>
+									<td><?= $album->id ?></td>
+									<td><?= $album->titulo ?></td>
+									<td><?= $album->descripcion ?></td>
+									<td><?= $album->autor ?></td>
+									<td><?= $album->fecha ?></td>
+									<td><?= $album->categoria ?></td>
+									<td><?= $album->etiquetas ?></td>
+									
 
 									<!-- botones de acción -->
 									<td>
 										<!-- botón  eliminar -->
-										<a href="<?= URL ?>alumno/delete/<?= $alumno->id ?>" title="Eliminar"
-											onclick="return confirm('Confimar elimación del alumno')" Class="btn btn-danger
-											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['delete'])) ?
+										<a href="<?= URL ?>album/delete/<?= $album->id ?>" title="Eliminar"
+											onclick="return confirm('Confimar elimación del album')" Class="btn btn-danger
+											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete'])) ?
 												'disabled' : null ?>">
 											<i class="bi bi-trash"></i>
 										</a>
 
 										<!-- botón  editar -->
-										<a href="<?= URL ?>alumno/edit/<?= $alumno->id ?>" title="Editar" class="btn btn-primary
-											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['edit']))?
+										<a href="<?= URL ?>album/edit/<?= $album->id ?>" title="Editar" class="btn btn-primary
+											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['edit']))?
 												'disabled' : null ?>">
 											<i class="bi bi-pencil"></i>
 										</a>
 
 										<!-- botón  mostrar -->
-										<a href="<?= URL ?>alumno/show/<?= $alumno->id ?> ?>" title="Mostrar" class="btn btn-warning
-											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['show'])) ?
+										<a href="<?= URL ?>album/show/<?= $album->id ?> ?>" title="Mostrar" class="btn btn-warning
+											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) ?
+												'disabled' : null ?>">
+											<i class="bi bi-card-text"></i>
+										</a>
+										<!-- botón  subir imagen -->
+										<a href="<?= URL ?>album/add/<?= $album->id ?> ?>" title="Mostrar" class="btn btn-warning
+											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) ?
 												'disabled' : null ?>">
 											<i class="bi bi-card-text"></i>
 										</a>
@@ -112,8 +117,8 @@
 
 				</div>
 				<div class="card-footer">
-					<small class="text-muted"> Nº Alumnos:
-						<?= $this->alumnos->rowCount(); ?>
+					<small class="text-muted"> Albumes existentes:
+						<?= $this->albumes->rowCount(); ?>
 					</small>
 				</div>
 			</div>
