@@ -365,6 +365,60 @@ class albumModel extends Model
         }
     }
 
+    public function uploadFicheros($archivos, $carpeta)
+{
+    # Generar un array de errores de fichero
+    $fileUploadErrors = array(
+        0 => 'No hay errores, el archivo se cargó con éxito',
+        1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
+        2 => 'El archivo subido excede la directiva MAX_FILE_SIZE especificada en el formulario HTML',
+        3 => 'El archivo subido se cargó solo parcialmente',
+        4 => 'No se cargó ningún archivo',
+        6 => 'Falta una carpeta temporal',
+        7 => 'Error al escribir el archivo en el disco.',
+        8 => 'Una extensión de PHP detuvo la carga del archivo.',
+    );
+
+    $errores = []; // Almacenará los errores encontrados en los archivos
+
+    # Validar cada archivo subido
+    foreach ($archivos['name'] as $index => $nombreArchivo) {
+        # Comprobar si hay errores
+        if ($archivos['error'][$index] !== UPLOAD_ERR_OK) {
+            $errores[] = $fileUploadErrors[$archivos['error'][$index]];
+        } else {
+            # Validar el tamaño máximo
+            $maxSize = 5 * 1024 * 1024; // 5 MB
+            if ($archivos['size'][$index] > $maxSize) {
+                $errores[] = "El tamaño del archivo '$nombreArchivo' excede el límite de 5MB.";
+            }
+
+            # Validar el tipo de archivo
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $fileInfo = new SplFileInfo($nombreArchivo);
+            $extension = $fileInfo->getExtension();
+
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                $errores[] = "El archivo '$nombreArchivo' no es una imagen JPG, JPEG, PNG o GIF.";
+            }
+        }
+    }
+
+    # Si hay errores en algún archivo, cancelar la subida de todos los archivos
+    if (!empty($errores)) {
+        $_SESSION['error'] = implode(PHP_EOL, $errores);
+        return; // Terminar el proceso de subida de archivos
+    }
+
+    # Si no hay errores, se procede a mover los archivos a la carpeta del álbum
+    foreach ($archivos['name'] as $index => $nombreArchivo) {
+        move_uploaded_file($archivos['tmp_name'][$index], 'imagenes/'.$carpeta . '/' . $nombreArchivo);
+    }
+    
+    # Añadimos un mensaje  de confirmación
+    $_SESSION['mensaje'] = "Se han subido correctamente las imagenes";
+}
+
 
 }
 

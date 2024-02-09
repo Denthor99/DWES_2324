@@ -486,6 +486,10 @@ class Album extends Controller
                 unset($_SESSION['error']);
                 unset($_SESSION['errores']);
             }
+            $id = $param[0];
+
+            # asigno id a una propiedad de la vista
+            $this->view->id = $id;
 
             # etiqueta title de la vista
             $this->view->title = "Subir Archivos - Gestión Album";
@@ -494,8 +498,40 @@ class Album extends Controller
             # cargo la vista con el formulario nuevo alumno
             $this->view->render('album/add/index');
         }
+    }
 
+    public function upload($param = []){
+        # iniciar o continuar  sesión
+        session_start();
 
+        # compruebo usuario autentificado
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['notify'] = "Usuario debe autentificarse";
+
+            header("location:" . URL . "login");
+
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['upload']))) {
+            $_SESSION['mensaje'] = "Operación sin privilegios";
+            header('location:' . URL . 'album');
+        } else {
+
+            # Comprobar si existe mensaje
+            if (isset($_SESSION['mensaje'])) {
+                $this->view->mensaje = $_SESSION['mensaje'];
+                unset($_SESSION['mensaje']);
+            }
+
+            # Capturamos el id
+            $id = $param[0];
+
+            # Añadimos el valor del objeto album según id en una variable
+            $albumCarpeta = $this->model->read($id);
+
+            # Comprobamos la validación llamando a un método del modelo
+            $this->model->uploadFicheros($_FILES['ficheros'],$albumCarpeta->carpeta);
+            # Redireccionamos al album
+            header('location:'.URL.'album');
+        }
     }
 
     public function delete($param = [])

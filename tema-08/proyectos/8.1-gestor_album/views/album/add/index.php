@@ -21,14 +21,14 @@
 
         <legend>Formulario Subida de imagenes</legend>
         
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="<?=URL?>/album/upload/<?=$this->id?>">
             <!-- Campo oculto validar tamaño (5 MB)-->
             <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
             
             <!-- Fichero con validación cliente mediante parametro accept -->
             <div class="mb-3">
                 <label for="formFile" class="form-labl">Seleccione archivo</label>
-                <input type="file" class="form-control" name="fichero" id="formFile" value="<?=$fichero?>" accept="image/*">
+                <input type="file" class="form-control" name="ficheros[]" id="formFile" value="<?=$ficheros?>" multiple accept=".jpg, .jpeg, .png, .gif">
                 <!-- errores -->
                 <span class="form-text text-danger" role="alert">
                     <?=$errores['fichero'] ??= null ?>
@@ -36,7 +36,7 @@
             </div>
             <!-- Botones de acción -->
             <div class="mb-3">
-                <button class="btn btn-primary" type="submit" formaction="validar.php">Enviar</button>
+                <button class="btn btn-primary" type="submit">Enviar</button>
             </div>
         </form>
     </div>
