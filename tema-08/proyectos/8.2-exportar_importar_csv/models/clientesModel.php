@@ -326,7 +326,16 @@ class clientesModel extends Model
     public function exportarCSV(){
         try {
             // Creamos la consulta SQL que usaremos
-            $sql="SELECT * FROM  clientes ORDER BY id";
+            $sql="SELECT 
+                apellidos,
+                nombre,
+                telefono,
+                ciudad,
+                dni,
+                email,
+                create_at,
+                update_at
+             FROM  clientes ORDER BY id";
 
             // Realizamos la conexión de la base de datos
             $conexion = $this->db->connect();
@@ -340,22 +349,26 @@ class clientesModel extends Model
             // Obtenemos los resultados en un array asociativo
             $resultado = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Ahora crearemos  el archivo CSV y lo rellenaremos con los datos obtenidos de la BD
-            $fichero = fopen('php://output','w');
+            // Activamos el buffer de salida
+            ob_start();
 
-            // Enviamos las cabeceras al navegador para empezar a descargar el archivo
+            // Establecemos las cabeceras
             header('Content-type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename=clientes.csv');
 
-            // Escribiremos el nombre de las columnas al archivo csv
-            fputcsv($fichero,array('id','apellidos','nombre','telefono','ciudad','dni','email','create_at','update_at'),';');
+            // Abrimos el archivo csv
+            $fichero = fopen('php://output','wb');
+
 
             // Escribimos los datos del fichero csv
             foreach($resultado as $columna){
-                fputcsv($fichero,$columna);
+                fputcsv($fichero,$columna,';');
             }
             // Cerramos el fichero
             fclose($fichero);
+
+            // Cerramos el buffer de salida y enviamos al cliente el archivo csv
+            ob_end_flush();
             exit;
         } catch (PDOException $e) {
             require_once("template/partials/errorDB.php");

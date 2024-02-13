@@ -27,6 +27,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link 
+                            <?=(in_array($_SESSION['id_rol'],$GLOBALS['cuentas']['import']))?'activate':'disabled'?>" aria-current="page" href="<?=URL?>cuentas/importar">Importar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link 
                             <?=(in_array($_SESSION['id_rol'],$GLOBALS['cuentas']['export']))?'activate':'disabled'?>" aria-current="page" href="<?=URL?>cuentas/exportar">Exportar</a>
                         </li>
 
