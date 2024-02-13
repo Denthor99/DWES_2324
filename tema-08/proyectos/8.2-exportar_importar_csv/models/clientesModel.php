@@ -213,7 +213,7 @@ class clientesModel extends Model
     public function filter($expresion)
     {
         try {
-  
+
             $sql = "
                     SELECT 
                         id,
@@ -261,7 +261,8 @@ class clientesModel extends Model
      * validateUniqueDni($dni)
      * Nos permite comprobar si un dni ya existe o no en la base de datos
      */
-    public function validateUniqueDni($dni){
+    public function validateUniqueDni($dni)
+    {
         try {
             // Creamos la sentencia
             $sql = "SELECT * FROM gesbank.clientes WHERE dni = :dni";
@@ -278,7 +279,7 @@ class clientesModel extends Model
             // Ejecutamos la sentencia
             $pdostmt->execute();
 
-            if($pdostmt->rowCount() != 0){
+            if ($pdostmt->rowCount() != 0) {
                 return false;
             }
             return true;
@@ -292,7 +293,8 @@ class clientesModel extends Model
      * validateUniqueEmail($email)
      * Nos permite comprobar si un email ya existe o no en la base de datos
      */
-    public function validateUniqueEmail($email){
+    public function validateUniqueEmail($email)
+    {
         try {
             // Creamos la sentencia
             $sql = "SELECT * FROM gesbank.clientes WHERE email = :email";
@@ -309,7 +311,7 @@ class clientesModel extends Model
             // Ejecutamos la sentencia
             $pdostmt->execute();
 
-            if($pdostmt->rowCount() != 0){
+            if ($pdostmt->rowCount() != 0) {
                 return false;
             }
             return true;
@@ -323,43 +325,51 @@ class clientesModel extends Model
      * Método exportarCSV()
      * Exporta los datos de la tabla clientes a formato csv, además se descargarán los datos desde el navegador
      */
-    public function exportarCSV(){
-        try {
-            // Creamos la consulta SQL que usaremos
-            $sql="SELECT * FROM  clientes ORDER BY id";
+    public function exportarCSV()
+{
+    try {
+        // Creamos la consulta SQL que usaremos
+        $sql = "SELECT * FROM clientes ORDER BY id";
 
-            // Realizamos la conexión de la base de datos
-            $conexion = $this->db->connect();
+        // Realizamos la conexión de la base de datos
+        $conexion = $this->db->connect();
 
-            // Preparamos la consulta
-            $pdostmt = $conexion->prepare($sql);
+        // Establecemos la codificación de caracteres UTF-8 en la conexión
+        $conexion->exec("set names utf8");
 
-            // Ejecutamos la consulta
-            $pdostmt->execute();
+        // Preparamos la consulta
+        $pdostmt = $conexion->prepare($sql);
 
-            // Obtenemos los resultados en un array asociativo
-            $resultado = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        // Ejecutamos la consulta
+        $pdostmt->execute();
 
-            // Ahora crearemos  el archivo CSV y lo rellenaremos con los datos obtenidos de la BD
-            $fichero = fopen('php://output','w');
+        // Obtenemos los resultados en un array asociativo
+        $resultado = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Enviamos las cabeceras al navegador para empezar a descargar el archivo
-            header('Content-type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename=clientes.csv');
+        // Enviamos las cabeceras al navegador para empezar a descargar el archivo
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=clientes.csv');
 
-            // Escribiremos el nombre de las columnas al archivo csv
-            fputcsv($fichero,array('id','apellidos','nombre','telefono','ciudad','dni','email','create_at','update_at'),';');
+        // Abre el archivo de salida en el flujo de salida
+        $fichero = fopen('php://output', 'wb');
 
-            // Escribimos los datos del fichero csv
-            foreach($resultado as $columna){
-                fputcsv($fichero,$columna);
-            }
-            // Cerramos el fichero
-            fclose($fichero);
-            exit;
-        } catch (PDOException $e) {
-            require_once("template/partials/errorDB.php");
-            exit();
+        // Escribiremos el nombre de las columnas al archivo CSV
+        fputcsv($fichero, array('id', 'apellidos', 'nombre', 'telefono', 'ciudad', 'dni', 'email', 'create_at', 'update_at'));
+
+        // Escribimos los datos del fichero CSV
+        foreach ($resultado as $fila) {
+            // Convertir los datos a UTF-8 antes de escribirlos en el archivo CSV
+            $utf8_fila = array_map('utf8_encode', $fila);
+            fputcsv($fichero, $utf8_fila);
         }
+
+        // Cerramos el fichero
+        fclose($fichero);
+        exit;
+    } catch (PDOException $e) {
+        require_once("template/partials/errorDB.php");
+        exit();
     }
+}
+
 }

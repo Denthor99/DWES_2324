@@ -75,6 +75,8 @@ class albumModel extends Model
                             lugar,
                             categoria,
                             etiquetas,
+                            num_fotos,
+                            num_visitas,
                             carpeta,
                             created_at
                         )
@@ -86,6 +88,8 @@ class albumModel extends Model
                             :lugar,
                             :categoria,
                             :etiquetas,
+                            0,
+                            0,
                             :carpeta,
                             NOW()
                         )
@@ -167,7 +171,8 @@ class albumModel extends Model
                         lugar = :lugar,
                         categoria = :categoria,
                         etiquetas = :etiquetas,
-                        carpeta = :carpeta
+                        carpeta = :carpeta,
+                        update_at = now()
                 WHERE
                         id = :id
                 LIMIT 1
@@ -219,11 +224,12 @@ class albumModel extends Model
                 SELECT 
                     id,
                     titulo,
-                    descripcion,
                     autor,
                     fecha,
                     categoria,
-                    etiquetas
+                    etiquetas,
+                    num_fotos,
+                    num_visitas
                 FROM
                     albumes
                 ORDER BY 
@@ -339,15 +345,28 @@ class albumModel extends Model
         }
     }
   
-    public function delete($id)
+    public function delete($id,$album)
     {
         try {
 
-            $sql = "DELETE FROM alumnos WHERE id = :id limit 1";
+            $sql = "DELETE FROM albumes WHERE id = :id limit 1";
             $conexion = $this->db->connect();
             $pdost = $conexion->prepare($sql);
             $pdost->bindParam(':id', $id, PDO::PARAM_INT);
             $pdost->execute();
+
+            // Usamos la función glob, para iterar y eliminar  todos los archivos
+            $archivos = glob('imagenes/'. $album .'/*.*');
+
+            // Iteramos  sobre cada elemento del array y lo borramos
+            foreach($archivos as $archivo){
+                if(is_file($archivo)){
+                    unlink($archivo);
+                }
+            }
+
+            // Finalmente, eliminamos la carpeta asociada
+            rmdir( 'imagenes/' .$album );
 
         } catch (PDOException $e) {
 
@@ -367,7 +386,7 @@ class albumModel extends Model
 
     public function uploadFicheros($archivos, $carpeta)
 {
-    # Generar un array de errores de fichero
+    # Generar un array de errores de fichero (lo he traducido)
     $fileUploadErrors = array(
         0 => 'No hay errores, el archivo se cargó con éxito',
         1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
@@ -379,7 +398,8 @@ class albumModel extends Model
         8 => 'Una extensión de PHP detuvo la carga del archivo.',
     );
 
-    $errores = []; // Almacenará los errores encontrados en los archivos
+    // Almacenará los errores encontrados en los archivos
+    $errores = [];
 
     # Validar cada archivo subido
     foreach ($archivos['name'] as $index => $nombreArchivo) {
@@ -407,7 +427,7 @@ class albumModel extends Model
     # Si hay errores en algún archivo, cancelar la subida de todos los archivos
     if (!empty($errores)) {
         $_SESSION['error'] = implode(PHP_EOL, $errores);
-        return; // Terminar el proceso de subida de archivos
+        return; // Terminar el proceso de subida de archivo
     }
 
     # Si no hay errores, se procede a mover los archivos a la carpeta del álbum
@@ -419,6 +439,55 @@ class albumModel extends Model
     $_SESSION['mensaje'] = "Se han subido correctamente las imagenes";
 }
 
+public function nuevaVisita($id){
+    try {
+        // Creamos la consulta sql
+        $sql= "UPDATE albumes SET num_visitas=num_visitas+1 WHERE id = :id limit 1";
+
+        // Creamos la conexión
+        $conexion = $this->db->connect();
+
+        // Preparamos la consulta
+        $pdost = $conexion->prepare($sql);
+
+        // Vinculamos la variable
+        $pdost->bindParam(':id', $id);
+
+        // Ejecutamos la consulta
+        $pdost->execute();
+    
+    } catch (PDOException $e) {
+
+        include_once('template/partials/errorDB.php');
+        exit();
+
+    }
+}
+ public function fotosTotales($id,$numeroFotos){
+    try {
+        // Creamos la consulta sql
+        $sql= "UPDATE albumes SET num_fotos=:numFotos WHERE id = :id limit 1";
+
+        // Creamos la conexión
+        $conexion = $this->db->connect();
+
+        // Preparamos la consulta
+        $pdost = $conexion->prepare($sql);
+
+        // Vinculamos la variable
+        $pdost->bindParam(':id', $id);
+        $pdost->bindParam(':numFotos', $numeroFotos);
+
+        // Ejecutamos la consulta
+        $pdost->execute();
+    
+    } catch (PDOException $e) {
+
+        include_once('template/partials/errorDB.php');
+        exit();
+
+    }
+ }
 
 }
 

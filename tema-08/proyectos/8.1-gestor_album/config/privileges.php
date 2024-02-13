@@ -24,6 +24,6 @@
     $GLOBALS['album']['show'] = [1, 2, 3];
     $GLOBALS['album']['filter'] = [1, 2, 3];
     $GLOBALS['album']['order'] = [1, 2, 3];
-    $GLOBALS['album']['add'] = [1, 2, 3];
-    $GLOBALS['album']['upload'] = [1, 2, 3];
+    $GLOBALS['album']['add'] = [1, 2];
+    $GLOBALS['album']['upload'] = [1, 2];
 

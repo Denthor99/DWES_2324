@@ -49,11 +49,12 @@
 								<!-- personalizado -->
 								<th>Id</th>
 								<th>Titulo</th>
-								<th>Descripción</th>
 								<th>Autor</th>
 								<th>Fecha</th>
 								<th>Categoría</th>
 								<th>Etiquetas</th>
+								<th>Num Fotos</th>
+								<th>Num Visitas</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -68,13 +69,12 @@
 									<!-- Detalles de alumnos -->
 									<td><?= $album->id ?></td>
 									<td><?= $album->titulo ?></td>
-									<td><?= $album->descripcion ?></td>
 									<td><?= $album->autor ?></td>
 									<td><?= $album->fecha ?></td>
 									<td><?= $album->categoria ?></td>
 									<td><?= $album->etiquetas ?></td>
-									
-
+									<td><?= $album->num_fotos ?></td>
+									<td><?= $album->num_visitas ?></td>
 									<!-- botones de acción -->
 									<td>
 										<!-- botón  eliminar -->
@@ -82,7 +82,7 @@
 											onclick="return confirm('Confimar elimación del album')" Class="btn btn-danger
 											<?= (!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete'])) ?
 												'disabled' : null ?>">
-											<i class="bi bi-trash"></i>
+											<i class="bi bi-trash-fill"></i>
 										</a>
 
 										<!-- botón  editar -->

@@ -500,39 +500,47 @@ class Album extends Controller
         }
     }
 
-    public function upload($param = []){
-        # iniciar o continuar  sesión
+    public function upload($param = []) {
         session_start();
-
-        # compruebo usuario autentificado
+    
         if (!isset($_SESSION['id'])) {
-            $_SESSION['notify'] = "Usuario debe autentificarse";
-
+            $_SESSION['notify'] = "El usuario debe autentificarse";
             header("location:" . URL . "login");
-
         } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['upload']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
             header('location:' . URL . 'album');
         } else {
-
-            # Comprobar si existe mensaje
             if (isset($_SESSION['mensaje'])) {
                 $this->view->mensaje = $_SESSION['mensaje'];
                 unset($_SESSION['mensaje']);
             }
-
-            # Capturamos el id
+    
             $id = $param[0];
-
-            # Añadimos el valor del objeto album según id en una variable
             $albumCarpeta = $this->model->read($id);
+    
+            // Validación y subida de archivos
+            $this->model->uploadFicheros($_FILES['ficheros'], $albumCarpeta->carpeta);
+    
+            // Verificar si hay errores
+            if (isset($_SESSION['error'])) {
+                // Pasar errores a la vista
+                $this->view->error = $_SESSION['error'];
+                unset($_SESSION['error']);
+                
+                // Renderizar el formulario nuevamente
+                $this->add($param);
+            } else {
+                // Actualizamos en la base de datos el número de fotos
+                $numeroFotos = count(glob('imagenes/'.$albumCarpeta->carpeta."/*"));
+                $this->model->fotosTotales($id,$numeroFotos);
 
-            # Comprobamos la validación llamando a un método del modelo
-            $this->model->uploadFicheros($_FILES['ficheros'],$albumCarpeta->carpeta);
-            # Redireccionamos al album
-            header('location:'.URL.'album');
+                // Si no hay errores, redirigir al usuario
+                header('location:' . URL . 'album');
+            }
         }
     }
+    
+    
 
     public function delete($param = [])
     {
@@ -545,23 +553,59 @@ class Album extends Controller
 
             header("location:" . URL . "login");
 
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['delete']))) {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
-            header('location:' . URL . 'alumno');
+            header('location:' . URL . 'album');
         } else {
 
-            # obtenemos id del  alumno
+            # obtenemos id del album
             $id = $param[0];
 
-            # eliminar alumno
-            $this->model->delete($id);
+            # Añadimos el valor del objeto album según id en una variable
+            $albumCarpeta = $this->model->read($id);
+
+            # Llamamos al método delete, que eliminará el registro de la base de datos y la carpeta
+            $this->model->delete($id,$albumCarpeta->carpeta);
 
             # generar mensaje
-            $_SESSION['mensaje'] = 'Alumno eliminado correctamente';
+            $_SESSION['mensaje'] = 'Album y sus datos eliminados correctamente';
 
-            # redirecciono al main de alumnos
-            header('location:' . URL . 'alumno');
+            # redirecciono al main de album
+            header('location:' . URL . 'album');
         }
     }
+
+    public function show($param = []) {
+        // Iniciar o continuar sesión
+        session_start();
+    
+        // Comprobar si el usuario está autenticado
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autenticarse";
+            header('location:' . URL . 'login');
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) {
+            $_SESSION['mensaje'] = "No tienes privilegios para realizar dicha operación";
+            header('location:' . URL . 'album');
+        } else {
+            $id = $param[0];
+            $album = $this->model->read($id); // Obtener información del álbum
+            $this->view->title = "Detalles del álbum";
+            $this->view->nombreAlbum = $album->carpeta; // Nombre del álbum
+    
+            $this->view->album = $this->model->read($id);
+            
+            // Obtener la lista de imágenes del álbum
+            $ruta = 'imagenes/' . $album->carpeta . '/';
+            $imagenes = array_diff(scandir($ruta), array('..', '.')); // Obtener lista de imágenes excluyendo . y ..
+    
+            // Actualizamos las visitas al lugar
+            $this->model->nuevaVisita($id);
+
+            // Actualizamos en la base de datos el número de fotos 
+            $this->view->imagenesAlbum = $imagenes; // Pasar la lista de imágenes a la vista
+            $this->view->render("album/show/index");
+        }
+    }
+    
 }
 

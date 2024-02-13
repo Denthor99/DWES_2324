@@ -22,11 +22,12 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<?= URL ?>album/order/1">Id</a></li>
                         <li><a class="dropdown-item" href="<?= URL ?>album/order/2">Titulo</a></li>
-                        <li><a class="dropdown-item" href="<?= URL ?>album/order/3">Descripción</a></li>
-                        <li><a class="dropdown-item" href="<?= URL ?>album/order/4">Autor</a></li>
-                        <li><a class="dropdown-item" href="<?= URL ?>album/order/5">Fecha</a></li>
-                        <li><a class="dropdown-item" href="<?= URL ?>album/order/6">Categoría</a></li>
-                        <li><a class="dropdown-item" href="<?= URL ?>album/order/7">Etiquetas</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/3">Autor</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/4">Fecha</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/5">Categoría</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/6">Etiquetas</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/7">Nº fotos</a></li>
+                        <li><a class="dropdown-item" href="<?= URL ?>album/order/8">Nº visitas</a></li>
                     </ul>
                 </li>
             </ul>

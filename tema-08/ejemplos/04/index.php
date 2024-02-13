@@ -14,6 +14,6 @@
     $fichero = "files/ejemplo.txt";
     $cadena = file_get_contents($fichero);
 
-    $cadena = $cadena . "\n" . "Transformers 3 - El Lado Oscuro de Ozuna";
+    $cadena = $cadena . "\n" . "Santo sella";
 
     file_put_contents($fichero, $cadena);
