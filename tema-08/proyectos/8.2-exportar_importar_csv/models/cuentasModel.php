@@ -447,4 +447,70 @@ class cuentasModel extends Model
             exit();
         }
     }
+
+    /**
+     * Método cuentaExistente($num_cuenta)
+     * Método que comprueba en la base de datos si existen ya una cuenta
+     */
+    public function cuentaExistente($num_cuenta){
+        try {
+            // Creamos la consulta SQL
+            $sql ="SELECT num_cuenta FROM cuentas WHERE  num_cuenta=:numCuenta";
+
+            // Realizamos la conexión a la base de datos
+            $conexion = $this->db->connect();
+
+            // Preparamos la consulta
+            $pdostmt = $conexion->prepare($sql);
+
+            // Vinculamos la variable
+            $pdostmt->bindParam(':numCuenta',$num_cuenta);
+
+            // Ejecutamos la consulta
+            $pdostmt->execute();
+
+            // Obtener el resultado de la consulta
+            $resultado = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Devolvemos el resultado
+            return $resultado;
+        } catch (PDOException $e) {
+            require_once("template/partials/errorDB.php");
+            exit();
+        }
+    }
+
+    # Método updateNumCuenta
+    # Actualiza los detalles de una cuenta, sólo permite modificar el cliente o titular
+    public function updateNumCuenta(classCuenta $cuenta, $numCuenta)
+    {
+        try {
+
+            $sql = " 
+                    UPDATE cuentas SET
+                        id_cliente = :id_cliente,
+                        fecha_alta = :fecha_alta,
+                        fecha_ul_mov = :fecha_ul_mov,
+                        num_movtos = :num_movtos,
+                        saldo=:saldo,
+                        update_at = now()
+                    WHERE
+                        num_cuenta=:num_cuenta";
+
+            $conexion = $this->db->connect();
+            $pdostmt = $conexion->prepare($sql);
+            //Vinculamos los parámetros
+            $pdostmt->bindParam(":num_cuenta", $cuenta->num_cuenta, PDO::PARAM_STR, 20);
+            $pdostmt->bindParam(":id_cliente", $cuenta->id_cliente, PDO::PARAM_INT);
+            $pdostmt->bindParam(":fecha_alta", $cuenta->fecha_alta, PDO::PARAM_STR);
+            $pdostmt->bindParam(":fecha_ul_mov", $cuenta->fecha_ul_mov, PDO::PARAM_STR);
+            $pdostmt->bindParam(":num_movtos", $cuenta->num_movtos, PDO::PARAM_INT);
+            $pdostmt->bindParam(":saldo", $cuenta->saldo, PDO::PARAM_STR);
+
+            $pdostmt->execute();
+        } catch (PDOException $e) {
+            require_once("template/partials/errorDB.php");
+            exit();
+        }
+    }
 }

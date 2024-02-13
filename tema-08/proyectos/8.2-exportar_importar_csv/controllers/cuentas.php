@@ -563,4 +563,107 @@ class Cuentas extends Controller
         $this->view->render("cuentas/importar/index");
         }
     }
+
+    /**
+ * Método validarCSV
+ * Valida el archivo CSV subido a la carpeta csv
+ */
+public function validarCSV($param = [])
+{
+    # Iniciamos o continuamos la sesión
+    session_start();
+
+    # Comprobamos si el usuario está identificado
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['mensaje'] = "El usuario debe autenticarse";
+        header('location:' . URL . 'login');
+    }
+
+    // Verificar si el usuario tiene los permisos necesarios
+    if (!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['import'])) {
+        $_SESSION['mensaje'] = "No tienes privilegios para realizar esta operación";
+        header('location:' . URL . 'cuentas');
+    }
+
+    // Verificar si se ha enviado un archivo
+    if (!isset($_FILES['fichero'])) {
+        $_SESSION['error'] = "No se ha enviado ningún archivo";
+        $this->view->error = $_SESSION['error']; 
+        header('location:' . URL . 'cuentas/importar');
+        exit;
+    }
+
+    // Verificar si hay errores al subir el archivo
+    if ($_FILES['fichero']['error'] !== UPLOAD_ERR_OK) {
+        $_SESSION['error'] = "Error al subir el archivo";
+        $this->view->error = $_SESSION['error']; 
+        header('location:' . URL . 'cuentas/importar');
+        exit;
+    }
+
+    // Verificar la extensión del archivo
+    $extension = pathinfo($_FILES['fichero']['name'], PATHINFO_EXTENSION);
+    if ($extension !== 'csv') {
+        $_SESSION['error'] = "El archivo debe tener extensión .csv";
+        $this->view->error = $_SESSION['error']; 
+        header('location:' . URL . 'cuentas/importar');
+        exit;
+    }
+
+
+    // Mover el archivo a la carpeta de destino
+    $directorio_destino = 'csv/';
+    $archivo_destino = $directorio_destino . basename($_FILES['fichero']['name']);
+
+    if (!move_uploaded_file($_FILES['fichero']['tmp_name'], $archivo_destino)) {
+        $_SESSION['error'] = "Error al mover el archivo";
+        $this->view->error = $_SESSION['error']; 
+        header('location:' . URL . 'cuentas/importar');
+        exit;
+    }
+
+    # Procesar el archivo CSV y realizar las operaciones necesarias
+    $archivo = "csv/".basename($_FILES["fichero"]["name"]);
+    $fp = fopen($archivo, "r");
+
+    if ($fp !== false){
+        // Leemos el archivo linea por linea
+        while(($fila = fgetcsv($fp , 1024,';')) !== FALSE){
+            $cuenta = new classCuenta(
+                null,
+                $fila[0],
+                $fila[1],
+                $fila[2],
+                $fila[3],
+                $fila[4],
+                $fila[5],
+                $fila[6],
+                $fila[7],
+
+            );
+
+        // Ahora deberemos comprobar si existen registros existentes en el csv
+        $numExistente = $this->model->cuentaExistente($fila[0]);
+
+        if(!$numExistente) {
+            // Si no existe lo inserta
+            $this->model->create($cuenta);
+        } else {
+            // Si existe, lo actualiza
+            $this->model->updateNumCuenta($cuenta,$fila[0]);
+        }
+    }
+
+    // Cerramos el archivo CSV
+    fclose($fp);
+
+    // Eliminar el archivo después de procesarlo
+    unlink($archivo_destino);
+
+    // Redireccionar a la página principal
+    $_SESSION['mensaje'] = "Archivo CSV importado correctamente";
+    header('location:' . URL . 'cuentas');
+    exit;
+}
+}
 }

@@ -18,19 +18,16 @@
 
         <!-- comprobamos si existe error -->
         <?php include 'template/partials/error.php' ?>
+        <?php include 'template/partials/notify.php' ?>
 
         <legend>Formulario Subida de imagenes</legend>
         
-        <form method="POST" enctype="multipart/form-data" action="<?=URL?>/cuentas/validarCSV/">
+        <form method="POST" action="<?=URL?>cuentas/validarCSV" enctype="multipart/form-data">
             
             <!-- Fichero con validación cliente mediante parametro accept -->
             <div class="mb-3">
                 <label for="formFile" class="form-labl">Seleccione archivo</label>
-                <input type="file" class="form-control" name="fichero" id="formFile" value="<?=$ficheros?>" accept=".csv">
-                <!-- errores -->
-                <span class="form-text text-danger" role="alert">
-                    <?=$errores['fichero'] ??= null ?>
-                </span>
+                <input type="file" class="form-control" name="fichero" id="formFile" accept=".csv">
             </div>
             <!-- Botones de acción -->
             <div class="mb-3">
@@ -38,15 +35,12 @@
             </div>
         </form>
     </div>
-    <footer class="footer mt-auto py-3 fixed-bottom bg-light">
-        <div class="container">
-            <span class="text-muted">© 2024
-                Daniel Alfonso Rodríguez Santos - DWES - 2º DAW - Curso 23/24</span>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <!-- Pié del documento -->
+    <?php require_once("template/partials/footer.php") ?>
+
+
+    <!-- javascript bootstrap 532 -->
+    <?php require_once("template/partials/javascript.php") ?>
 </body>
 
 </html>
