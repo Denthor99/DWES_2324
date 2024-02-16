@@ -662,6 +662,8 @@ public function validarCSV($param = [])
 
 
     // Mover el archivo a la carpeta de destino
+    // Creamos la carpeta
+    mkdir('csv');
     $directorio_destino = 'csv/';
     $archivo_destino = $directorio_destino . basename($_FILES['fichero']['name']);
 
@@ -708,6 +710,9 @@ public function validarCSV($param = [])
 
     // Eliminar el archivo después de procesarlo
     unlink($archivo_destino);
+
+    // Eliminamos la carpeta
+    rmdir('csv');
 
     // Redireccionar a la página principal
     $_SESSION['mensaje'] = "Archivo CSV importado correctamente";
