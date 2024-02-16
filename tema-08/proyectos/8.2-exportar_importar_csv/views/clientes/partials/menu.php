@@ -24,6 +24,9 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?=(in_array($_SESSION['id_rol'],$GLOBALS['clientes']['import']))?'activate':'disabled'?>" aria-current="page" href="<?=URL?>clientes/importar">Importar</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link <?=(in_array($_SESSION['id_rol'],$GLOBALS['clientes']['export']))?'activate':'disabled'?>" aria-current="page" href="<?=URL?>clientes/exportar">Exportar</a>
                         </li>
 

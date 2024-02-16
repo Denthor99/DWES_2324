@@ -216,6 +216,9 @@ class Cuentas extends Controller
         } else {
         $id=$param[0];
         $this->model->delete($id);
+        $_SESSION['mensaje'] = "Cuenta eliminada correctamente";
+
+        
         header("Location:" . URL . "cuentas");
         }
     }
@@ -532,7 +535,7 @@ class Cuentas extends Controller
     }
 
     /**
-     * Método exportar
+     * Método importar
      * Importar a un fichero csv datos de cuenta
      *
      */
@@ -556,6 +559,14 @@ class Cuentas extends Controller
             // Redireccionamos a la vista principal de clientes puesto que actualmente no tiene permisos
             header('location:'.URL.'cuentas');
         } else {
+            if (isset($_SESSION['error'])) {
+
+                # Mensaje de error
+                $this->view->error = $_SESSION['error'];
+
+                # Elimino las variables de sesión
+                unset($_SESSION['error']);
+            }
 
         // Añadimos un titulo
         $this->view->title = "Importar CSV - Cuentas";
@@ -564,7 +575,7 @@ class Cuentas extends Controller
         }
     }
 
-    /**
+/**
  * Método validarCSV
  * Valida el archivo CSV subido a la carpeta csv
  */
@@ -577,35 +588,33 @@ public function validarCSV($param = [])
     if (!isset($_SESSION['id'])) {
         $_SESSION['mensaje'] = "El usuario debe autenticarse";
         header('location:' . URL . 'login');
-    }
+        exit();
 
-    // Verificar si el usuario tiene los permisos necesarios
-    if (!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['import'])) {
+    }// Verificar si el usuario tiene los permisos necesarios
+   else if (!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['import'])) {
         $_SESSION['mensaje'] = "No tienes privilegios para realizar esta operación";
         header('location:' . URL . 'cuentas');
+        exit();
     }
 
     // Verificar si se ha enviado un archivo
     if (!isset($_FILES['fichero'])) {
         $_SESSION['error'] = "No se ha enviado ningún archivo";
-        $this->view->error = $_SESSION['error']; 
         header('location:' . URL . 'cuentas/importar');
-        exit;
+        exit();
     }
 
     // Verificar si hay errores al subir el archivo
     if ($_FILES['fichero']['error'] !== UPLOAD_ERR_OK) {
         $_SESSION['error'] = "Error al subir el archivo";
-        $this->view->error = $_SESSION['error']; 
         header('location:' . URL . 'cuentas/importar');
-        exit;
+        exit();
     }
 
     // Verificar la extensión del archivo
     $extension = pathinfo($_FILES['fichero']['name'], PATHINFO_EXTENSION);
     if ($extension !== 'csv') {
         $_SESSION['error'] = "El archivo debe tener extensión .csv";
-        $this->view->error = $_SESSION['error']; 
         header('location:' . URL . 'cuentas/importar');
         exit;
     }
@@ -617,40 +626,39 @@ public function validarCSV($param = [])
 
     if (!move_uploaded_file($_FILES['fichero']['tmp_name'], $archivo_destino)) {
         $_SESSION['error'] = "Error al mover el archivo";
-        $this->view->error = $_SESSION['error']; 
         header('location:' . URL . 'cuentas/importar');
         exit;
     }
 
     # Procesar el archivo CSV y realizar las operaciones necesarias
     $archivo = "csv/".basename($_FILES["fichero"]["name"]);
-    $fp = fopen($archivo, "r");
+    $fp = fopen($archivo, "rb");
 
     if ($fp !== false){
         // Leemos el archivo linea por linea
-        while(($fila = fgetcsv($fp , 1024,';')) !== FALSE){
-            $cuenta = new classCuenta(
-                null,
-                $fila[0],
-                $fila[1],
-                $fila[2],
-                $fila[3],
-                $fila[4],
-                $fila[5],
-                $fila[6],
-                $fila[7],
-
-            );
+        while(($fila = fgetcsv($fp , 1000,';')) !== FALSE){
+           $numCuenta = $fila[0];
+           $clienteId = $fila[1];
+           $fechAlta = $fila[2];
+           $fechaUlMov = $fila[3];
+           $numMovimientos = $fila[4]; 
+           $saldo = $fila[5];
 
         // Ahora deberemos comprobar si existen registros existentes en el csv
-        $numExistente = $this->model->cuentaExistente($fila[0]);
+        if($this->model->cuentaExistente($numCuenta)) {
+            // Creamos un objeto de la clase cuenta
+            $cuenta = new classCuenta();
+            $cuenta->num_cuenta = $numCuenta;
+            $cuenta->id_cliente = $clienteId;
+            $cuenta->fecha_alta = $fechAlta;
+            $cuenta->fecha_ul_mov=$fechaUlMov;
+            $cuenta->num_movtos=$numMovimientos;
+            $cuenta->saldo=$saldo;
 
-        if(!$numExistente) {
             // Si no existe lo inserta
             $this->model->create($cuenta);
         } else {
-            // Si existe, lo actualiza
-            $this->model->updateNumCuenta($cuenta,$fila[0]);
+            echo 'error, ya existe ese registro';
         }
     }
 

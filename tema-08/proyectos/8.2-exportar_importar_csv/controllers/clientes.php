@@ -249,7 +249,7 @@ class Clientes extends Controller
         } else {
         $id = $param[0];
         $this->model->delete($id);
-        $_SESSION['mensaje'] = "Cliente eliminado con correctamente";
+        $_SESSION['mensaje'] = "Cliente eliminado correctamente";
         header("Location:" . URL . "clientes");
         }
     }
@@ -575,4 +575,145 @@ class Clientes extends Controller
         $this->view->render("clientes/main/index");
         }
     }
+   /**
+     * Método importar
+     * Importar a un fichero csv datos de clientes
+     *
+     */
+    public function importar($param = [])
+    {
+        # Iniciamos o continuamos sesión
+        session_start();
+
+        # Comprobamos si el usuario está autentificado
+        if (!isset($_SESSION['id'])) {
+            // Añadimo el siguiente aviso al usuario: 
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            // Redireccionamos al login
+            header('location:' . URL . 'login');
+        } else if(!in_array($_SESSION['id_rol'],$GLOBALS['clientes']['import'])){
+            // Añadimos un mensaje, que indicará que el usuario actual no tiene permmisos para
+            // usar esta funcionalidad
+            $_SESSION['mensaje'] = "No tienes privilegios para realizar dicha operación";
+
+            // Redireccionamos a la vista principal de clientes puesto que actualmente no tiene permisos
+            header('location:'.URL.'clientes');
+        } else {
+            if (isset($_SESSION['error'])) {
+
+                # Mensaje de error
+                $this->view->error = $_SESSION['error'];
+
+                # Elimino las variables de sesión
+                unset($_SESSION['error']);
+            }
+
+        // Añadimos un titulo
+        $this->view->title = "Importar CSV - Clientes";
+        // Redireccionamos al formulario de subida de csv
+        $this->view->render("clientes/importar/index");
+        }
+    }
+
+/**
+ * Método validarCSV
+ * Valida el archivo CSV subido a la carpeta csv
+ */
+public function validarCSV($param = [])
+{
+    # Iniciamos o continuamos la sesión
+    session_start();
+
+    # Comprobamos si el usuario está identificado
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['mensaje'] = "El usuario debe autenticarse";
+        header('location:' . URL . 'login');
+        exit();
+
+    }// Verificar si el usuario tiene los permisos necesarios
+   else if (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['import'])) {
+        $_SESSION['mensaje'] = "No tienes privilegios para realizar esta operación";
+        header('location:' . URL . 'clientes');
+        exit();
+    }
+
+    // Verificar si se ha enviado un archivo
+    if (!isset($_FILES['fichero'])) {
+        $_SESSION['error'] = "No se ha enviado ningún archivo";
+        header('location:' . URL . 'clientes/importar');
+        exit();
+    }
+
+    // Verificar si hay errores al subir el archivo
+    if ($_FILES['fichero']['error'] !== UPLOAD_ERR_OK) {
+        $_SESSION['error'] = "Error al subir el archivo";
+        header('location:' . URL . 'clientes/importar');
+        exit();
+    }
+
+    // Verificar la extensión del archivo
+    $extension = pathinfo($_FILES['fichero']['name'], PATHINFO_EXTENSION);
+    if ($extension !== 'csv') {
+        $_SESSION['error'] = "El archivo debe tener extensión .csv";
+        header('location:' . URL . 'clientes/importar');
+        exit;
+    }
+
+
+    // Mover el archivo a la carpeta de destino
+    $directorio_destino = 'csv/';
+    $archivo_destino = $directorio_destino . basename($_FILES['fichero']['name']);
+
+    if (!move_uploaded_file($_FILES['fichero']['tmp_name'], $archivo_destino)) {
+        $_SESSION['error'] = "Error al mover el archivo";
+        header('location:' . URL . 'clientes/importar');
+        exit;
+    }
+
+    # Procesar el archivo CSV y realizar las operaciones necesarias
+    $archivo = "csv/".basename($_FILES["fichero"]["name"]);
+    $fp = fopen($archivo, "rb");
+
+    if ($fp !== false){
+        // Leemos el archivo linea por linea
+        while(($fila = fgetcsv($fp , 1000,';')) !== FALSE){
+           $apellidos = $fila[0];
+           $nombre = $fila[1];
+           $telefono = $fila[2];
+           $ciudad = $fila[3];
+           $dni = $fila[4]; 
+           $email = $fila[5];
+
+        // Ahora deberemos comprobar si existen registros existentes en el csv
+        if($this->model->clienteExistente($dni)) {
+            // Creamos un objeto de la clase cliente
+            $cliente = new classCliente();
+            $cliente->apellidos = $apellidos;
+            $cliente->nombre = $nombre;
+            $cliente->telefono = $telefono;
+            $cliente->ciudad = $ciudad;
+            $cliente->dni = $dni;
+            $cliente->email = $email;
+
+            // Si no existe lo inserta
+            $this->model->create($cliente);
+        } else {
+            echo 'error, ya existe ese registro';
+        }
+    }
+
+    // Cerramos el archivo CSV
+    fclose($fp);
+
+    // Eliminar el archivo después de procesarlo
+    unlink($archivo_destino);
+
+    // Redireccionar a la página principal
+    $_SESSION['mensaje'] = "Archivo CSV importado correctamente";
+    header('location:' . URL . 'clientes');
+    exit;
 }
+}
+}
+
