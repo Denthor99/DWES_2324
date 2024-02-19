@@ -23,7 +23,7 @@ Route::get('/', function () {
 // Ruta /test
 Route::get('/test', function () {
     return ("<h1 align='center'>Daniel Alfonso Rodríguez Santos</h1><br/>
-    <h2 align='center'>2º Desarrollo de Aplicaciones Web (DAW)</h2> - Prueba");
+    <h2 align='center'>2º Desarrollo de Aplicaciones Web (DAW) - Prueba</h2>");
 });
 
 // Ruta /api/user
