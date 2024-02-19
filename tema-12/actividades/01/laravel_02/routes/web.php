@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 // Definimos unas cuantas rutas de ejemplo
 Route::get('/clients', function () {
-    return '<h1>Hola Clientes!!</h1>';
+    return '<h1>Clientes</h1>';
 });
 
 Route::get('/clients/delete', function () {
