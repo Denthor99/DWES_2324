@@ -188,10 +188,10 @@ class Perfil  extends Controller {
                 //Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Modificación de Perfil - Gesbank';
-                $mail->Body = 'Tras la modificación de tus datos personales, tu perfil actual contiene los siguientes datos: <br>' .
-                '<b>Nombre</b>: ' . $name . '<br>' .
-                '<b>Email</b>: ' . $email . '<br>' .
-                'Gracias por confiar otro días más en Gesbank, tu banca digital';
+                $mail->Body = '<h2>Tras la modificación de tus datos personales, tu perfil actual contiene los siguientes datos: </h2><br>' .
+                '<ul><li><b>Nombre</b>: ' . $name . '</li><br>' .
+                '<li><b>Email</b>: ' . $email . '</li><br>' .
+                '</ul><h3>Gracias por confiar otro días más en Gesbank, tu banca digital</h3>';
 
                 // Enviamos el mensaje
                 $mail->send();
@@ -345,9 +345,9 @@ class Perfil  extends Controller {
                 //Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Cambio de contraseña - Gesbank';
-                $mail->Body = 'Tras el cambio de contraseña, se ha reestablecido tu password a: <br>' .
-                '<h3 align="center">'.$password.'</h3><br> '.
-                'Gracias por confiar otro días más en Gesbank, tu banca digital';
+                $mail->Body = '<h2>Tras el cambio de contraseña, se ha reestablecido tu password a: </h2><br>' .
+                '<blockquote><h3 align="center">'.$password.'</h3></blockquote><br> '.
+                '<h3>Gracias por confiar otro días más en Gesbank, tu banca digital</h3>';
 
                 // Enviamos el mensaje
                 $mail->send();
@@ -414,10 +414,10 @@ class Perfil  extends Controller {
                  //Content
                  $mail->isHTML(true);
                  $mail->Subject = 'Eliminación de Perfil - Gesbank';
-                 $mail->Body = 'Se ha eliminado el perfil de '. $userDel->name .', cuyas credenciales eran <br>' .
-                 '<b>Nombre</b>: ' . $userDel->name . '<br>' .
-                '<b>Email</b>: ' . $userDel->email . '<br>' .
-                 'Si ha sido eliminada por accidente, llame al número 956 25 25 38 para ponerse en contacto con nuestro servicio de asistencia al cliente';
+                 $mail->Body = '<h2>Se ha eliminado el perfil de '. $userDel->name .', cuyas credenciales eran </h2><br>' .
+                 '<ul><li><b>Nombre</b>: ' . $userDel->name . '</li><br>' .
+                '<li><b>Email</b>: ' . $userDel->email . '</li><br>' .
+                 '</ul><h3>Si ha sido eliminada por accidente, llame al número 956 25 25 38 para ponerse en contacto con nuestro servicio de asistencia al cliente</h3>';
  
                  // Enviamos el mensaje
                  $mail->send();

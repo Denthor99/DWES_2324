@@ -143,18 +143,18 @@
                 $remitente = USER_MAIL;
                 $destinatario = $email;
 
-                $mail->setFrom($remitente, 'Daniel A. Rodríguez Santos');
+                $mail->setFrom($remitente, 'Gesbank S.L.');
                 $mail->addAddress($destinatario,$name);
-                $mail->addReplyTo($remitente, 'Daniel A. Rodríguez Santos');
+                $mail->addReplyTo($remitente, 'Gesbank S.L.');
 
                 //Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Bienvenido a Gesbank - Tu Banca Digital';
-                $mail->Body = 'Te damos la bienvenida a Gesbank. Te facilitamos las credenciales de acceso: <br>' .
-                '<b>Nombre</b>: ' . $name . '<br>' .
-                '<b>Email</b>: ' . $email . '<br>' .
-                '<b>Contraseña</b>: ' . $password . ' <br>' .
-                'Gracias por confiar en nuestro banco.';
+                $mail->Body = '<h2>Te damos la bienvenida a Gesbank. Te facilitamos las credenciales de acceso: </h2><br>' .
+                '<ul><li><b>Nombre</b>: ' . $name . '</li><br>' .
+                '<li><b>Email</b>: ' . $email . '</li><br>' .
+                '<li><b>Contraseña</b>: ' . $password . '</li><br>' .
+                '</ul><h3>Gracias por confiar en nuestro banco.</h3>';
 
                 // Enviamos el mensaje
                 $mail->send();

@@ -4,6 +4,7 @@
 <head>
     <!-- bootstrap  -->
     <?php require_once("template/partials/head.php");  ?>
+    <title><?=$this->title?></title>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
             <!-- Nombre -->
             <div class="mb-3">
                 <label for="" class="form-label">Nombre *</label>
-                <input type="text" class="form-control <?= (isset($this->errores['nombre']))? 'is-invalid': null ?>" name="nombre" value="<?= isset($this->contactar->nombre) ? $this->contactar->nombre : ''?>" required>
+                <input type="text" class="form-control <?= (isset($this->errores['nombre'])) ? 'is-invalid' : null ?>" name="nombre" value=<?=$this->contactar->name ?>>
                 <?php if (isset($this->errores['nombre'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['nombre'] ?>
@@ -31,7 +32,7 @@
             <!-- Email -->
             <div class="mb-3">
                 <label for="" class="form-label">Email *</label>
-                <input type="email" class="form-control <?= (isset($this->errores['email']))? 'is-invalid': null ?>" name="email" value="<?= isset($this->contactar->email) ? $this->contactar->email : ''?>" required>
+                <input type="email" class="form-control <?= (isset($this->errores['email'])) ? 'is-invalid' : null ?>" name="email" value="<?= isset($this->contactar->mail) ? $this->contactar->mail : '' ?>">
                 <?php if (isset($this->errores['email'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['email'] ?>
@@ -41,7 +42,7 @@
             <!-- Asunto -->
             <div class="mb-3">
                 <label for="" class="form-label">Asunto *</label>
-                <input type="text" class="form-control <?= (isset($this->errores['asunto']))? 'is-invalid': null ?>" name="asunto" value="<?= isset($this->contactar->asunto) ? $this->contactar->asunto : ''?>" required>
+                <input type="text" class="form-control <?= (isset($this->errores['asunto'])) ? 'is-invalid' : null ?>" name="asunto" value="<?= isset($this->contactar->titulo) ? $this->contactar->titulo : '' ?>">
                 <?php if (isset($this->errores['asunto'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['asunto'] ?>
@@ -51,7 +52,7 @@
             <!-- Mensaje -->
             <div class="mb-3">
                 <label for="" class="form-label">Mensaje *</label>
-                <textarea class="form-control <?= (isset($this->errores['mensaje'])) ? 'is-invalid' : null ?>" name="mensaje" value="<?= isset($this->contactar->mensaje) ? $this->contactar->mensaje : '' ?>"> </textarea>
+                <textarea class="form-control <?= (isset($this->errores['mensaje'])) ? 'is-invalid' : null ?>" name="mensaje"><?= isset($this->contactar->cuerpo) ? $this->contactar->cuerpo : '' ?></textarea>
                 <?php if (isset($this->errores['mensaje'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['mensaje'] ?>

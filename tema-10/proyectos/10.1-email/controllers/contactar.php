@@ -10,6 +10,8 @@ require_once 'PHPMailer/src/PHPMailer.php';
 require_once 'PHPMailer/src/SMTP.php';
 require_once 'config/auth.php';
 
+// Añadimos la clase contacto
+require_once 'class/class.contacto.php'; 
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -23,6 +25,8 @@ class Contactar extends Controller{
         # Iniciaremos (o continuamos) la sesión
         session_start();
 
+        # Instanciamos un objeto vacio
+        $this->view->contactar = new classContacto();
         # Realizaremos el control de errores
         if (!empty($_SESSION['error'])){
             # Añadimos el corresondiente mensaje de error a la vista
@@ -31,10 +35,19 @@ class Contactar extends Controller{
             # Añadimos a la vista el array con los errores especificos
             $this->view->errores = $_SESSION['errores'];
 
+            # Controlamos la desserialización en caso de que un registro no esté validado
+            $this->view->contactar = isset($_SESSION['contacto'])? unserialize($_SESSION['contacto']) : new classContacto();
+
             # Una vez usadas las variables de sesión, las eliminamos
             unset($_SESSION['error']);
+            unset($_SESSION['contacto']);
             unset($_SESSION['errores']);
+        } else {
+            
+            // Objeto vacio classContacto
+            $this->view->contactar = new classContacto();
         }
+
 
         # Realizaremos la comprobación de mensaje
         if(isset($_SESSION['mensaje'])) {
@@ -62,11 +75,38 @@ class Contactar extends Controller{
          # Iniciaremos (o continuamos) la sesión
          session_start();
 
+         //Crear un objeto vacío
+        $this->view->contacto = new classContacto();
+
+        //Comprobar si vuelvo de un registro no validado
+        if (isset($_SESSION['error']))
+        {
+            //Mensaje de error
+            $this->view->error = $_SESSION['error'];
+
+            //Autorrellenar el formulario con los detalles del contacto
+            $this->view->contacto = unserialize($_SESSION['contacto']);
+
+            //Recupero array de errores específicos
+            $this->view->errores = $_SESSION['errores'];
+
+            unset($_SESSION['error']);
+            unset($_SESSION['errores']);
+            unset($_SESSION['contacto']);
+        }
+
          # Saneamos los datos del formulario
         $nombre = filter_var($_POST['nombre'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
         $asunto = filter_var($_POST['asunto'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
         $mensaje = filter_var($_POST['mensaje'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        # Creamos un objeto de la clase classContacto, donde añadimos los campos saneados
+        $contacto = new classContacto(
+            $nombre,
+            $email,
+            $asunto,
+            $mensaje);
 
         # Validación de errores
         $errores = [];
@@ -92,7 +132,7 @@ class Contactar extends Controller{
         if(empty($mensaje)){
             $errores['mensaje']  = 'El campo Mensaje es obligatorio';
         } elseif(strlen($mensaje) < 10){
-            $errores['mensaje']  = 'Debe especificar claramente su consulta';
+            $errores['mensaje']  = 'La consulta deberá tener más de 10 caracteres';
 
         }
 
@@ -100,6 +140,9 @@ class Contactar extends Controller{
         if(!empty($errores)){
             # Si encontramos  errores, asignamos los errores a la sesión
             $_SESSION['errores'] = $errores;
+
+            # Serializamos el objeto creado previamente
+            $_SESSION['contacto'] = serialize($contacto);
 
             # Añadimos el mensaje de error en el formulario
             $_SESSION['error'] = 'Formulario no validado';
@@ -153,7 +196,7 @@ class Contactar extends Controller{
                 $mail->send();
 
                 // Redirigir a la página de éxito
-                $_SESSION['mensaje'] = 'Mensaje enviado correctamente.';
+                $_SESSION['mensaje'] = 'Pronto nos pondremos en contacto con usted, muchas gracias por confiar en Gesbank';
                 header('Location:' . URL . 'index');
                 exit();
             } catch (Exception $e) {
