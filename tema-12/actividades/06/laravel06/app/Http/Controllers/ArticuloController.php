@@ -19,7 +19,8 @@ class ArticuloController extends Controller
                 'modelo'=>'HP 15-1234-20',
                 'categoria'=> 0,
                 'unidades'=> 12,
-                'precio'=> 550.50
+                'precio_coste'=> 550.50,
+                'precio_venta'=> 580.00
             ],
             [
                 'id' => 2,
@@ -27,7 +28,8 @@ class ArticuloController extends Controller
                 'modelo'=>'Exynos',
                 'categoria'=> 5,
                 'unidades'=> 200,
-                'precio'=> 300
+                'precio_coste'=> 300.00,
+                'precio_venta'=> 329.99
             ],
             [
                 'id' => 3,
@@ -35,7 +37,8 @@ class ArticuloController extends Controller
                 'modelo'=>'DeskJet 3762',
                 'categoria'=> 4,
                 'unidades'=> 2000,
-                'precio'=> 69
+                'precio_coste'=> 69.00,
+                'precio_venta'=> 89.00
             ],
             [
                 'id' => 4,
@@ -43,7 +46,8 @@ class ArticuloController extends Controller
                 'modelo'=>'Thomson 40FE5606',
                 'categoria'=> 3,
                 'unidades'=> 300,
-                'precio'=> 259
+                'precio_coste'=> 259.99,
+                'precio_venta'=> 300.00
             ],
             [
                 'id' => 5,
@@ -51,16 +55,62 @@ class ArticuloController extends Controller
                 'modelo'=>'Acer Aspire XC-830',
                 'categoria'=> 1,
                 'unidades'=> 20,
-                'precio'=> 329
+                'precio_coste'=> 329.99,
+                'precio_venta'=> 349.99
             ],
             [
                 'id' => 6,
-                'descripcion'=>'Portatil'
+                'descripcion'=>'Portatil - Lenovo IdeaPad Slim 3 15IAH8 15.6" FHD',
+                'modelo'=>'Lenovo IdeaPad Slim 3',
+                'categoria'=> 0,
+                'unidades'=> 10,
+                'precio_coste'=> 469.00,
+                'precio_venta'=> 489.00
+
+            ],
+            [
+                'id' => 7,
+                'descripcion'=>'Monitor - Philips B-Line 278B1 27" LED IPS UltraHD 4K',
+                'modelo'=>'Philips B-Line 278B1',
+                'categoria'=> 3,
+                'unidades'=> 28,
+                'precio_coste'=> 199.99,
+                'precio_venta'=> 225.00
+
+            ],
+            [
+                'id' => 8,
+                'descripcion'=>'Monitor - Samsung Essential LS27C310EAUXEN 27" LED IPS FullHD',
+                'modelo'=>'Samsung Essential LS27C310EAUXEN',
+                'categoria'=> 3,
+                'unidades'=> 180,
+                'precio_coste'=> 125.00,
+                'precio_venta'=> 150.00
+
+            ],
+            [
+                'id' => 9,
+                'descripcion'=>'Portatil - Alurin Go Start Intel Celeron N4020/8GB/256GB SSD/14"',
+                'modelo'=>'Alurin Go Start',
+                'categoria'=> 0,
+                'unidades'=> 3,
+                'precio_coste'=> 239.99,
+                'precio_venta'=> 259.99
+
+            ],
+            [
+                'id' => 10,
+                'descripcion'=>'PC Sobremesa - Medion Erazer Recon P25 MD35174 AMD Ryzen 7 Pro 4750G/16GB/512GB SSD/RTX 3060',
+                'modelo'=>'Medion Erazer Recon P25 MD35174',
+                'categoria'=> 1,
+                'unidades'=> 19,
+                'precio_coste'=> 659.00,
+                'precio_venta'=> 689.99
+
             ]
-    
         ];
 
-        return view('articulos.index');
+        return view('articulos', compact('articulos'));
     }
 
     /**
