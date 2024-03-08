@@ -17,7 +17,7 @@
         <?php include "views/usuarios/partials/header.php" ?>
 
         <!-- Mensaje de Error -->
-        <?php include 'template/partials/mensaje.php' ?>
+        <?php include 'template/partials/notify.php' ?>
 
         <!-- Menu principal -->
         <?php require_once "views/usuarios/partials/menu.php" ?>
@@ -38,7 +38,7 @@
                         <td><?= $usuario->id ?></td>
                         <td><?= $usuario->name ?></td>
                         <td><?= $usuario->email ?></td>
-                        <td><?= $this->model->getRolUsuario($usuario->id)->name ?></td>
+                        <td><?= $this->model->getRolUsuario($usuario->id) ?></td>
 
                         <!-- botones de acción -->
                         <td>

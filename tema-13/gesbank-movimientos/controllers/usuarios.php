@@ -1,5 +1,5 @@
 <?php
-class Users extends Controller{
+class Usuarios extends Controller{
 
     # Método render
     # Muestra los detalles de la tabla usuarios
@@ -31,6 +31,5 @@ class Users extends Controller{
             $this->view->roles = $this->model->getRoles();
             $this->view->render("usuarios/main/index");
         }
-
     }
 }
