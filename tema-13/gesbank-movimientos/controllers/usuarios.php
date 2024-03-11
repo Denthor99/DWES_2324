@@ -452,16 +452,20 @@ class Usuarios extends Controller{
         $hashedPassword = $original->password;
     }
 
+    
+
+    // Obtener el ID del rol seleccionado del formulario
+    $idRol = filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT);
+
     // Crear un objeto de usuario con los datos actualizados
     $usuario = new classUser(
         $id,
         $name,
         $email,
-        $hashedPassword
+        $hashedPassword,
+        $hashedPassword,
+        $idRol
     );
-
-    // Obtener el ID del rol seleccionado del formulario
-    $idRol = filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT);
 
     // Actualizar el usuario y el rol en la base de datos
     $this->model->update($usuario, $id, $idRol);
