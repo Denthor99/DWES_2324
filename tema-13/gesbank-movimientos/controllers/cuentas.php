@@ -433,14 +433,6 @@ class Cuentas extends Controller
         $this->view->title = "Formulario Cuenta Mostar";
         $this->view->cuenta = $this->model->getCuenta($id);
         $this->view->cliente = $this->model->getCliente($this->view->cuenta->id_cliente);
-       
-        // // formateamos la fecha
-        // $fechaf=(str_split($this->view->cuenta->fecha_alta));
-        // for ($i=0; $i <9 ; $i++) { 
-        //     array_pop($fechaf);
-        // }
-        // $fechafort=implode($fechaf);
-        // $this->view->cuenta->fecha_alta=$fechafort;
 
         $this->view->render("cuentas/mostrar/index");
         }

@@ -1,10 +1,5 @@
-<header>
-    <hgroup>
-        <!-- Titulos y subtitulos -->
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container"><br><br><br>
-                <h4 class="display-7"><?= $this->title ?> </h4>
-            </div>
-        </div>
-    </hgroup>
+<br><br><br>
+<header class="pb-3 mb-4 border-bottom">
+<i class="bi bi-people-fill" style="font-size: 2rem;"></i>
+    <span class="fs-4"><?= $this->title ?></span>
 </header>

@@ -293,7 +293,7 @@ class Usuarios extends Controller{
         $this->view->rol = $this->model->getRolUsuario($id);
 
         # Añadimos un titulo a la vista
-        $this->view->title = "Detalles del usuario";
+        $this->view->title = "Detalles del usuario - Administrador";
 
         # Cargamos la vista  correspondiente
         $this->view->render('usuarios/mostrar/index');
@@ -402,37 +402,54 @@ class Usuarios extends Controller{
     // Validar los datos
     $errores = [];
 
-    // Validar nombre
-    if (empty($name))
-    {
-        $errores['nombre'] = 'El campo nombre es obligatorio. Valor restablecido.';
-    }
-
-    // Validar email
-    if (empty($email))
-    {
-        $errores['email'] = 'El campo email es obligatorio. Valor restablecido.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
-    {
-        $errores['email'] = 'El formato del email no es correcto';
-    } elseif ($email !== $original->email && !$this->model->emailUnique($email))
-    {
-        $errores['email'] = 'El email ya está en uso';
-    }
-
-    // Validar contraseña
-    if (!empty($password) || !empty($confirmPassword))
-    {
-        if (empty($password))
-        {
-            $errores['contraseña'] = 'El campo contraseña es obligatorio';
-        } elseif ($password !== $confirmPassword)
-        {
-            $errores['confirmarContraseña'] = 'Las contraseñas no coinciden';
+    # Nombre. Obligatorio, no puede superar los 15 caracteres y debe ser unico
+    if (strcmp($name,$original->name) !== 0){
+        if (empty($name)) {
+            $errores['name'] = 'El campo nombre es obligatorio';
+        } else if(strlen($name) > 15){
+            $errores['name'] = 'El nombre de usuario no debe de superar los 15 caracteres';
+        } else if (!$this->model->usuarioUnique($name)){
+            $errores['name'] = 'El nombre de usuario ya está registrado';
         }
     }
 
-    // Comprobar si hay errores de validación
+    # Email. Obligatorio, y email unico
+    if (strcmp($email,$original->email) !== 0){
+        if (empty($email)) {
+            $errores['email'] = 'El campo Email es obligatorio';
+        }else if (!filter_var($email,FILTER_VALIDATE_EMAIL)){
+            $errores['email'] = 'Formato no valido';
+
+        } else if (!$this->model->emailUnique($email)){
+            $errores['email'] = 'El correo electrónico ya está registrado';
+        }
+    }
+
+    # Roles
+    if(strcmp($rol,$original->role_id)){
+        if(empty($rol)){
+            $errores['rol'] = "Debe asignar obligatoriamente un rol al usuario";
+        } else if (!in_array($rol,[1,2,3])) {
+            $errores['rol'] = "El rol asignado no existe";
+        }
+    }
+
+    # Contraseña. Si se introduce, deberá ser coincidente
+    if(strcmp($password,$original->password)){
+        if (!empty($password) || $password != $password_confirm){
+            $errores['password'] = 'No coinciden las contraseñas, intente nuevamente';
+        }
+    }
+
+    # Verificación de contraseña. Si se introduce, deberá se coincidente
+    if(strcmp($password_confirm,$original->password_confirm)){
+        if (!empty($password_confirm) || $password != $password_confirm){
+            $errores['password_confirm'] = 'No coinciden las contraseñas, intente nuevamente';
+        }
+    }
+    
+
+    # Comprobamos si existen errores
     if (!empty($errores))
     {
         // Errores de validación
@@ -442,33 +459,27 @@ class Usuarios extends Controller{
         exit();
     }
 
-    // Si la contraseña no está vacía, cifrarla
-    if (!empty($password))
-    {
+    # Si la contraseña no está vacía, se deberá cifrar
+    if (!empty($password)){
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    } else
-    {
-        // Mantener la contraseña original si no se proporciona una nueva contraseña
+    } else{
+        # En caso de no introducir contraseña, se respetará la original
         $hashedPassword = $original->password;
     }
 
-    
 
-    // Obtener el ID del rol seleccionado del formulario
-    $idRol = filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT);
-
-    // Crear un objeto de usuario con los datos actualizados
+    # Creamos un objeto del usuario, con los datos actualizados recogidos por el formulario
     $usuario = new classUser(
         $id,
         $name,
         $email,
         $hashedPassword,
         $hashedPassword,
-        $idRol
+        $rol
     );
 
-    // Actualizar el usuario y el rol en la base de datos
-    $this->model->update($usuario, $id, $idRol);
+    # Usammos el método update del modelo para actualizar los datos
+    $this->model->update($usuario);
 
     // Mensaje de éxito
     $_SESSION['mensaje'] = "Usuario editado correctamente";

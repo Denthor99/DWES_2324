@@ -231,13 +231,10 @@ class usuariosModel extends Model
         }
     }
 
-    public function update(classUser $usuario, $id, $idRol)
+    public function update(classUser $usuario)
     {
         try {
-            // Obtener la conexión a la base de datos
-            $conexion = $this->db->connect();
-
-            // Actualizamos los detalles del usuario en la tabla users
+            // Creamos la consulta
             $sql = "UPDATE users SET
                     name = :name,
                     email = :email,
@@ -245,25 +242,36 @@ class usuariosModel extends Model
                     update_at = NOW()
                 WHERE
                     id=:id";
-            $pdoSt = $conexion->prepare($sql);
-            // Vinculamos los parámetros
-            $pdoSt->bindParam(":name", $usuario->name, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(":email", $usuario->email, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(":password", $usuario->password, PDO::PARAM_STR, 60);
-            $pdoSt->bindParam(":id", $id, PDO::PARAM_INT);
-            $pdoSt->execute();
 
-            // Actualizamos el rol del usuario en la tabla roles_users
+            // Creamos la conexión y preparammos la consulta
+            $conexion = $this->db->connect();
+            $pdostmt = $conexion->prepare($sql);
+
+            // Vinculamos las variables
+            $pdostmt->bindParam(":name", $usuario->name, PDO::PARAM_STR, 50);
+            $pdostmt->bindParam(":email", $usuario->email, PDO::PARAM_STR, 50);
+            $pdostmt->bindParam(":password", $usuario->password, PDO::PARAM_STR, 60);
+            $pdostmt->bindParam(":id", $usuario->id, PDO::PARAM_INT);
+
+            // Ejecutamos la consulta
+            $pdostmt->execute();
+
+            // Creamos una nueva consulta
             $sql = "UPDATE roles_users SET
                     role_id = :role_id,
                     update_at = NOW()
                 WHERE
                     user_id = :user_id";
-            $pdoSt = $conexion->prepare($sql);
-            // Vinculamos los parámetros
-            $pdoSt->bindParam(":role_id", $idRol, PDO::PARAM_INT);
-            $pdoSt->bindParam(":user_id", $id, PDO::PARAM_INT);
-            $pdoSt->execute();
+
+            // Preparamos la nueva consulta
+            $pdostmt = $conexion->prepare($sql);
+
+            // Vinculamos las variables
+            $pdostmt->bindParam(":role_id", $usuario->role_id, PDO::PARAM_INT);
+            $pdostmt->bindParam(":user_id", $usuario->id, PDO::PARAM_INT);
+
+            // Ejecutamos esta nueva consulta
+            $pdostmt->execute();
         } catch (PDOException $e) {
             require_once("template/partials/errorDB.php");
             exit();

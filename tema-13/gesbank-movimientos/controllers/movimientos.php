@@ -202,11 +202,14 @@ class Movimientos extends Controller
             # Ahora deberemos guardar el saldo actualizado
             $movimiento->saldo =  $saldoActualizado;
 
+            # Además, guardaremos la fecha del movimiento a añadir
+            $movimiento->fecha_hora = $fecha_hora;
+
             # Añadimos el registro a la tabla
             $this->model->create($movimiento);
 
-            # Actualizamos el saldo de la cuenta bancaria
-            $this->model->updateSaldo($id_cuenta, $saldoActualizado);
+            # Actualizamos el saldo y la fecha del ultimo movimiento de la cuenta, según su id
+            $this->model->updateMovCuenta($id_cuenta, $saldoActualizado,$fecha_hora);
 
             // Crearemos un mensaje, indicando que se ha realizado dicha acción
             $_SESSION['mensaje']="Se ha realizado el movimiento en la cuenta correctamente.";

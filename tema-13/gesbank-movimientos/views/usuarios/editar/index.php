@@ -18,7 +18,7 @@
         <!-- Mostramos aquí un mensaje en caso de que exista un error -->
         <?php include "template/partials/error.php"; ?>
         <!-- formulario -->
-        <form action="<?= URL ?>usuarios/update/<?=$this->id?>" method="POST">
+        <form action="<?= URL . 'usuarios/update/' . $this->id?>" method="POST">
             <!-- Roles de usuario -->
             <div class="mb-3">
                 <label for="" class="form-label">Roles de usuario</label>
@@ -62,28 +62,29 @@
             <!-- contraseña -->
             <div class="mb-3">
                 <label for="" class="form-label">Contraseña</label>
-                <input type="password" class="form-control <?= (isset($this->errores['password']))? 'is-invalid': null ?>" name="password">
+                <input type="password" class="form-control <?= (isset($this->errores['password'])) ? 'is-invalid' : null ?>" name="password">
                 <?php if (isset($this->errores['password'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['password'] ?>
                     </span>
                 <?php endif; ?>
             </div>
-            <!-- Confirmar contraseña -->
-            <div class="mb-3">
-                <label for="" class="form-label">Vuelve a introducir la contraseña</label>
-                <input type="password" class="form-control <?= (isset($this->errores['password_confirm']))? 'is-invalid': null ?>" name="password_confirm">
-                <?php if (isset($this->errores['password_confirm'])): ?>
-                    <span class="form-text text-danger" role="alert">
-                        <?= $this->errores['password_confirm'] ?>
-                    </span>
-                <?php endif; ?>
-            </div>
+        <!-- Confirmar contraseña -->
+        <div class="mb-3">
+            <label for="" class="form-label">Vuelve a introducir la contraseña</label>
+            <input type="password" class="form-control <?= (isset($this->errores['password_confirm'])) ? 'is-invalid' : null ?>" name="password_confirm">
+            <?php if (isset($this->errores['password_confirm'])): ?>
+                <span class="form-text text-danger" role="alert">
+                    <?= $this->errores['password_confirm'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
+
             <!-- botones de acción -->
             <div class="mb-3">
                 <a class="btn btn-secondary" href="<?= URL ?>usuarios" role="button">Cancelar</a>
-                <button type="button" class="btn btn-danger">Borrar</button>
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="reset" class="btn btn-danger">Resetear</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
             </div>
         </form>
     </div>

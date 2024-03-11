@@ -70,7 +70,7 @@
         </table>
 
     </div>
-
+    <br><br><br>                
     <!-- footer -->
     <?php require_once "template/partials/footer.php" ?>
 

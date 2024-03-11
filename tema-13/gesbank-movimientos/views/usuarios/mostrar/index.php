@@ -22,17 +22,17 @@
             <!-- Nombre de usuario -->
             <div class="mb-3">
                 <label for="" class="form-label">Nombre de usuario</label>
-                <input type="text" class="form-control" value="<?=$this->usuario->name?>" readonly>
+                <input type="text" class="form-control" value="<?=$this->usuario->name?>" disabled>
             </div>
             <!-- Email -->
             <div class="mb-3">
                 <label for="" class="form-label">Correo electronico</label>
-                <input type="email" class="form-control" name="email" value="<?=$this->usuario->email?>" readonly>
+                <input type="email" class="form-control" name="email" value="<?=$this->usuario->email?>" disabled>
             </div>
             <!-- Rol del usuario -->
             <div class="mb-3">
                 <label for="" class="form-label">Rol del usuario</label>
-                <input type="text" class="form-control" value="<?=$this->rol->name?>" readonly>
+                <input type="text" class="form-control" value="<?=$this->rol->name?>" disabled>
             </div>
             <!-- botones de acción -->
             <div class="mb-3">

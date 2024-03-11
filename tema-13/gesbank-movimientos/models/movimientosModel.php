@@ -157,11 +157,11 @@ class movimientosModel extends Model
         }
     }
 
-    # Método updateSaldo()
-    # Actualizamos el saldo de la cuenta
-    public function  updateSaldo($id_cuenta, $nuevo_saldo){
+    # Método updateMovCuenta()
+    # Actualizamos el saldo y la fecha de ultimo movimiento de la cuenta
+    public function updateMovCuenta($id_cuenta, $nuevo_saldo, $nueva_fecha){
         try {
-            $sql = "UPDATE cuentas SET saldo = :nuevo_saldo, num_Movtos=(num_Movtos+1) WHERE  id = :id_cuenta";
+            $sql = "UPDATE cuentas SET saldo = :nuevo_saldo, num_Movtos=(num_Movtos+1), fecha_ul_mov=:nueva_fecha WHERE  id = :id_cuenta";
             // Realizamos la conexión y preparamos la consulta
             $conexion = $this->db->connect();
             $pdostmt = $conexion->prepare($sql);
@@ -169,6 +169,7 @@ class movimientosModel extends Model
             // Vinculamos las variables
             $pdostmt->bindParam(":id_cuenta", $id_cuenta, PDO::PARAM_INT);
             $pdostmt->bindParam(":nuevo_saldo", $nuevo_saldo, PDO::PARAM_INT);
+            $pdostmt->bindParam(":nueva_fecha", $nueva_fecha, PDO::PARAM_STR);
 
             // Ejecutamos la consulta
             $pdostmt->execute();
