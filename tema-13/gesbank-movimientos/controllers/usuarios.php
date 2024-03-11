@@ -436,14 +436,14 @@ class Usuarios extends Controller{
 
     # Contraseña. Si se introduce, deberá ser coincidente
     if(strcmp($password,$original->password)){
-        if (!empty($password) || $password != $password_confirm){
+        if ($password != $password_confirm){
             $errores['password'] = 'No coinciden las contraseñas, intente nuevamente';
         }
     }
 
     # Verificación de contraseña. Si se introduce, deberá se coincidente
     if(strcmp($password_confirm,$original->password_confirm)){
-        if (!empty($password_confirm) || $password != $password_confirm){
+        if ($password != $password_confirm){
             $errores['password_confirm'] = 'No coinciden las contraseñas, intente nuevamente';
         }
     }
