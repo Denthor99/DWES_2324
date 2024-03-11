@@ -54,7 +54,7 @@
                         <td class="text-end">
                             <!-- botón mostrar -->
                             <a href="<?= URL ?>movimientos/mostrar/<?= $movimiento->id ?>" title="Mostrar" class="btn btn-warning <?= (!in_array($_SESSION['id_rol'], $GLOBALS['movimientos']['show'])) ? 'disabled' : '' ?>">
-                                <i class="bi bi-card-text"></i>
+                                <i class="bi bi-eye"></i>
                             </a>
                         </td>
 

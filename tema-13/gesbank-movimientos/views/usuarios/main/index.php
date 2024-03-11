@@ -38,7 +38,7 @@
                         <td><?= $usuario->id ?></td>
                         <td><?= $usuario->name ?></td>
                         <td><?= $usuario->email ?></td>
-                        <td><?= $this->model->getRolUsuario($usuario->id) ?></td>
+                        <td><?= $this->model->getRolUsuario($usuario->id)->name?></td>
 
                         <!-- botones de acción -->
                         <td>
@@ -48,13 +48,13 @@
                             </a>
 
                             <!-- botón editar -->
-                            <a href="<?= URL ?>usuarios/editar/<?= $usuario->id ?>" title="Editar" class="btn btn-primary <?= (!in_array($_SESSION['id_rol'], $GLOBALS['usuarios']['editar'])) ? 'disabled' : '' ?>">
+                            <a href="<?= URL ?>usuarios/editar/<?= $usuario->id ?>" title="Editar" class="btn btn-primary <?= (!in_array($_SESSION['id_rol'], $GLOBALS['usuarios']['edit'])) ? 'disabled' : '' ?>">
                                 <i class="bi bi-pencil"></i>
                             </a>
 
                             <!-- botón mostrar -->
-                            <a href="<?= URL ?>usuarios/mostrar/<?= $usuario->id ?>" title="Mostrar" class="btn btn-warning <?= (!in_array($_SESSION['id_rol'], $GLOBALS['usuarios']['mostrar'])) ? 'disabled' : '' ?>">
-                                <i class="bi bi-card-text"></i>
+                            <a href="<?= URL ?>usuarios/mostrar/<?= $usuario->id ?>" title="Mostrar" class="btn btn-warning <?= (!in_array($_SESSION['id_rol'], $GLOBALS['usuarios']['show'])) ? 'disabled' : '' ?>">
+                                <i class="bi bi-eye"></i>
                             </a>
                         </td>
 
