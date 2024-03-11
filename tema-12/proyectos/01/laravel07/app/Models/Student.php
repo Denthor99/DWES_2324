@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = ['first_name','last_name','birthdate', 'phone','city','dni','email','course_id'];
+    protected $fillable = ['first_name','last_name','birthdate', 'phone','city','dni','email','curso_id'];
 
     // Un alumno pertenece a un curso.
     // El nombre del método va en plurar y minúscula
-    public function courses():BelongsTo{
+    public function course():BelongsTo{
         return $this->belongsTo(Course::class);
     }
 }
