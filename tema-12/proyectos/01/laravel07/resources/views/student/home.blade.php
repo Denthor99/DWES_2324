@@ -6,6 +6,7 @@
 @section('subtitulo','Panel Control Alumnos')
 
 @section('contenido')
+    @include('partials.alerts')
     {{-- Menú alumnos --}}
     @include('student.partials.menu')
 
@@ -28,28 +29,30 @@
                 <tr>
                     {{-- Registro alumnos --}}
                     <td scope="row">{{$alumno->id}}</td>
-                    <td scope="row">{{$alumno->last_name}}</td>
-                    <td scope="row">{{$alumno->first_name}}</td>
+                    <td scope="row">{{$alumno->lastname}}</td>
+                    <td scope="row">{{$alumno->name}}</td>
                     <td scope="row">{{$alumno->phone}}</td>
                     <td scope="row">{{$alumno->city}}</td>
                     <td scope="row">{{$alumno->email}}</td>
                     <td scope="row">{{$alumno->curso_id}}</td>
                     {{-- Botones de acción --}}
                     <td>
-                        <!-- botón  eliminar -->
-						<a href="#" title="Eliminar" class="btn btn-danger">
-                                <i class="bi bi-trash"></i>
-						</a>
+                        <div class="d-grid gap-2 d-md-block">
+                            <!-- botón  eliminar -->
+                            <a href="#" title="Eliminar" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                            </a>
 
-						<!-- botón  editar -->
-						<a href="#" title="Editar" class="btn btn-primary">
-							<i class="bi bi-pencil"></i>
-						</a>
+                            <!-- botón  editar -->
+                            <a href="#" title="Editar" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
 
-						<!-- botón  mostrar -->
-						<a href="#" title="Mostrar" class="btn btn-warning">
-							<i class="bi bi-card-text"></i>
-						</a>
+                            <!-- botón  mostrar -->
+                            <a href="#" title="Mostrar" class="btn btn-warning">
+                                <i class="bi bi-card-text"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             @empty
