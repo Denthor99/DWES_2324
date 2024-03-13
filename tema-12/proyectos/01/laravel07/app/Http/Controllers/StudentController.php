@@ -159,4 +159,11 @@ class StudentController extends Controller
         }
     }
 
+    public function order(Request $request, $field)
+{
+    $alumnos = Student::orderBy($field)->get();
+    return view('student.home', ['alumnos' => $alumnos]);
+}
+
+
 }

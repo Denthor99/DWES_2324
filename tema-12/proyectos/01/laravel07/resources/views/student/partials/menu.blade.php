@@ -14,14 +14,14 @@
                 Ordenar
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Nombre</a></li>
-                <li><a class="dropdown-item" href="#">Apellidos</a></li>
-                <li><a class="dropdown-item" href="#">Email</a></li>
-                <li><a class="dropdown-item" href="#">Población</a></li>
-                <li><a class="dropdown-item" href="#">Edad</a></li>
-                <li><a class="dropdown-item" href="#">Curso</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'id'])}}">Id</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'lastname'])}}">Apellidos</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'name'])}}">Nombre</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'phone'])}}">Telefono</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'city'])}}">Ciudad</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'email'])}}">Email</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'course'])}}">Curso</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
             </li>
     

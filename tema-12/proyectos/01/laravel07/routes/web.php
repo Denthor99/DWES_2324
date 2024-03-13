@@ -21,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',HomeController::class);
 
 Route::resource('student', StudentController::class);
+Route::get('/student/order/{field}', [StudentController::class, 'order'])->name('student.order');
