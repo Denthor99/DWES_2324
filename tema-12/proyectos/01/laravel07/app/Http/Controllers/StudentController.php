@@ -159,11 +159,54 @@ class StudentController extends Controller
         }
     }
 
-    public function order(Request $request, $field)
-{
-    $alumnos = Student::orderBy($field)->get();
-    return view('student.home', ['alumnos' => $alumnos]);
-}
+    public function order(Request $request, string $columna)
+    {
+        // Verificar si el campo es 'course_id' para ordenar por el nombre del curso
+        if ($columna === 'course_id') {
+            // Subconsulta para obtener el nombre del curso basado en el course_id
+            $subQuery = Course::select('course')
+                ->whereColumn('courses.id', 'students.course_id');
+
+            // Ordenar por el resultado de la subconsulta
+            $alumnos = Student::orderByRaw("({$subQuery->toSql()})")
+                ->get();
+        } else {
+            // Para otros campos, simplemente ordenar como antes
+            $alumnos = Student::orderBy($columna)
+                ->get();
+        }
+
+        // Cargamos de nuevo el home, pasandole  los alumnos ya ordenados por el campo
+        return view('student.home', ['alumnos' => $alumnos]);
+    }
+
+//     public function filter(Request $request)
+// {
+//     $request->validate([
+//         'expresion' => 'required|string|max:255',
+//     ]);
+
+//     $expresion = $request->input('expresion');
+
+//     $alumnos = Student::where('id', 'like', '%' . $expresion . '%')
+//                        ->orWhere('name', 'like', '%' . $expresion . '%')
+//                        ->orWhere('lastname', 'like', '%' . $expresion . '%')
+//                        ->orWhere('birth_date', 'like', '%' . $expresion . '%')
+//                        ->orWhere('phone', 'like', '%' . $expresion . '%')
+//                        ->orWhere('city', 'like', '%' . $expresion . '%')
+//                        ->orWhere('dni', 'like', '%' . $expresion . '%')
+//                        ->orWhere('email', 'like', '%' . $expresion . '%')
+//                        ->get();
+
+//     if ($alumnos->isEmpty()) {
+//         return redirect()->route('student.index')->with('error', 'No se encontraron estudiantes con la expresión de búsqueda proporcionada');
+//     }
+
+//     return view('student.index', ['alumnos' => $alumnos]);
+// }
+
+
+
 
 
 }

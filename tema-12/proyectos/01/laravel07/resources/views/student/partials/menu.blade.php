@@ -14,22 +14,23 @@
                 Ordenar
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'id'])}}">Id</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'lastname'])}}">Apellidos</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'name'])}}">Nombre</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'phone'])}}">Telefono</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'city'])}}">Ciudad</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'email'])}}">Email</a></li>
-                <li><a class="dropdown-item" href="{{route('student.order', ['field' => 'course'])}}">Curso</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'id'])}}">Id</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'lastname'])}}">Apellidos</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'name'])}}">Nombre</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'phone'])}}">Telefono</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'city'])}}">Ciudad</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'email'])}}">Email</a></li>
+                <li><a class="dropdown-item" href="{{route('student.order', ['columna' => 'course_id'])}}">Curso</a></li>
                 <li><hr class="dropdown-divider"></li>
             </ul>
             </li>
     
         </ul>
-        <form class="d-flex" method="GET" action="#">
+        <form class="d-flex" method="GET" action="{{-- route('student.filter') --}}">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="expresion">
             <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </form>
+
         </div>
     </div>
 </nav>

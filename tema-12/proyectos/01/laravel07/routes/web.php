@@ -20,5 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',HomeController::class);
 
+
+// Rutas del controlador Student
 Route::resource('student', StudentController::class);
-Route::get('/student/order/{field}', [StudentController::class, 'order'])->name('student.order');
+Route::get('/student/order/{columna}', [StudentController::class, 'order'])->name('student.order');
+// Route::get('/student/filter', [StudentController::class, 'filter'])->name('student.filter');
+
