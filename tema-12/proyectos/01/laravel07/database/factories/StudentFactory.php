@@ -29,7 +29,7 @@ class StudentFactory extends Factory
             'dni' => fake()->unique()->regexify('\d{8}[trwagmyfpdxbnjzsqvhlcke]'),
             'city' => fake()->city(),
             'email' => fake()->unique()->safeEmail(),
-            'curso_id' => fake()->randomElement($courseIds)
+            'course_id' => fake()->randomElement($courseIds)
         ];
     }
 }

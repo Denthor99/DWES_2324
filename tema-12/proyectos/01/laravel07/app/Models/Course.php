@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','course','grade'];
+    protected $fillable = ['course','grade'];
 
     public function students():HasMany{
         return $this->hasMany(Student::class);

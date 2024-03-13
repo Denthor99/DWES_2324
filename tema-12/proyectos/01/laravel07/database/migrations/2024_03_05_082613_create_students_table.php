@@ -17,10 +17,9 @@ return new class extends Migration
             $table->char('dni', 9)->unique()->nullable(false);
             $table->string('city', 40);
             $table->string('email', 40)->unique();
-            $table->unsignedBigInteger('curso_id');
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete("restrict")->onUpdate("cascade");
             $table->timestamps();
-
-            $table->foreign('curso_id')->references('id')->on('courses')->onDelete('restrict')->onUpdate('cascade'); // Corregido la sintaxis
         });
     }
 

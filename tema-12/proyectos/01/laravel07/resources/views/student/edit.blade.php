@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('titulo', 'Laravel GesAlumnos - Alumnos')
-@section('subtitulo', 'Añadir Nuevo Alumno')
+@section('subtitulo', 'Editar Alumno')
 @section('contenido')
     @include('partials.alerts')
     <div class="card">
@@ -10,13 +10,14 @@
         </div>
         <div class="card-body">
             <!-- Formulario  -->
-            <form action="{{ route('student.store') }}" method="POST">
+            <form action="{{ route('student.update',$alumno->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <!-- name  -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        value="{{ old('name',$alumno->name)}}" required autocomplete="name" autofocus>
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -28,7 +29,7 @@
                 <div class="mb-3">
                     <label for="lastname" class="form-label">Apellidos</label>
                     <input type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname"
-                        value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+                        value="{{ old('lastname',$alumno->lastname) }}" required autocomplete="lastname" autofocus>
                     @error('lastname')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -40,7 +41,7 @@
                 <div class="mb-3">
                     <label for="birth_date" class="form-label">Fecha de nacimiento</label>
                     <input type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date"
-                        value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>
+                        value="{{ old('birth_date',$alumno->birth_date) }}" required autocomplete="birth_date" autofocus>
                     @error('birth_date')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -52,7 +53,7 @@
                 <div class="mb-3">
                     <label for="phone" class="form-label">Telefono</label>
                     <input type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone"
-                        value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                        value="{{ old('phone',$alumno->phone) }}" required autocomplete="phone" autofocus>
                     @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -63,7 +64,7 @@
                 <div class="mb-3">
                     <label for="city" class="form-label">Población</label>
                     <input type="text" class="form-control @error('city') is-invalid @enderror" name="city"
-                        value="{{ old('city') }}" required autocomplete="city" autofocus>
+                        value="{{ old('city',$alumno->city) }}" required autocomplete="city" autofocus>
                     @error('city')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -74,7 +75,7 @@
                 <div class="mb-3">
                     <label for="dni" class="form-label">Dni</label>
                     <input type="text" class="form-control @error('dni') is-invalid @enderror" name="dni"
-                        value="{{ old('dni') }}" required autocomplete="dni" autofocus>
+                        value="{{ old('dni',$alumno->dni) }}" required autocomplete="dni" autofocus>
                     @error('dni')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -85,7 +86,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        value="{{ old('email',$alumno->email) }}" required autocomplete="email" autofocus>
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -100,7 +101,7 @@
                         name="course_id" id="course_id">
                         <option selected disabled>Seleccione el curso del alumno</option>
                         @foreach ($cursos as $curso)
-                            <option value="{{ $curso->id }}" @if (old('course_id') == $curso->id) selected @endif>
+                            <option value="{{ $curso->id }}" @if (old('course_id',$alumno->course_id) == $curso->id) selected @endif>
                                 {{ $curso->course }}</option>
                         @endforeach
                     </select>

@@ -34,22 +34,26 @@
                     <td scope="row">{{$alumno->phone}}</td>
                     <td scope="row">{{$alumno->city}}</td>
                     <td scope="row">{{$alumno->email}}</td>
-                    <td scope="row">{{$alumno->curso_id}}</td>
+                    <td scope="row">{{$alumno->course->course}}</td>
                     {{-- Botones de acción --}}
                     <td>
                         <div class="d-grid gap-2 d-md-block">
                             <!-- botón  eliminar -->
-                            <a href="#" title="Eliminar" class="btn btn-danger">
+                            <form action="{{ route('student.destroy', $alumno->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" title="Eliminar" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
-                            </a>
+                                </button>
+                            </form>
 
                             <!-- botón  editar -->
-                            <a href="#" title="Editar" class="btn btn-primary">
+                            <a href="{{route('student.edit',$alumno->id)}}" title="Editar" class="btn btn-primary">
                                 <i class="bi bi-pencil"></i>
                             </a>
 
                             <!-- botón  mostrar -->
-                            <a href="#" title="Mostrar" class="btn btn-warning">
+                            <a href="{{route('student.show',$alumno->id)}}" title="Mostrar" class="btn btn-warning">
                                 <i class="bi bi-card-text"></i>
                             </a>
                         </div>
